@@ -32,7 +32,7 @@ const skillCategories = [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
       { name: ".NET Blazor", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
-      { name: "Pygame", badge: <LetterBadge letter="PG" bg="linear-gradient(135deg,#1a7c2a,#3fba57)" /> },
+      { name: "Pygame", icon: `${import.meta.env.BASE_URL}images/pygame.png` },
       { name: "LangChain", icon: `${import.meta.env.BASE_URL}images/langchain.png` },
       { name: "Pandas", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" },
       { name: "NumPy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
@@ -46,6 +46,8 @@ const skillCategories = [
       { name: "InfluxDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/influxdb/influxdb-original.svg" },
       { name: "Tableau", icon: `${import.meta.env.BASE_URL}images/Tableau-logo.png` },
       { name: "KNIME", icon: `${import.meta.env.BASE_URL}images/KNIME.jpg` },
+      { name: "Microsoft SQL Server", icon: `${import.meta.env.BASE_URL}images/sqlLogo.png` },
+      { name: "MongoDB", icon: `${import.meta.env.BASE_URL}images/MongoDB.png` },
     ],
   },
   {

@@ -30,7 +30,7 @@ export default function HeroSection() {
             <AnimatedText
               text="Zin Hmue Paing"
               as="h1"
-              textClassName="text-5xl md:text-7xl font-bold text-gray-900 dark:text-gray-100"
+              textClassName="text-5xl md:text-7xl font-bold text-[#d84f2a]"
               underlineClassName="hidden"
               triggerOnScroll
               className="items-start"

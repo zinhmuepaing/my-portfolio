@@ -1,11 +1,26 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { SplineScene } from "@/components/ui/splite";
+import { Spotlight } from "@/components/ui/spotlight";
 
 export default function RobotSection() {
+  const { resolvedTheme } = useTheme();
+  const [spotlightColor, setSpotlightColor] = useState("black");
+
+  useEffect(() => {
+    setSpotlightColor(resolvedTheme === "dark" ? "white" : "black");
+  }, [resolvedTheme]);
+
   return (
     <section className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8 py-12">
       <div className="max-w-6xl mx-auto w-full">
-        <div className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-white/5 backdrop-blur-xl shadow-lg overflow-hidden">
+        <div className="rounded-3xl border border-white/40 dark:border-white/10 bg-white/30 dark:bg-white/5 backdrop-blur-xl shadow-lg overflow-hidden relative">
+          <Spotlight
+            className="-top-40 left-0 md:left-60 md:-top-20"
+            fill={spotlightColor}
+          />
+
           <div className="flex flex-col lg:flex-row h-full items-center">
             {/* Left content — Quote */}
             <motion.div

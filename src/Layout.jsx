@@ -26,10 +26,10 @@ const navItems = [
 
 export default function Layout() {
   const { resolvedTheme } = useTheme();
-  const [particleColor, setParticleColor] = useState("#6b7280");
+  const [particleColor, setParticleColor] = useState("#000000");
 
   useEffect(() => {
-    setParticleColor(resolvedTheme === "dark" ? "#ffffff" : "#6b7280");
+    setParticleColor(resolvedTheme === "dark" ? "#ffffff" : "#000000");
   }, [resolvedTheme]);
 
   return (
@@ -38,6 +38,7 @@ export default function Layout() {
         className="fixed inset-0 z-0"
         quantity={100}
         ease={80}
+        size={1.5}
         color={particleColor}
         refresh
       />

@@ -1,5 +1,15 @@
 import { motion } from "framer-motion";
 
+// Colored letter badge for tools without a devicon
+const LetterBadge = ({ letter, bg }) => (
+  <div
+    className="w-7 h-7 rounded flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+    style={{ background: bg }}
+  >
+    {letter}
+  </div>
+);
+
 const skillCategories = [
   {
     title: "Languages",
@@ -7,10 +17,10 @@ const skillCategories = [
       { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
       { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
       { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
-      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
       { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuresqldatabase/azuresqldatabase-original.svg" },
-      { name: "MATLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" },
-      { name: "HTML/CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+      { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+      { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
     ],
   },
   {
@@ -22,8 +32,8 @@ const skillCategories = [
       { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
       { name: ".NET Blazor", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
-      { name: "Pygame", icon: null },
-      { name: "LangChain", icon: null },
+      { name: "Pygame", badge: <LetterBadge letter="PG" bg="linear-gradient(135deg,#1a7c2a,#3fba57)" /> },
+      { name: "LangChain", badge: <LetterBadge letter="LC" bg="linear-gradient(135deg,#1c7c4a,#27ae60)" /> },
     ],
   },
   {
@@ -34,8 +44,8 @@ const skillCategories = [
       { name: "NumPy", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
       { name: "Grafana", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" },
       { name: "InfluxDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/influxdb/influxdb-original.svg" },
-      { name: "Tableau", icon: null },
-      { name: "KNIME", icon: null },
+      { name: "Tableau", badge: <LetterBadge letter="TB" bg="linear-gradient(135deg,#1a4f8a,#2f80e0)" /> },
+      { name: "KNIME", badge: <LetterBadge letter="KN" bg="linear-gradient(135deg,#e67e00,#f39c12)" /> },
     ],
   },
   {
@@ -46,8 +56,8 @@ const skillCategories = [
       { name: "Arduino", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" },
       { name: "Raspberry Pi", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg" },
       { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
-      { name: "UiPath", icon: null },
-      { name: "MPLAB", icon: null },
+      { name: "UiPath", badge: <LetterBadge letter="UI" bg="linear-gradient(135deg,#e05a00,#f57c28)" /> },
+      { name: "MPLAB", badge: <LetterBadge letter="MP" bg="linear-gradient(135deg,#c0392b,#e74c3c)" /> },
     ],
   },
 ];
@@ -63,9 +73,10 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             My Tech Stack
           </h2>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
           <p className="text-gray-500">
             Technical tools which bring my ideas to life.
           </p>
@@ -80,28 +91,30 @@ export default function SkillsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: catIdx * 0.1 }}
             >
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-5">
                 {category.title}
               </h3>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                    className="flex items-center gap-3 px-5 py-3 bg-white/70 backdrop-blur-sm rounded-xl border border-white/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                   >
                     {skill.icon ? (
                       <img
                         src={skill.icon}
                         alt={skill.name}
-                        className="w-5 h-5"
+                        className="w-7 h-7 flex-shrink-0"
                         loading="lazy"
                       />
+                    ) : skill.badge ? (
+                      skill.badge
                     ) : (
-                      <div className="w-5 h-5 rounded bg-gray-200 flex items-center justify-center text-[8px] font-bold text-gray-500">
+                      <div className="w-7 h-7 rounded bg-gray-200 flex items-center justify-center text-[9px] font-bold text-gray-500 flex-shrink-0">
                         {skill.name.charAt(0)}
                       </div>
                     )}
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-base font-medium text-gray-700">
                       {skill.name}
                     </span>
                   </div>

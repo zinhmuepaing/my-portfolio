@@ -38,7 +38,7 @@ export default function HeroSection() {
               I am passionate about AI, machine learning, data analytics, and
               building real-world engineering solutions. Currently pursuing a
               Diploma in Computer Engineering at Temasek Polytechnic with a
-              perfect 4.0 CGPA.
+              perfect <strong className="font-bold text-gray-900">4.0 CGPA</strong>.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">

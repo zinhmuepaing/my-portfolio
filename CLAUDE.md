@@ -29,16 +29,38 @@ Hosted on **GitHub Pages** at `https://zinhmuepaing.github.io/my-portfolio/`.
 
 ### Key layers
 
-- `src/pages/` — 7 full-page components (Home, About, Skills, Projects, Achievements, Leadership, Contact). Each page is self-contained with its own data and layout.
+- `src/pages/Home.jsx` — Composes the single-page scrollable experience by rendering all section components in order.
+- `src/sections/` — The primary content layer. Each section is a self-contained component used on the home page:
+  - `HeroSection.jsx` — Intro, name, tagline, social links, profile photo.
+  - `AboutSection.jsx` — Bio paragraph, education timeline, "Leadership & Community Involvement" animated card carousel (4 entries: CENT President, Peer Tutor, ENGenius, HRHS Volunteer).
+  - `SkillsSection.jsx` — Tech stack grouped by category (Languages, Frameworks, Data, Tools). Uses devicon CDN icons; tools without devicons get styled letter badges.
+  - `ProjectsSection.jsx` — 5 projects in a 2-column grid. Images for Garment Worker, Smart Bakery, and Museek are served from `public/images/`.
+  - `AchievementsSection.jsx` — 5 achievements displayed using the Aceternity scroll-progress Timeline component.
+  - `ContactSection.jsx` — Contact form and info.
+  - `Footer.jsx` — Site footer.
+- `src/pages/` — 7 standalone full-page routes (Home, About, Skills, Projects, Achievements, Leadership, Contact). These are secondary; the main experience is the single-page scroll via sections.
+- `src/components/ui/timeline.jsx` — Aceternity Timeline component (Vite-adapted, no Next.js deps). Used by AchievementsSection.
+- `src/components/ui/animated-card.jsx` — Animated image carousel (adapted from AnimatedTestimonials). Uses lucide-react arrows (no @tabler/icons-react). Used by AboutSection for leadership entries.
+- `src/components/ui/liquid-glass.jsx` — `GlassEffect`, `GlassButton`, `GlassFilter` components. `GlassFilter` must be rendered once in the root layout (it is, via `Layout.jsx`).
 - `src/components/ui/` — 50+ shadcn/ui components (Radix UI primitives, New York style). Add new ones via `npx shadcn@latest add <component>`.
-- `src/components/Interactive3DCard.jsx` — Custom mouse-tracking 3D flip card used on the Home page; uses raw CSS transforms (not Three.js).
 - `src/api/base44Client.js` — No-op stub (Base44 has been removed). Exports a `base44` object with inert `auth` and `appLogs` methods so `NavigationTracker` and `PageNotFound` don't break.
 - `src/lib/utils.js` — `cn()` helper (clsx + tailwind-merge). Use this for all className merging.
 - `src/utils/index.ts` — `createPageUrl(pageName)` helper for routing.
 - `src/App.jsx` — Router + all 7 routes + providers (QueryClient, ThemeProvider, AuthProvider).
-- `src/Layout.jsx` — Sticky navbar with active link highlighting, dark mode toggle, and mobile scroll nav. Renders `<Outlet />` for page content.
+- `src/Layout.jsx` — Sticky navbar (tubelight-navbar) with scroll-section highlighting. Renders `<Outlet />` for page content.
 - `src/lib/AuthContext.jsx` — No-op auth stub. Always returns `{ isAuthenticated: false, user: null }`.
 - `src/pages.config.js` — Page registry stub used by `NavigationTracker`.
+
+### Images
+
+Local images live in `public/images/` and are referenced in code as `` `${import.meta.env.BASE_URL}images/<filename>` `` to work correctly in both dev and GitHub Pages production.
+
+Current files in `public/images/`:
+- `ENGenius.png` — ENGenius programme group photo (used in AboutSection leadership carousel)
+- `Vounteer.png` — HRHS mobile groceries volunteer photo (used in AboutSection)
+- `garmentWorker.png` — Garment Worker Productivity ML project diagram (used in ProjectsSection)
+- `smartBakery.png` — Smart Bakery IoT system diagram (used in ProjectsSection)
+- `MuseekLogo.png` — Museek app logo (used in ProjectsSection)
 
 ### Styling
 

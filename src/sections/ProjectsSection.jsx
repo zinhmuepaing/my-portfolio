@@ -27,7 +27,7 @@ const projects = [
     description:
       "Data analytics project analyzing worker productivity in garment manufacturing. Uses multiple ML classifiers (Logistic Regression, SVM, KNN, Random Forest) with domain-driven feature engineering.",
     tech: ["Python", "Scikit-learn", "Pandas", "Tableau"],
-    image: null,
+    image: `${import.meta.env.BASE_URL}images/garmentWorker.png`,
     github: "https://github.com/zinhmuepaing/Garment-Worker-Productivity",
   },
   {
@@ -35,7 +35,7 @@ const projects = [
     description:
       "End-to-end IoT system for bakery environmental monitoring. Automates temperature, humidity, and fire detection using Raspberry Pi, with a Flask web dashboard and Grafana visualization.",
     tech: ["Raspberry Pi", "Python", "Flask", "MQTT", "MySQL", "Grafana"],
-    image: null,
+    image: `${import.meta.env.BASE_URL}images/smartBakery.png`,
     github: "https://github.com/zinhmuepaing/smart-bakery-monitor",
   },
   {
@@ -43,7 +43,7 @@ const projects = [
     description:
       "Full-stack music streaming web application with role-based access, CRUD management, search, and an in-page audio player built with Blazor Server and Entity Framework Core.",
     tech: ["ASP.NET Blazor", "Entity Framework", "SQL Server", "JavaScript"],
-    image: null,
+    image: `${import.meta.env.BASE_URL}images/MuseekLogo.png`,
     github: "https://github.com/zinhmuepaing/Museek",
   },
 ];

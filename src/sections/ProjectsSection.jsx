@@ -59,10 +59,10 @@ export default function ProjectsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Featured Projects
           </h2>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             A selection of projects where I have turned complex problems into
             working solutions.
           </p>
@@ -76,10 +76,10 @@ export default function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border border-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white"
+              className="border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white dark:bg-gray-900/60"
             >
               {/* Image */}
-              <div className="h-48 bg-gray-100 overflow-hidden">
+              <div className="h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
                 {project.image ? (
                   <img
                     src={project.image}
@@ -96,11 +96,11 @@ export default function ProjectsSection() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
                   {project.title}
                 </h3>
 
-                <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3">
+                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
                   {project.description}
                 </p>
 
@@ -109,7 +109,7 @@ export default function ProjectsSection() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-3 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full"
+                      className="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-full"
                     >
                       {t}
                     </span>

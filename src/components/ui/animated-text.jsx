@@ -10,6 +10,7 @@ const AnimatedText = React.forwardRef(
     duration = 0.5,
     delay = 0.1,
     replay = true,
+    triggerOnScroll = false,
     className,
     textClassName,
     underlineClassName,
@@ -82,7 +83,10 @@ const AnimatedText = React.forwardRef(
             style={{ display: "flex", overflow: "hidden" }}
             variants={container}
             initial="hidden"
-            animate={replay ? "visible" : "hidden"}
+            {...(triggerOnScroll
+              ? { whileInView: "visible", viewport: { once: true } }
+              : { animate: replay ? "visible" : "hidden" }
+            )}
             className={cn("text-4xl font-bold text-center", textClassName)}
           >
             {letters.map((letter, index) => (
@@ -95,7 +99,10 @@ const AnimatedText = React.forwardRef(
           <motion.div
             variants={lineVariants}
             initial="hidden"
-            animate="visible"
+            {...(triggerOnScroll
+              ? { whileInView: "visible", viewport: { once: true } }
+              : { animate: "visible" }
+            )}
             className={cn(
               "absolute",
               underlineHeight,

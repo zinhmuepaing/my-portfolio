@@ -65,7 +65,7 @@ export function NavBar({ items, className }) {
         className
       )}
     >
-      <div className="flex items-center gap-3 bg-white/5 border border-gray-200 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+      <div className="flex items-center gap-3 bg-white/5 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
         {items.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.name;
@@ -76,8 +76,8 @@ export function NavBar({ items, className }) {
               onClick={() => handleClick(item)}
               className={cn(
                 "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                "text-gray-600 hover:text-gray-900",
-                isActive && "bg-gray-100 text-gray-900"
+                "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white",
+                isActive && "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white"
               )}
             >
               <span className="hidden md:inline">{item.name}</span>

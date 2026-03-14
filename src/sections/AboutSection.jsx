@@ -63,14 +63,14 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
             About Me
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-6" />
-          <p className="text-gray-500 leading-relaxed max-w-3xl">
+          <p className="text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl">
             I am a Computer Engineering student at Temasek Polytechnic with a
             deep passion for{" "}
-            <span className="text-gray-700 font-medium">
+            <span className="text-gray-700 dark:text-gray-300 font-medium">
               artificial intelligence, machine learning, large language models,
               and data science
             </span>
@@ -95,11 +95,11 @@ export default function AboutSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-20"
         >
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
             My Journey
           </h3>
           <div className="w-10 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-8" />
-          <div className="relative pl-8 border-l-2 border-gray-200 space-y-12">
+          <div className="relative pl-8 border-l-2 border-gray-200 dark:border-gray-700 space-y-12">
             {timeline.map((item, index) => (
               <motion.div
                 key={index}
@@ -109,14 +109,14 @@ export default function AboutSection() {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="relative"
               >
-                <div className="absolute -left-[2.35rem] top-1 w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-4 border-white shadow" />
-                <p className="text-sm font-medium text-gray-400 mb-1">
+                <div className="absolute -left-[2.35rem] top-1 w-4 h-4 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border-4 border-white dark:border-gray-950 shadow" />
+                <p className="text-sm font-medium text-gray-400 dark:text-gray-500 mb-1">
                   {item.period}
                 </p>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {item.title}
                 </h4>
-                <p className="text-gray-500 leading-relaxed text-sm">
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed text-sm">
                   {item.description}
                 </p>
               </motion.div>
@@ -130,9 +130,9 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/30 rounded-3xl p-8 -mx-4 sm:mx-0"
+          className="bg-gradient-to-br from-blue-50/40 via-white to-indigo-50/30 dark:from-blue-950/20 dark:via-gray-900 dark:to-indigo-950/20 rounded-3xl p-8 -mx-4 sm:mx-0"
         >
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
             Leadership &amp; Community Involvement
           </h3>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-2" />

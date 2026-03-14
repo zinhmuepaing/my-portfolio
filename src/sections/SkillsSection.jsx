@@ -64,7 +64,7 @@ const skillCategories = [
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60">
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 dark:bg-gray-900/40">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -73,11 +73,11 @@ export default function SkillsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
             My Tech Stack
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             Technical tools which bring my ideas to life.
           </p>
         </motion.div>
@@ -91,14 +91,14 @@ export default function SkillsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: catIdx * 0.1 }}
             >
-              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-5">
+              <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-5">
                 {category.title}
               </h3>
               <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="flex items-center gap-3 px-5 py-3 bg-white/70 backdrop-blur-sm rounded-xl border border-white/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                    className="flex items-center gap-3 px-5 py-3 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/60 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                   >
                     {skill.icon ? (
                       <img
@@ -114,7 +114,7 @@ export default function SkillsSection() {
                         {skill.name.charAt(0)}
                       </div>
                     )}
-                    <span className="text-base font-medium text-gray-700">
+                    <span className="text-base font-medium text-gray-700 dark:text-gray-300">
                       {skill.name}
                     </span>
                   </div>

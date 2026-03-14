@@ -23,29 +23,28 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <p className="text-sm font-medium text-gray-500 tracking-wide uppercase">
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide uppercase">
               Hi, my name is
             </p>
 
             <AnimatedText
-              text="Zin Hmue Paing."
+              text="Zin Hmue Paing"
               as="h1"
-              textClassName="text-5xl md:text-7xl font-bold text-gray-900"
-              underlineGradient="from-gray-900 to-gray-900"
-              underlineHeight="h-0.5"
-              underlineOffset="-bottom-2"
+              textClassName="text-5xl md:text-7xl font-bold text-gray-900 dark:text-gray-100"
+              underlineClassName="hidden"
+              triggerOnScroll
               className="items-start"
             />
 
-            <p className="text-xl md:text-2xl text-gray-500 font-medium">
+            <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-medium">
               Computer Engineering Student | Aspiring Software & AI Engineer
             </p>
 
-            <p className="text-base text-gray-500 leading-relaxed max-w-xl">
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-xl">
               I am passionate about AI, machine learning, data analytics, and
               building real-world engineering solutions. Currently pursuing a
               Diploma in Computer Engineering at Temasek Polytechnic with a
-              perfect <strong className="font-bold text-gray-900">4.0 CGPA</strong>.
+              perfect <strong className="font-bold text-gray-900 dark:text-white">4.0 CGPA</strong>.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
@@ -62,7 +61,7 @@ export default function HeroSection() {
                 href="https://linkedin.com/in/zinhmuepaing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors"
+                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -70,13 +69,13 @@ export default function HeroSection() {
                 href="https://github.com/zinhmuepaing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors"
+                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
               >
                 <Github className="w-5 h-5" />
               </a>
               <a
                 href="mailto:zinhmuep@gmail.com"
-                className="p-3 rounded-full border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-gray-400 transition-colors"
+                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
               >
                 <Mail className="w-5 h-5" />
               </a>

@@ -58,7 +58,7 @@ const achievements = [
 const timelineData = achievements.map((a) => ({
   title: a.year,
   content: (
-    <div className="bg-white/70 backdrop-blur-sm border border-white/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+    <div className="bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm border border-white/50 dark:border-gray-700/50 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
       {/* Image */}
       <div className="w-full h-52 overflow-hidden">
         <img
@@ -75,10 +75,10 @@ const timelineData = achievements.map((a) => ({
         >
           {a.category}
         </span>
-        <h4 className="text-lg font-bold text-gray-900 mb-3 leading-snug">
+        <h4 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3 leading-snug">
           {a.title}
         </h4>
-        <p className="text-sm text-gray-500 leading-relaxed">{a.description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{a.description}</p>
       </div>
     </div>
   ),
@@ -88,7 +88,7 @@ export default function AchievementsSection() {
   return (
     <section
       id="achievements"
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 dark:bg-gray-900/40"
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
@@ -98,11 +98,11 @@ export default function AchievementsSection() {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
             Achievements
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             Recognition of excellence in academics, technical skills, and
             competition.
           </p>

@@ -12,10 +12,10 @@ export default function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Get In Touch
           </h2>
-          <p className="text-gray-500 mb-8 max-w-xl mx-auto">
+          <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto">
             I am currently looking for internship opportunities in Software
             Engineering, AI Engineering, or Data Engineering. Whether you have a
             question, a project to discuss, or just want to say hi, feel free to
@@ -63,7 +63,7 @@ export default function ContactSection() {
             href="https://github.com/zinhmuepaing"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-gray-900 transition-colors"
+            className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <Github className="w-6 h-6" />
           </a>
@@ -71,7 +71,7 @@ export default function ContactSection() {
             href="https://linkedin.com/in/zinhmuepaing"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-gray-900 transition-colors"
+            className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
           >
             <Linkedin className="w-6 h-6" />
           </a>

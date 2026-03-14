@@ -16,8 +16,8 @@ export default function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-            Get In Touch
+          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: "#0b7b9e" }}>
+            Let&apos;s Stay In Touch
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto">
             I am currently focused on building side projects that address
@@ -29,38 +29,6 @@ export default function ContactSection() {
           </p>
         </motion.div>
 
-        {/* Social icons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="flex justify-center gap-6 mb-10"
-        >
-          <a
-            href="https://github.com/zinhmuepaing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-          >
-            <Github className="w-6 h-6" />
-          </a>
-          <a
-            href="https://linkedin.com/in/zinhmuepaing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-          >
-            <Linkedin className="w-6 h-6" />
-          </a>
-          <a
-            href="mailto:zinhmuep@gmail.com"
-            className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-          >
-            <Mail className="w-6 h-6" />
-          </a>
-        </motion.div>
-
         {/* Chat box */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,13 +37,6 @@ export default function ContactSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="max-w-2xl mx-auto"
         >
-          <h3
-            className="text-2xl font-bold mb-6"
-            style={{ color: "#0b7b9e" }}
-          >
-            Let&apos;s stay in touch
-          </h3>
-
           <form
             className="relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/60 focus-within:ring-1 focus-within:ring-ring p-1"
             onSubmit={(e) => {
@@ -93,7 +54,7 @@ export default function ContactSection() {
               className="min-h-12 resize-none rounded-lg bg-background border-0 p-3 shadow-none focus-visible:ring-0"
             />
             <div className="flex items-center p-3 pt-0">
-              <Button variant="ghost" size="icon" type="button" asChild>
+              <Button variant="ghost" size="icon" type="button" asChild className="text-[#333] dark:text-[#f0f0f0] hover:text-black dark:hover:text-white">
                 <a
                   href="https://github.com/zinhmuepaing"
                   target="_blank"
@@ -104,7 +65,7 @@ export default function ContactSection() {
                 </a>
               </Button>
 
-              <Button variant="ghost" size="icon" type="button" asChild>
+              <Button variant="ghost" size="icon" type="button" asChild className="text-[#0A66C2] hover:text-[#004182]">
                 <a
                   href="https://linkedin.com/in/zinhmuepaing"
                   target="_blank"
@@ -115,7 +76,7 @@ export default function ContactSection() {
                 </a>
               </Button>
 
-              <Button variant="ghost" size="icon" type="button" asChild>
+              <Button variant="ghost" size="icon" type="button" asChild className="text-[#EA4335] hover:text-[#C5221F]">
                 <a href="mailto:zinhmuep@gmail.com">
                   <Mail className="size-4" />
                   <span className="sr-only">Email</span>

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { GlassButton } from "@/components/ui/liquid-glass";
+import { AnimatedText } from "@/components/ui/animated-text";
 
 export default function HeroSection() {
   const scrollToProjects = () => {
@@ -26,9 +27,15 @@ export default function HeroSection() {
               Hi, my name is
             </p>
 
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900">
-              Zin Hmue Paing.
-            </h1>
+            <AnimatedText
+              text="Zin Hmue Paing."
+              as="h1"
+              textClassName="text-5xl md:text-7xl font-bold text-gray-900"
+              underlineGradient="from-gray-900 to-gray-900"
+              underlineHeight="h-0.5"
+              underlineOffset="-bottom-2"
+              className="items-start"
+            />
 
             <p className="text-xl md:text-2xl text-gray-500 font-medium">
               Computer Engineering Student | Aspiring Software & AI Engineer

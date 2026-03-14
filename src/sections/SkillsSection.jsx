@@ -76,11 +76,11 @@ export default function SkillsSection() {
           className="mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-            My Tech Stack
+            The Stack Behind the Work
           </h2>
           <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
           <p className="text-gray-500 dark:text-gray-400">
-            Technical tools which bring my ideas to life.
+            Every solution starts with the right foundation.
           </p>
         </motion.div>
 

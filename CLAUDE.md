@@ -15,30 +15,38 @@ npm run typecheck  # TypeScript/JSConfig type checking
 
 No test suite is configured.
 
+## Deployment
+
+Hosted on **GitHub Pages** at `https://zinhmuepaing.github.io/my-portfolio/`.
+
+- Push to `main` → GitHub Actions (`.github/workflows/deploy.yml`) builds with Vite and deploys to the `gh-pages` branch automatically (~25s).
+- `vite.config.js` has `base: '/my-portfolio/'` — required for assets to load correctly from the GitHub Pages subfolder. Do not remove or change this.
+- Routing uses **HashRouter** (URLs are `/#/about`, `/#/skills`, etc.) — this is intentional for GitHub Pages compatibility. Do not switch to BrowserRouter.
+
 ## Architecture
 
-**React 18 SPA** built with Vite, using page-based routing via React Router DOM.
+**React 18 SPA** built with Vite, using page-based routing via React Router DOM (HashRouter).
 
 ### Key layers
 
 - `src/pages/` — 7 full-page components (Home, About, Skills, Projects, Achievements, Leadership, Contact). Each page is self-contained with its own data and layout.
 - `src/components/ui/` — 50+ shadcn/ui components (Radix UI primitives, New York style). Add new ones via `npx shadcn@latest add <component>`.
 - `src/components/Interactive3DCard.jsx` — Custom mouse-tracking 3D flip card used on the Home page; uses raw CSS transforms (not Three.js).
-- `src/api/` — Base44 SDK client (`base44Client.js`), entities, and integrations. The app uses `@base44/sdk` for backend services.
+- `src/api/base44Client.js` — No-op stub (Base44 has been removed). Exports a `base44` object with inert `auth` and `appLogs` methods so `NavigationTracker` and `PageNotFound` don't break.
 - `src/lib/utils.js` — `cn()` helper (clsx + tailwind-merge). Use this for all className merging.
 - `src/utils/index.ts` — `createPageUrl(pageName)` helper for routing.
+- `src/App.jsx` — Router + all 7 routes + providers (QueryClient, ThemeProvider, AuthProvider).
+- `src/Layout.jsx` — Sticky navbar with active link highlighting, dark mode toggle, and mobile scroll nav. Renders `<Outlet />` for page content.
+- `src/lib/AuthContext.jsx` — No-op auth stub. Always returns `{ isAuthenticated: false, user: null }`.
+- `src/pages.config.js` — Page registry stub used by `NavigationTracker`.
 
 ### Styling
 
-Tailwind CSS with CSS variables for theming. Dark mode is class-based (`darkMode: "class"` in `tailwind.config.js`). The theme tokens are defined as CSS custom properties in `src/index.css`.
+Tailwind CSS with CSS variables for theming. Dark mode is class-based (`darkMode: "class"` in `tailwind.config.js`). The theme tokens are defined as CSS custom properties in `src/index.css`. Dark mode toggle uses `next-themes` via `src/Layout.jsx`.
 
 ### Path aliases
 
 `@/` maps to `src/` (configured in `jsconfig.json` and `vite.config.js`).
-
-### Base44 platform
-
-The project runs on the Base44 platform. `vite.config.js` includes `@base44/vite-plugin` with `legacyImports: true`. Do not remove this plugin or alter the Base44 client initialization in `src/api/base44Client.js`.
 
 ## TypeScript / JSConfig notes
 

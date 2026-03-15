@@ -81,16 +81,16 @@ export const AnimatedCard = ({
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+            <h3 className="text-2xl font-bold text-foreground mb-1">
               {cards[active].name}
             </h3>
-            <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium mb-1">
+            <p className="text-sm text-indigo-600 dark:text-indigo-300 font-medium mb-1">
               {cards[active].organization || ""}
             </p>
             <p className="text-sm text-gray-400 mb-6">
               {cards[active].designation}
             </p>
-            <motion.p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+            <motion.p className="text-base text-muted-foreground leading-relaxed">
               {cards[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}
@@ -108,15 +108,15 @@ export const AnimatedCard = ({
           <div className="flex gap-4 pt-10">
             <button
               onClick={handlePrev}
-              className="h-9 w-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="h-9 w-9 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
             >
-              <ArrowLeft className="h-5 w-5 text-gray-700 group-hover/button:rotate-12 transition-transform duration-300" />
+              <ArrowLeft className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-9 w-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="h-9 w-9 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
             >
-              <ArrowRight className="h-5 w-5 text-gray-700 group-hover/button:-rotate-12 transition-transform duration-300" />
+              <ArrowRight className="h-5 w-5 text-gray-700 dark:text-gray-300 group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>
             <div className="flex items-center gap-2 ml-2">
               {cards.map((_, i) => (

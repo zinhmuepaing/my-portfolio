@@ -81,16 +81,16 @@ export const AnimatedCard = ({
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >
-            <h3 className="text-2xl font-bold text-gray-900 mb-1">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
               {cards[active].name}
             </h3>
-            <p className="text-sm text-indigo-600 font-medium mb-1">
+            <p className="text-sm text-indigo-600 dark:text-indigo-400 font-medium mb-1">
               {cards[active].organization || ""}
             </p>
             <p className="text-sm text-gray-400 mb-6">
               {cards[active].designation}
             </p>
-            <motion.p className="text-base text-gray-600 leading-relaxed">
+            <motion.p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">
               {cards[active].quote.split(" ").map((word, index) => (
                 <motion.span
                   key={index}

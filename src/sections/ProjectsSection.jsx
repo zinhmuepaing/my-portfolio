@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { GlassButton } from "@/components/ui/liquid-glass";
@@ -49,6 +50,8 @@ const projects = [
 ];
 
 export default function ProjectsSection() {
+  const [expandedCards, setExpandedCards] = useState({});
+
   return (
     <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
@@ -100,9 +103,15 @@ export default function ProjectsSection() {
                   {project.title}
                 </h3>
 
-                <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-4 line-clamp-3">
+                <p className={`text-gray-500 dark:text-gray-400 text-sm leading-relaxed ${expandedCards[index] ? "" : "line-clamp-3"}`}>
                   {project.description}
                 </p>
+                <button
+                  onClick={() => setExpandedCards(prev => ({ ...prev, [index]: !prev[index] }))}
+                  className="text-blue-500 hover:text-blue-600 dark:text-blue-400 text-xs cursor-pointer mt-1 mb-4"
+                >
+                  {expandedCards[index] ? "See less" : "See more"}
+                </button>
 
                 {/* Tech badges */}
                 <div className="flex flex-wrap gap-2 mb-6">

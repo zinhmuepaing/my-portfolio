@@ -91,7 +91,7 @@ export default function HeroSection() {
           >
             <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden shadow-xl">
               <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/692e491a01c140ee9df5e4d9/fd4eeb3dd_photo_2026-03-11_21-01-50.jpg"
+                src={`${import.meta.env.BASE_URL}images/casualProfile.jpg`}
                 alt="Zin Hmue Paing"
                 className="w-full h-full object-cover object-top"
               />

@@ -82,6 +82,7 @@ Current files in `public/images/`:
 - `MPLAB.jpg` — MPLAB logo (used in SkillsSection)
 - `sqlLogo.png` — Microsoft SQL Server logo (used in SkillsSection)
 - `MongoDB.png` — MongoDB logo (used in SkillsSection)
+- `Jupyter.png` — Jupyter logo (present in public/images/ but not currently used — SkillsSection uses the devicon CDN SVG instead due to better appearance)
 
 ### Styling
 

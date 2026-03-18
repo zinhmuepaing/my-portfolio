@@ -60,6 +60,7 @@ const skillCategories = [
       { name: "Azure", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
       { name: "UiPath", icon: `${import.meta.env.BASE_URL}images/UiPath.png` },
       { name: "MPLAB", icon: `${import.meta.env.BASE_URL}images/MPLAB.jpg` },
+      { name: "Jupyter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg" },
     ],
   },
 ];

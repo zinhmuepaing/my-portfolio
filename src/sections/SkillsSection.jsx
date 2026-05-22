@@ -1,22 +1,10 @@
 import { motion } from "framer-motion";
 
-// Colored letter badge for tools without a devicon
-const LetterBadge = ({ letter, bg }) => (
-  <div
-    className="w-7 h-7 rounded flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-    style={{ background: bg }}
-  >
-    {letter}
-  </div>
-);
-
 const skillCategories = [
   {
     title: "Languages",
     skills: [
       { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-      { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-      { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
       { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuresqldatabase/azuresqldatabase-original.svg" },
       { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
       { name: "HTML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
@@ -65,6 +53,44 @@ const skillCategories = [
   },
 ];
 
+const SkillCard = ({ skill }) => (
+  <div className="flex items-center gap-3 px-5 py-3 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/60 dark:border-gray-700/50 shadow-sm flex-shrink-0">
+    {skill.icon ? (
+      <img
+        src={skill.icon}
+        alt={skill.name}
+        className="w-7 h-7 flex-shrink-0"
+        loading="lazy"
+      />
+    ) : (
+      <div className="w-7 h-7 rounded bg-gray-200 flex items-center justify-center text-[9px] font-bold text-gray-500 flex-shrink-0">
+        {skill.name.charAt(0)}
+      </div>
+    )}
+    <span className="text-base font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+      {skill.name}
+    </span>
+  </div>
+);
+
+// Horizontal infinite-scroll marquee. Skills are duplicated so the
+// translateX(-50%) loop is seamless.
+const SkillMarquee = ({ skills, direction = "left" }) => (
+  <div className="group relative overflow-hidden">
+    <div
+      className={`flex w-max gap-3 ${
+        direction === "left" ? "animate-scroll-left" : "animate-scroll-right"
+      } group-hover:[animation-play-state:paused]`}
+    >
+      {[...skills, ...skills].map((skill, i) => (
+        <SkillCard key={`${skill.name}-${i}`} skill={skill} />
+      ))}
+    </div>
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-gray-50 dark:from-gray-900/40 to-transparent" />
+    <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-gray-50 dark:from-gray-900/40 to-transparent" />
+  </div>
+);
+
 export default function SkillsSection() {
   return (
     <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 dark:bg-gray-900/40">
@@ -97,32 +123,10 @@ export default function SkillsSection() {
               <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-5">
                 {category.title}
               </h3>
-              <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill) => (
-                  <div
-                    key={skill.name}
-                    className="flex items-center gap-3 px-5 py-3 bg-white/70 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/60 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-                  >
-                    {skill.icon ? (
-                      <img
-                        src={skill.icon}
-                        alt={skill.name}
-                        className="w-7 h-7 flex-shrink-0"
-                        loading="lazy"
-                      />
-                    ) : skill.badge ? (
-                      skill.badge
-                    ) : (
-                      <div className="w-7 h-7 rounded bg-gray-200 flex items-center justify-center text-[9px] font-bold text-gray-500 flex-shrink-0">
-                        {skill.name.charAt(0)}
-                      </div>
-                    )}
-                    <span className="text-base font-medium text-gray-700 dark:text-gray-300">
-                      {skill.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <SkillMarquee
+                skills={category.skills}
+                direction={catIdx % 2 === 0 ? "left" : "right"}
+              />
             </motion.div>
           ))}
         </div>

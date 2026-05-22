@@ -5,3 +5,8 @@ dist/
 .env.*.local
 *.log
 .DS_Store
+
+# Local working/reference files (not part of the deployed site)
+UI Designs/
+All about me/
+CLAUDE.md

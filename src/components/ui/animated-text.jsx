@@ -80,7 +80,7 @@ const AnimatedText = React.forwardRef(
       >
         <div className="relative">
           <motion.div
-            style={{ display: "flex", overflow: "hidden" }}
+            style={{ display: "flex", overflow: "hidden", paddingBottom: "0.2em", lineHeight: 1.1 }}
             variants={container}
             initial="hidden"
             {...(triggerOnScroll

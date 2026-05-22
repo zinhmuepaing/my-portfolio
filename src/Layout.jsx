@@ -36,9 +36,9 @@ export default function Layout() {
     <div className="relative min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Particles
         className="fixed inset-0 z-0"
-        quantity={100}
+        quantity={45}
         ease={80}
-        size={1.5}
+        size={0.5}
         color={particleColor}
         refresh
       />

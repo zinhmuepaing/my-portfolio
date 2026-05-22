@@ -91,7 +91,7 @@ export default function HeroSection() {
           >
             <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden shadow-xl">
               <img
-                src={`${import.meta.env.BASE_URL}images/casualProfile.jpg`}
+                src={`${import.meta.env.BASE_URL}images/professionalProfile.jpg`}
                 alt="Zin Hmue Paing"
                 className="w-full h-full object-cover object-top"
               />

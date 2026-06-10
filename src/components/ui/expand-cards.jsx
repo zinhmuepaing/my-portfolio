@@ -51,10 +51,10 @@ const CredentialButton = ({ cert }) => {
   );
 };
 
-const CertCard = ({ cert, isOpen, onActivate }) => (
+const CertCard = ({ cert, isOpen, onActivate, onToggle }) => (
   <div
     onMouseEnter={onActivate}
-    onClick={onActivate}
+    onClick={onToggle}
     className={cn(
       "group relative cursor-pointer overflow-hidden rounded-3xl shadow-lg ring-1 ring-black/5 transition-all duration-500 ease-in-out dark:ring-white/10",
       // Mobile: vertical accordion (animate height, full width)
@@ -100,7 +100,8 @@ const CertCard = ({ cert, isOpen, onActivate }) => (
         </h3>
         <p className="text-sm text-white/70">{cert.issuer}</p>
       </div>
-      <div className="pt-1">
+      {/* Stop the card's toggle handler so tapping the button only follows the link */}
+      <div className="pt-1" onClick={(e) => e.stopPropagation()}>
         <CredentialButton cert={cert} />
       </div>
     </div>
@@ -124,6 +125,7 @@ export const ExpandCards = ({ certificates }) => {
           cert={cert}
           isOpen={openIndex === idx}
           onActivate={() => setOpenIndex(idx)}
+          onToggle={() => setOpenIndex((prev) => (prev === idx ? -1 : idx))}
         />
       ))}
     </div>

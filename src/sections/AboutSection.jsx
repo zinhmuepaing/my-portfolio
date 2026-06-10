@@ -14,7 +14,13 @@ const timeline = [
     subtitle: "Diploma in Computer Engineering",
     bullets: [
       "4.0/4.0 CGPA",
-      "Ranked #1 in Common Engineering Programme AY2024/25",
+      <>
+        Ranked #1{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          among a cohort of over 400 students
+        </strong>{" "}
+        in Common Engineering Programme AY2024/25
+      </>,
       "3x Temasek Polytechnic Engineering Scholarship Recipient",
       "Director's List in AY2024/25 and AY2025/2026",
     ],
@@ -124,8 +130,8 @@ export default function AboutSection() {
                 )}
                 {item.bullets ? (
                   <ul className="list-disc pl-5 space-y-1 text-gray-500 dark:text-gray-400 leading-relaxed text-sm">
-                    {item.bullets.map((b) => (
-                      <li key={b}>{b}</li>
+                    {item.bullets.map((b, i) => (
+                      <li key={i}>{b}</li>
                     ))}
                   </ul>
                 ) : (

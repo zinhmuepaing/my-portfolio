@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
 import { Timeline } from "@/components/ui/timeline";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { SectionFX } from "@/components/scroll/SectionFX";
 
 const achievements = [
   {
@@ -91,22 +92,15 @@ export default function AchievementsSection() {
       className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 dark:bg-gray-900/40"
     >
       <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-            Achievements
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">
-            Recognition of excellence in academics, technical skills, and
-            competition.
-          </p>
-        </motion.div>
+        <div className="mb-12">
+          <SectionHeading index="05" title="Achievements" className="mb-4" />
+          <SectionFX variant="fade-drop" exit={false}>
+            <p className="text-gray-500 dark:text-gray-400">
+              Recognition of excellence in academics, technical skills, and
+              competition.
+            </p>
+          </SectionFX>
+        </div>
 
         <Timeline data={timelineData} />
       </div>

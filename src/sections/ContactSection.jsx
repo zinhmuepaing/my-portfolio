@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, CornerDownLeft } from "lucide-react";
 import { ChatInput } from "@/components/ui/chat-input";
 import { Button } from "@/components/ui/button";
+import { SectionFX } from "@/components/scroll/SectionFX";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 export default function ContactSection() {
   const [message, setMessage] = useState("");
@@ -10,31 +11,31 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: "#0b7b9e" }}>
-            Let&apos;s Stay In Touch
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto">
-            I am currently focused on building side projects that address
-            tangible, real-world challenges. My goal is to apply a rigorous
-            problem-solving mindset across Software Engineering, AI Engineering,
-            and Data Engineering to create impactful solutions. Whether you have
-            a project to discuss, want to collaborate, or just want to connect,
-            I&apos;d love to hear from you.
-          </p>
-        </motion.div>
+        <div>
+          <SectionHeading
+            index="06"
+            align="center"
+            title="Let's Stay In Touch"
+            className="mb-6"
+            style={{ color: "#0b7b9e" }}
+          />
+          <SectionFX variant="fade-drop" exit={false}>
+            <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto">
+              I am currently focused on building side projects that address
+              tangible, real-world challenges. My goal is to apply a rigorous
+              problem-solving mindset across Software Engineering, AI Engineering,
+              and Data Engineering to create impactful solutions. Whether you have
+              a project to discuss, want to collaborate, or just want to connect,
+              I&apos;d love to hear from you.
+            </p>
+          </SectionFX>
+        </div>
 
         {/* Chat box */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+        <SectionFX
+          variant="fade-drop"
+          exit={false}
+          delay={0.25}
           className="max-w-2xl mx-auto"
         >
           <form
@@ -93,7 +94,7 @@ export default function ContactSection() {
               </Button>
             </div>
           </form>
-        </motion.div>
+        </SectionFX>
       </div>
     </section>
   );

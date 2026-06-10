@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
 import { ExpandCards } from "@/components/ui/expand-cards";
+import { SectionFX } from "@/components/scroll/SectionFX";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const simpleicon = (slug, color) =>
   `https://cdn.simpleicons.org/${slug}/${color}`;
@@ -58,30 +59,22 @@ export default function CertificatesSection() {
   return (
     <section id="certificates" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Licenses &amp; Certifications
-          </h2>
+        <div className="mb-12 text-center">
+          <SectionHeading
+            index="04"
+            align="center"
+            title="Licenses & Certifications"
+            className="mb-4"
+          />
           <p className="text-gray-500 dark:text-gray-400">
             Industry credentials backing the skills. Hover or tap a card to
             view details.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <SectionFX variant="clip-reveal">
           <ExpandCards certificates={certificates} />
-        </motion.div>
+        </SectionFX>
       </div>
     </section>
   );

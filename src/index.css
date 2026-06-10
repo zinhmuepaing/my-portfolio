@@ -55,9 +55,62 @@
   }
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   html {
     scroll-behavior: smooth;
+  }
+  ::selection {
+    background: rgba(99, 102, 241, 0.25);
+  }
+}
+
+/* Hide system scrollbars everywhere; Lenis (wheel/trackpad momentum) and
+   native touch scrolling still work. */
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Lenis: while smooth scrolling is active, native CSS smooth scrolling must
+   be off or programmatic scrolls fight the rAF loop. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Aurora backdrop drift (GPU-only transforms) */
+@keyframes aurora-drift-1 {
+  0% {
+    transform: translate3d(-8%, -4%, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(10%, 8%, 0) scale(1.18);
+  }
+}
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate3d(6%, 10%, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(-10%, -6%, 0) scale(0.92);
+  }
+}
+@keyframes aurora-drift-3 {
+  0% {
+    transform: translate3d(0%, 6%, 0) scale(0.95) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-6%, -10%, 0) scale(1.12) rotate(8deg);
   }
 }
 

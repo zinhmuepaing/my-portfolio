@@ -11,6 +11,8 @@ import {
   Mail,
 } from "lucide-react";
 import { NavBar } from "@/components/ui/tubelight-navbar";
+import { SmoothScrollProvider } from "@/components/scroll/SmoothScrollProvider";
+import { AuroraBackground } from "@/components/ui/aurora-background";
 import { GlassFilter } from "@/components/ui/liquid-glass";
 import { Particles } from "@/components/ui/particles";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
@@ -35,10 +37,12 @@ export default function Layout() {
   }, [resolvedTheme]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#fafaf9] dark:bg-[#07070a] text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <SmoothScrollProvider />
+      <AuroraBackground />
       <Particles
         className="fixed inset-0 z-0"
-        quantity={45}
+        quantity={30}
         ease={80}
         size={0.5}
         color={particleColor}

@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { PinnedShowcase } from "@/components/scroll/PinnedShowcase";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const skillCategories = [
   {
@@ -93,44 +94,38 @@ const SkillMarquee = ({ skills, direction = "left" }) => (
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50/60 dark:bg-gray-900/40">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-            The Stack Behind the Work
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-4" />
-          <p className="text-gray-500 dark:text-gray-400">
-            Every solution starts with the right foundation.
-          </p>
-        </motion.div>
-
-        <div className="space-y-12">
-          {skillCategories.map((category, catIdx) => (
-            <motion.div
-              key={category.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: catIdx * 0.1 }}
-            >
-              <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-5">
+    <section id="skills" className="bg-gray-50/60 dark:bg-gray-900/40">
+      <PinnedShowcase
+        gapClassName="gap-10 sm:gap-16"
+        heading={
+          <div className="mx-auto mb-10 w-full max-w-6xl px-4 sm:px-8">
+            <SectionHeading index="02" title="The Stack Behind the Work" />
+            <p className="-mt-4 max-w-xl text-gray-500 dark:text-gray-400">
+              Every solution starts with the right foundation.
+            </p>
+          </div>
+        }
+      >
+        {skillCategories.map((category, catIdx) => (
+          <div
+            key={category.title}
+            className="flex w-[88vw] max-w-3xl shrink-0 flex-col justify-center"
+          >
+            <div className="mb-6 flex items-baseline gap-4">
+              <span className="font-mono text-sm tracking-[0.3em] text-gray-300 dark:text-gray-600">
+                0{catIdx + 1}
+              </span>
+              <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
                 {category.title}
               </h3>
-              <SkillMarquee
-                skills={category.skills}
-                direction={catIdx % 2 === 0 ? "left" : "right"}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </div>
+            </div>
+            <SkillMarquee
+              skills={category.skills}
+              direction={catIdx % 2 === 0 ? "left" : "right"}
+            />
+          </div>
+        ))}
+      </PinnedShowcase>
     </section>
   );
 }

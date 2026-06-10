@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { CardStack } from "@/components/ui/card-stack";
+import { SectionFX } from "@/components/scroll/SectionFX";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 const timeline = [
   {
@@ -67,17 +69,9 @@ export default function AboutSection() {
     <section id="about" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-            About Me
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-indigo-500 mb-6" />
+        <div className="mb-16">
+          <SectionHeading index="01" title="About Me" />
+          <SectionFX variant="fade-drop">
           <p className="text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl">
             I am a Computer Engineering student at Temasek Polytechnic passionate
             about{" "}
@@ -92,16 +86,11 @@ export default function AboutSection() {
             pipelines, and AI-driven applications, approached with rigorous
             analytical thinking and full-pipeline ownership.
           </p>
-        </motion.div>
+          </SectionFX>
+        </div>
 
         {/* My Journey */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-20"
-        >
+        <SectionFX variant="fade-drop" className="mb-20">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
             My Journey
           </h3>
@@ -142,15 +131,10 @@ export default function AboutSection() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </SectionFX>
 
         {/* Leadership & Community Involvement */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
+        <SectionFX variant="rotate-in">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
             Leadership &amp; Community Involvement
           </h3>
@@ -193,7 +177,7 @@ export default function AboutSection() {
               </div>
             )}
           />
-        </motion.div>
+        </SectionFX>
       </div>
     </section>
   );

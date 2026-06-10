@@ -31,21 +31,29 @@ Hosted on **GitHub Pages** with custom domain **https://paing-portfolio.com/**.
 
 ### Key layers
 
-- `src/pages/Home.jsx` — Composes the single-page scrollable experience by rendering all section components in order.
+- `src/pages/Home.jsx` — Composes the home experience as a plain vertical flow of the 8 sections. The page uses a **hybrid scroll engine**: natural vertical scrolling everywhere, except Skills and Projects which pin and slide horizontally via `PinnedShowcase`.
+- `src/components/scroll/` — Smooth-scroll + motion layer (GSAP ScrollTrigger + Lenis):
+  - `SmoothScrollProvider.jsx` — Mounts Lenis globally (in `Layout.jsx`) and syncs it with GSAP's ticker/ScrollTrigger. Fully disabled under `prefers-reduced-motion` (reacts to live OS toggles). Exports `getLenis()`.
+  - `PinnedShowcase.jsx` — Pinned horizontal showcase strip driven by the document scroll (no nested scrollbars): the wrapper pins for the row's travel distance and the row translates on X with a scrubbed tween; includes an optional scrub progress bar. Reduced motion renders children as a vertical stack. Used by SkillsSection and ProjectsSection.
+  - `SectionFX.jsx` — Entry/exit choreography wrapper for section-level blocks (variants: `fade-drop`, `rotate-in`, `clip-reveal`; scrubbed exit dim/lift that reverses on re-entry, disable with `exit={false}`). Never wrap interactive card internals — containers only.
+  - `scroll-context.js` — Tiny `useSyncExternalStore` store the navbar consults; currently nothing publishes to it (state stays `null`), so the navbar always uses its IntersectionObserver path. Kept as the bridge mechanism for any future track-driven nav mode.
 - `src/sections/` — The primary content layer. Each section is a self-contained component used on the home page:
   - `RobotSection.jsx` — Landing section with 3D Spline robot animation, inspirational quote, and attribution. Wrapped in a rounded glass container with Spotlight effect. Uses `@splinetool/react-spline`.
   - `HeroSection.jsx` — Intro, animated name (letter-by-letter via AnimatedText, color `#d84f2a`), tagline, social links, profile photo.
   - `AboutSection.jsx` — Bio paragraph, education timeline (Temasek Polytechnic entry uses a bulleted achievement list), "Leadership & Community Involvement" 3D `CardStack` fan (4 entries: CENT President, Peer Tutor, ENGenius, HRHS Volunteer).
-  - `SkillsSection.jsx` — "The Stack Behind the Work" — tech stack grouped by category (Languages, Frameworks & Libraries, Data & Databases, Tools & Platforms). Uses devicon CDN icons and local images from `public/images/`.
-  - `ProjectsSection.jsx` — 9 projects (newest first) rendered in a Swiper coverflow carousel via `components/ui/card-carousel.jsx`. Each slide is a full project card (image + title + description with See more/less + a row of tech-stack icons + GitHub link). Tech icons are resolved via the `TECH_ICONS` map in `card-carousel.jsx` (devicon CDN + local `public/images/` + colored SimpleIcons; unknown labels fall back to a lettered chip). Newest 4: KakiLearn AI, Sleep Apnea Monitor, Smartwatch Speech Analytics, Grid. Local images live in `public/images/`.
+  - `SkillsSection.jsx` — "The Stack Behind the Work" — tech stack grouped by category (Languages, Frameworks & Libraries, Data & Databases, Tools & Platforms). The 4 category groups are horizontal panels inside a `PinnedShowcase` (each panel keeps its `SkillMarquee` rows). Uses devicon CDN icons and local images from `public/images/`.
+  - `ProjectsSection.jsx` — 9 projects (newest first) rendered as a pinned horizontal corridor via `components/scroll/PinnedShowcase.jsx`, each slide a `ProjectCard` from `components/ui/project-card.jsx` (image + title + description with See more/less + tech-stack icon row + GitHub link). Newest 4: KakiLearn AI, Sleep Apnea Monitor, Smartwatch Speech Analytics, Grid. Local images live in `public/images/`.
   - `CertificatesSection.jsx` — "Licenses & Certifications" — 6 credentials in an expand-on-hover / tap-to-expand accordion via `components/ui/expand-cards.jsx`. Each card shows the certificate image, org logo, title, issuer, and a "View credential" button (Microsoft's is disabled, labeled with its full Credential ID). Org logos use colored SimpleIcons (Google, NVIDIA, LangChain, Anthropic) plus local `harvard.svg`/`microsoft.svg`.
   - `AchievementsSection.jsx` — 5 achievements displayed using the Aceternity scroll-progress Timeline component.
   - `ContactSection.jsx` — "Let's Stay In Touch" (color `#0b7b9e`), description, chat input box with GitHub/LinkedIn/Gmail icons (brand-colored) and Send Message button.
   - `Footer.jsx` — "© 2026 Zin Hmue Paing. Designed and built by me." with social links.
 - `src/pages/` — 7 standalone full-page routes (Home, About, Skills, Projects, Achievements, Leadership, Contact). These are secondary; the main experience is the single-page scroll via sections.
-- `src/components/ui/card-carousel.jsx` — Swiper coverflow carousel of project cards (Vite-adapted from a Next.js pattern; uses `swiper` + `swiper/react`). Theme-aware glass container. Used by ProjectsSection.
+- `src/components/ui/project-card.jsx` — `ProjectCard`, `TechIcon`, and the `TECH_ICONS` map (devicon CDN + local `public/images/` + colored SimpleIcons; unknown labels fall back to a lettered chip). Extracted verbatim from card-carousel. Used by ProjectsSection inside the PinnedShowcase corridor.
+- `src/components/ui/section-heading.jsx` — Animated editorial section heading: numbered mono eyebrow + thin gradient rule, huge tracking-tight display type, per-word staggered mask reveal (framer-motion `whileInView`), and a subtle scroll-linked vertical drift. Static under reduced motion. Used by all content sections.
+- `src/components/ui/aurora-background.jsx` — Cinematic theme-aware backdrop: drifting aurora gradient washes (CSS keyframes in `index.css`) + faint SVG film-grain overlay. Rendered once in `Layout.jsx` behind Particles.
+- `src/components/ui/card-carousel.jsx` — Swiper coverflow carousel of project cards. **No longer used** (ProjectsSection now uses the PinnedShowcase corridor); kept for reference, like `animated-card.jsx`.
 - `src/components/ui/expand-cards.jsx` — Expand-on-hover / tap-to-expand accordion of certificate cards (Vite-adapted). Horizontal accordion on desktop, vertical stacked accordion on mobile. Reuses `GlassButton` for credential links. Used by CertificatesSection.
-- `src/components/ui/timeline.jsx` — Aceternity Timeline component (Vite-adapted, no Next.js deps). Used by AchievementsSection.
+- `src/components/ui/timeline.jsx` — Aceternity Timeline component (Vite-adapted, no Next.js deps). Detects its nearest vertically-scrolling ancestor before mounting the scroll-tracking core, so the progress line works both in window scroll and inside a horizontal-track panel. Used by AchievementsSection.
 - `src/components/ui/card-stack.jsx` — 3D fanned card stack with drag/swipe, dots, and keyboard nav (Vite-adapted). Self-sizes to its container (ResizeObserver) so it never overflows on mobile/tablet. Used by AboutSection for leadership entries via a custom `renderCard`.
 - `src/components/ui/animated-card.jsx` — Animated image carousel (adapted from AnimatedTestimonials). No longer used (AboutSection now uses `card-stack.jsx`); kept for reference.
 - `src/components/ui/animated-text.jsx` — Letter-by-letter spring animation component. Supports `triggerOnScroll` prop for whileInView animation. Used for the name in HeroSection.
@@ -60,13 +68,15 @@ Hosted on **GitHub Pages** with custom domain **https://paing-portfolio.com/**.
 - `src/lib/utils.js` — `cn()` helper (clsx + tailwind-merge). Use this for all className merging.
 - `src/utils/index.ts` — `createPageUrl(pageName)` helper for routing.
 - `src/App.jsx` — Router + routes + providers (QueryClient, ThemeProvider).
-- `src/Layout.jsx` — Sticky navbar (tubelight-navbar) with scroll-section highlighting, Particles background, ThemeToggle (top-right), GlassFilter. Renders `<Outlet />` for page content.
+- `src/Layout.jsx` — Mounts `SmoothScrollProvider`, `AuroraBackground`, sticky navbar (tubelight-navbar) with IntersectionObserver scroll-section highlighting, Particles background, ThemeToggle (top-right), GlassFilter. Page background: `bg-[#fafaf9] dark:bg-[#07070a]`. Nav clicks scroll via `getLenis()?.scrollTo(el)` with a native `scrollIntoView` fallback. Renders `<Outlet />` + `Footer`.
 - `src/lib/AuthContext.jsx` — No-op auth stub. Always returns `{ isAuthenticated: false, user: null }`.
 - `src/pages.config.js` — Page registry stub used by `NavigationTracker`.
 
 ### Section order on Home page
 
 RobotSection → HeroSection → AboutSection → SkillsSection → ProjectsSection → CertificatesSection → AchievementsSection → ContactSection
+
+Hybrid scroll: all sections stack vertically, but Skills and Projects pin and slide horizontally (`PinnedShowcase`) while the user scrolls. System scrollbars are hidden globally in `src/index.css` (Lenis provides the momentum). Reduced-motion users get a fully static vertical page.
 
 ### Images
 
@@ -111,10 +121,14 @@ All sections support dark mode via `dark:` Tailwind variants.
 - Page files use the `react-jsx` transform — do not import `React` just for JSX. Only import named hooks/utilities you actually use.
 - The `Github` and `Linkedin` icons from `lucide-react` are deprecated (brand icons removed upstream) but still functional. Leave them as-is unless replacing with custom SVGs.
 - When adding new shadcn/ui components via `npx shadcn@latest add <component>`, add `// @ts-nocheck` to the generated file and a JSDoc `@type` annotation on each `forwardRef` export matching its underlying HTML element (e.g. `React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<HTMLDivElement>>`).
+- `jsconfig.json` maps `gsap` and `gsap/*` to `gsap/types/index.d.ts` via `paths` — without this, `checkJs` resolves `gsap/ScrollTrigger` to its raw `.js` and floods `npm run typecheck` with node_modules errors.
+- `npm run typecheck` has a pre-existing error baseline (`import.meta.env` ImportMeta errors in sections, `className` required-prop errors in Layout, etc.) — compare against a clean tree before attributing failures to new changes.
 
 ## Key dependencies
 
 - `@splinetool/react-spline` + `@splinetool/runtime` — 3D robot scene
+- `gsap` (ScrollTrigger) — Pinned horizontal-track scroll transition on Home
+- `lenis` — Global smooth scrolling (synced to GSAP's ticker; package is `lenis`, not the deprecated `@studio-freight/lenis`)
 - `framer-motion` — Animations and transitions
 - `next-themes` — Dark/light mode theming
 - `lucide-react` — Icons

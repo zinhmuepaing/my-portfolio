@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useScrollNav } from "@/components/scroll/scroll-context";
+import { getLenis } from "@/components/scroll/SmoothScrollProvider";
 
 /**
  * @typedef {{name: string, url: string, icon: import('lucide-react').LucideIcon}} NavItem
@@ -13,6 +15,16 @@ import { cn } from "@/lib/utils";
 export function NavBar({ items, className }) {
   const [activeTab, setActiveTab] = useState(items[0].name);
   const [isMobile, setIsMobile] = useState(false);
+  // When the pinned horizontal track is active it drives the active section
+  // and nav clicks; otherwise the IntersectionObserver path below applies.
+  const scrollNav = useScrollNav();
+  const horizontal = scrollNav?.horizontalActive ?? false;
+
+  useEffect(() => {
+    if (!horizontal || !scrollNav?.activeSection) return;
+    const match = items.find((item) => item.url === scrollNav.activeSection);
+    if (match) setActiveTab(match.name);
+  }, [horizontal, scrollNav, items]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -24,6 +36,7 @@ export function NavBar({ items, className }) {
   }, []);
 
   useEffect(() => {
+    if (horizontal) return;
     const sectionIds = items.map((item) => item.url);
     const observers = [];
 
@@ -48,13 +61,21 @@ export function NavBar({ items, className }) {
     });
 
     return () => observers.forEach((obs) => obs.disconnect());
-  }, [items]);
+  }, [items, horizontal]);
 
   const handleClick = (item) => {
     setActiveTab(item.name);
+    if (horizontal) {
+      scrollNav.scrollToSection(item.url);
+      return;
+    }
     const el = document.getElementById(item.url);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      // Prefer Lenis so programmatic scrolls share the same momentum engine
+      // instead of fighting it; falls back to native when Lenis is off.
+      const lenis = getLenis();
+      if (lenis) lenis.scrollTo(el);
+      else el.scrollIntoView({ behavior: "smooth" });
     }
   };
 

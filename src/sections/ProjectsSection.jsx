@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { CardCarousel } from "@/components/ui/card-carousel";
+import { PinnedShowcase } from "@/components/scroll/PinnedShowcase";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { ProjectCard } from "@/components/ui/project-card";
 
 const projects = [
   {
@@ -83,33 +84,24 @@ const projects = [
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400">
-            A selection of projects where I have turned complex problems into
-            working solutions.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <CardCarousel projects={projects} />
-        </motion.div>
-      </div>
+    <section id="projects">
+      <PinnedShowcase
+        heading={
+          <div className="mx-auto mb-10 w-full max-w-6xl px-4 sm:px-8">
+            <SectionHeading index="03" title="Featured Projects" />
+            <p className="-mt-4 max-w-xl text-gray-500 dark:text-gray-400">
+              A selection of projects where I have turned complex problems into
+              working solutions.
+            </p>
+          </div>
+        }
+      >
+        {projects.map((project) => (
+          <div key={project.title} className="flex w-[320px] shrink-0 sm:w-[340px]">
+            <ProjectCard project={project} />
+          </div>
+        ))}
+      </PinnedShowcase>
     </section>
   );
 }

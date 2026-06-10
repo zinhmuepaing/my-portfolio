@@ -1,18 +1,42 @@
 // @ts-nocheck
-import {
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  motion,
-} from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 /**
+ * Detects the nearest vertically-scrolling ancestor before mounting the core,
+ * so the progress line tracks correctly both in normal page flow (window
+ * scroll) and inside an internally-scrolling horizontal-track panel.
+ *
  * @type {React.FC<{ data: Array<{ title: string, content: React.ReactNode }> }>}
  */
 export const Timeline = ({ data }) => {
+  const outerRef = useRef(null);
+  // undefined = not measured yet; null = window scroll; element = panel scroll
+  const [scrollContainer, setScrollContainer] = useState(undefined);
+
+  useLayoutEffect(() => {
+    let node = outerRef.current?.parentElement;
+    while (node && node !== document.body) {
+      const { overflowY } = getComputedStyle(node);
+      if (overflowY === "auto" || overflowY === "scroll") break;
+      node = node.parentElement;
+    }
+    setScrollContainer(node && node !== document.body ? node : null);
+  }, []);
+
+  return (
+    <div ref={outerRef}>
+      {scrollContainer !== undefined && (
+        <TimelineCore data={data} scrollContainer={scrollContainer} />
+      )}
+    </div>
+  );
+};
+
+const TimelineCore = ({ data, scrollContainer }) => {
   const ref = useRef(null);
   const containerRef = useRef(null);
+  const scrollContainerRef = useRef(scrollContainer);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -24,6 +48,7 @@ export const Timeline = ({ data }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
+    container: scrollContainer ? scrollContainerRef : undefined,
     offset: ["start 10%", "end 50%"],
   });
 

@@ -1,7 +1,7 @@
 import { PinnedShowcase } from "@/components/scroll/PinnedShowcase";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-const skillCategories = [
+export const skillCategories = [
   {
     title: "Languages",
     skills: [

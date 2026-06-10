@@ -2,7 +2,7 @@ import { Timeline } from "@/components/ui/timeline";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionFX } from "@/components/scroll/SectionFX";
 
-const achievements = [
+export const achievements = [
   {
     year: "2026",
     title: "Finalist (Top 4), Tech for Good Hackathon 2026",

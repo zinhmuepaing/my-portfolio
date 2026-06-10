@@ -4,6 +4,7 @@ import { ChatInput } from "@/components/ui/chat-input";
 import { Button } from "@/components/ui/button";
 import { SectionFX } from "@/components/scroll/SectionFX";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { profile, contactBio } from "@/data/copy";
 
 export default function ContactSection() {
   const [message, setMessage] = useState("");
@@ -21,12 +22,7 @@ export default function ContactSection() {
           />
           <SectionFX variant="fade-drop" exit={false}>
             <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-xl mx-auto">
-              I am currently focused on building side projects that address
-              tangible, real-world challenges. My goal is to apply a rigorous
-              problem-solving mindset across Software Engineering, AI Engineering,
-              and Data Engineering to create impactful solutions. Whether you have
-              a project to discuss, want to collaborate, or just want to connect,
-              I&apos;d love to hear from you.
+              {contactBio}
             </p>
           </SectionFX>
         </div>
@@ -57,7 +53,7 @@ export default function ContactSection() {
             <div className="flex items-center p-3 pt-0">
               <Button variant="ghost" size="icon" type="button" asChild className="text-[#333] dark:text-[#f0f0f0] hover:text-black dark:hover:text-white">
                 <a
-                  href="https://github.com/zinhmuepaing"
+                  href={profile.socials.github}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -68,7 +64,7 @@ export default function ContactSection() {
 
               <Button variant="ghost" size="icon" type="button" asChild className="text-[#0A66C2] hover:text-[#004182]">
                 <a
-                  href="https://linkedin.com/in/zinhmuepaing"
+                  href={profile.socials.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -78,7 +74,7 @@ export default function ContactSection() {
               </Button>
 
               <Button variant="ghost" size="icon" type="button" asChild className="text-[#EA4335] hover:text-[#C5221F]">
-                <a href="mailto:zinhmuep@gmail.com">
+                <a href={profile.socials.email}>
                   <Mail className="size-4" />
                   <span className="sr-only">Email</span>
                 </a>

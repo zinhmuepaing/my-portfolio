@@ -4,12 +4,31 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
     theme: {
         extend: {
+            fontFamily: {
+                display: ['Syne', 'sans-serif'],
+                grotesk: ['"Space Grotesk"', 'sans-serif'],
+                'space-mono': ['"Space Mono"', 'monospace']
+            },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)'
             },
+            boxShadow: {
+                brutal: '6px 6px 0 0 #0a0a0a',
+                'brutal-lg': '10px 10px 0 0 #0a0a0a',
+                'brutal-sm': '4px 4px 0 0 #0a0a0a',
+                'brutal-hover': '12px 12px 0 0 #0a0a0a'
+            },
             colors: {
+                brutal: {
+                    cream: '#f4f4f0',
+                    ink: '#0a0a0a',
+                    blue: '#2e31ff',
+                    pink: '#ff00ff',
+                    orange: '#ff6b00',
+                    acid: '#bfff00'
+                },
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {
@@ -95,6 +114,10 @@ module.exports = {
                 'scroll-right': {
                     '0%': { transform: 'translateX(-50%)' },
                     '100%': { transform: 'translateX(0)' }
+                },
+                marquee: {
+                    '0%': { transform: 'translateX(0)' },
+                    '100%': { transform: 'translateX(-50%)' }
                 }
             },
             animation: {
@@ -102,7 +125,8 @@ module.exports = {
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 spotlight: 'spotlight 2s ease .75s 1 forwards',
                 'scroll-left': 'scroll-left 40s linear infinite',
-                'scroll-right': 'scroll-right 40s linear infinite'
+                'scroll-right': 'scroll-right 40s linear infinite',
+                marquee: 'marquee 18s linear infinite'
             }
         }
     },

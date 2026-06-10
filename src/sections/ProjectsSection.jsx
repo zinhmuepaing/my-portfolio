@@ -2,7 +2,7 @@ import { PinnedShowcase } from "@/components/scroll/PinnedShowcase";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ProjectCard } from "@/components/ui/project-card";
 
-const projects = [
+export const projects = [
   {
     title: "KakiLearn AI",
     description:

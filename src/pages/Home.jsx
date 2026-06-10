@@ -1,3 +1,4 @@
+import { useThemeMode } from "@/context/ThemeModeProvider";
 import RobotSection from "../sections/RobotSection";
 import HeroSection from "../sections/HeroSection";
 import AboutSection from "../sections/AboutSection";
@@ -6,8 +7,9 @@ import ProjectsSection from "../sections/ProjectsSection";
 import CertificatesSection from "../sections/CertificatesSection";
 import AchievementsSection from "../sections/AchievementsSection";
 import ContactSection from "../sections/ContactSection";
+import BrutalistHome from "../brutalist/BrutalistHome";
 
-export default function Home() {
+function StandardHome() {
   return (
     <>
       <RobotSection />
@@ -20,4 +22,9 @@ export default function Home() {
       <ContactSection />
     </>
   );
+}
+
+export default function Home() {
+  const { mode } = useThemeMode();
+  return mode === "brutalist" ? <BrutalistHome /> : <StandardHome />;
 }

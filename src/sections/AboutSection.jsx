@@ -3,7 +3,7 @@ import { CardStack } from "@/components/ui/card-stack";
 import { SectionFX } from "@/components/scroll/SectionFX";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-const timeline = [
+export const timeline = [
   {
     period: "2022 -- 2024",
     title: "Yangon Technological University",
@@ -29,7 +29,7 @@ const timeline = [
   },
 ];
 
-const leadershipCards = [
+export const leadershipCards = [
   {
     name: "President, CENT",
     organization: "Computer Engineering Network (CENT)",

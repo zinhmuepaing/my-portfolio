@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 const simpleicon = (slug, color) =>
   `https://cdn.simpleicons.org/${slug}/${color}`;
 
-const certificates = [
+export const certificates = [
   {
     title: "Google AI Professional Certificate",
     issuer: "Google",

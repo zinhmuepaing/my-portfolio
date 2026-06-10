@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -120,5 +122,107 @@ html.lenis body {
   }
   to {
     background-position: 0% -1000%;
+  }
+}
+
+/* ============================================================
+   NEO-BRUTALISM MODE
+   Matte, flat, no gradients/glow. Thick ink borders + hard
+   blur-free offset shadows. Active under [data-mode="brutalist"].
+   ============================================================ */
+
+.brutal-root {
+  font-family: "Space Grotesk", sans-serif;
+  color: #0a0a0a;
+  background-color: #f4f4f0;
+  /* 1px ink line grid */
+  background-image:
+    linear-gradient(to right, rgba(10, 10, 10, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Crosshair cursor only on fine pointers (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .brutal-root,
+  .brutal-root * {
+    cursor: crosshair;
+  }
+  .brutal-root a,
+  .brutal-root button,
+  .brutal-root input,
+  .brutal-root textarea,
+  .brutal-root label {
+    cursor: pointer;
+  }
+}
+
+.brutal-display {
+  font-family: "Syne", sans-serif;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+}
+
+.brutal-mono {
+  font-family: "Space Mono", monospace;
+}
+
+/* Raw button with angled clip (matte, hard active shadow) */
+.brutal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 3px solid #0a0a0a;
+  background: #0a0a0a;
+  color: #fff;
+  padding: 0.85rem 1.6rem;
+  box-shadow: 5px 5px 0 0 #0a0a0a;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease,
+    color 0.15s ease;
+}
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 0 #0a0a0a;
+}
+.brutal-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 0 #0a0a0a;
+}
+
+/* Checkerboard divider strip */
+.brutal-checker {
+  height: 44px;
+  width: 100%;
+  background-image: conic-gradient(
+    #0a0a0a 90deg,
+    #f4f4f0 90deg 180deg,
+    #0a0a0a 180deg 270deg,
+    #f4f4f0 270deg
+  );
+  background-size: 24px 24px;
+  border-top: 3px solid #0a0a0a;
+  border-bottom: 3px solid #0a0a0a;
+}
+
+/* Reveal primitive for GSAP (hidden until .is-in is added) */
+.brutal-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.brutal-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion: never hide content behind a trigger */
+@media (prefers-reduced-motion: reduce) {
+  .brutal-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

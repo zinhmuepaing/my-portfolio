@@ -16,7 +16,7 @@ const achievements = [
     year: "2024 – Present",
     title: "Temasek Polytechnic Engineering Scholarship",
     description:
-      "Awarded to top students based on academic excellence, leadership potential, and active contribution to the school community. Received for two consecutive years (AY2024/2025 and AY2025/2026).",
+      "Awarded to top students based on academic excellence, leadership potential, and active contribution to the school community. Received for three consecutive years (AY2024/2025, AY2025/2026, and AY2026/2027).",
     category: "Academic",
     categoryColor: "bg-yellow-50 text-yellow-700 border border-yellow-100",
     image:
@@ -24,9 +24,9 @@ const achievements = [
   },
   {
     year: "2024/2025",
-    title: "Director's List Award",
+    title: "Director's List Award (Ranked #1, Common Engineering Programme)",
     description:
-      "Recognised on the Director's List for being among the top 10% of academic achievers in the Diploma in Computer Engineering for AY2024/2025. Reflects strong problem-solving, perseverance, and analytical thinking skills.",
+      "Recognised on the Director's List for being the top academic achiever (#1 rank) among a cohort of over 400 students for AY2024/2025 in the Common Engineering Programme, the largest course at Temasek Polytechnic. This award marks a significant milestone following my transition from the Common Engineering Programme (CEP) into the Diploma in Computer Engineering, demonstrating both versatility and excellence in a highly competitive engineering environment.",
     category: "Academic",
     categoryColor: "bg-blue-50 text-blue-700 border border-blue-100",
     image:

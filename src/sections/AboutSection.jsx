@@ -11,8 +11,32 @@ const timeline = [
   {
     period: "2024 -- Present",
     title: "Temasek Polytechnic",
-    description:
-      "Pursuing Diploma in Computer Engineering. Maintaining a perfect CGPA of 4.0/4.0. Awarded the Director's List in Year 1 & 2, and received the Temasek Polytechnic Engineering Scholarship for two consecutive years.",
+    description: (
+      <>
+        Pursuing{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          Diploma in Computer Engineering
+        </strong>
+        . Maintaining a{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          perfect CGPA of 4.0/4.0
+        </strong>
+        . Awarded the{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          Director&apos;s List in Year 1 &amp; 2
+        </strong>
+        ,{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          Ranked #1 in the Common Engineering Programme AY2024/25
+        </strong>
+        , and received the{" "}
+        <strong className="font-semibold text-gray-700 dark:text-gray-300">
+          Temasek Polytechnic Engineering Scholarship for three consecutive
+          years
+        </strong>
+        .
+      </>
+    ),
   },
 ];
 

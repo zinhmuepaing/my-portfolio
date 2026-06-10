@@ -1,9 +1,41 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
-import { GlassButton } from "@/components/ui/liquid-glass";
+import { CardCarousel } from "@/components/ui/card-carousel";
 
 const projects = [
+  {
+    title: "KakiLearn AI",
+    description:
+      "Mobile-first web app that teaches seniors digital skills — banking, scam safety, and more — through interactive step-by-step simulators, voice-graded quizzes, and on-demand AI-generated multilingual courses.",
+    tech: ["Next.js", "React", "TypeScript", "Claude Haiku 4.5", "Google Cloud TTS"],
+    image: `${import.meta.env.BASE_URL}images/kakilearn.jpeg`,
+    shortNote: "Note: All commits containing 'Paing' were authored by me.",
+    note: "All commits containing 'Paing' were authored by me. These were committed under my teammate's account because he held the Vercel deployment ownership during our subscription limitations.",
+    github: "https://github.com/Datmseee/KakiLearn-AI",
+  },
+  {
+    title: "Sleep Apnea Monitor",
+    description:
+      "Full-stack health monitor: a wearable ESP32 streams live SpO2 and heart-rate to a Flask dashboard, with Kirby — a Claude-powered AI assistant offering wellness coaching and autonomous clinic booking via web and Telegram.",
+    tech: ["Python", "Flask", "ESP32", "Claude", "Telegram", "Chart.js"],
+    image: `${import.meta.env.BASE_URL}images/kirby.png`,
+    github: "https://github.com/zinhmuepaing/sleep-apnea-monitor",
+  },
+  {
+    title: "Smartwatch Speech Analytics",
+    description:
+      "Speech-analytics pipeline analysing Cantonese/Chinese communication in students with ASD; processes smartwatch audio to flag keyword usage, pitch and volume anomalies, and generates longitudinal clinical PDF reports.",
+    tech: ["Python", "Whisper", "Parselmouth", "Librosa", "Pandas"],
+    image: `${import.meta.env.BASE_URL}images/smartwatch.png`,
+    github: "https://github.com/zinhmuepaing/smartwatch-speech-analysis",
+  },
+  {
+    title: "Grid",
+    description:
+      "Full-stack developer-collaboration platform with Tinder-style matchmaking for hackathons — pairing teammates by complementary skills and availability, with OAuth, real-time messaging, and automatic Discord workspace generation.",
+    tech: ["Python", "Flask", "SQLite", "OAuth", "Discord API"],
+    image: `${import.meta.env.BASE_URL}images/grid.png`,
+    github: "https://github.com/zinhmuepaing/grid-dev-collab-platform",
+  },
   {
     title: "Career Quest Map",
     description:
@@ -50,17 +82,15 @@ const projects = [
 ];
 
 export default function ProjectsSection() {
-  const [expandedCards, setExpandedCards] = useState({});
-
   return (
     <section id="projects" className="py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-12 text-center"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Featured Projects
@@ -71,74 +101,14 @@ export default function ProjectsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden hover:shadow-lg transition-shadow bg-white dark:bg-gray-900/60"
-            >
-              {/* Image */}
-              <div className="h-48 bg-gray-100 dark:bg-gray-800 overflow-hidden">
-                {project.image ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-                    Image Coming Soon
-                  </div>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                  {project.title}
-                </h3>
-
-                <p className={`text-gray-500 dark:text-gray-400 text-sm leading-relaxed ${expandedCards[index] ? "" : "line-clamp-3"}`}>
-                  {project.description}
-                </p>
-                <button
-                  onClick={() => setExpandedCards(prev => ({ ...prev, [index]: !prev[index] }))}
-                  className="text-blue-500 hover:text-blue-600 dark:text-blue-400 text-xs cursor-pointer mt-1 mb-4"
-                >
-                  {expandedCards[index] ? "See less" : "See more"}
-                </button>
-
-                {/* Tech badges */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-full"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* GitHub link */}
-                <GlassButton
-                  href={project.github}
-                  className="!px-6 !py-3 !hover:px-7 !hover:py-4"
-                >
-                  <span className="flex items-center gap-2 text-sm">
-                    <ExternalLink className="w-4 h-4" />
-                    View on GitHub
-                  </span>
-                </GlassButton>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <CardCarousel projects={projects} />
+        </motion.div>
       </div>
     </section>
   );

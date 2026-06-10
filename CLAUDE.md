@@ -37,11 +37,14 @@ Hosted on **GitHub Pages** with custom domain **https://paing-portfolio.com/**.
   - `HeroSection.jsx` — Intro, animated name (letter-by-letter via AnimatedText, color `#d84f2a`), tagline, social links, profile photo.
   - `AboutSection.jsx` — Bio paragraph, education timeline, "Leadership & Community Involvement" animated card carousel (4 entries: CENT President, Peer Tutor, ENGenius, HRHS Volunteer).
   - `SkillsSection.jsx` — "The Stack Behind the Work" — tech stack grouped by category (Languages, Frameworks & Libraries, Data & Databases, Tools & Platforms). Uses devicon CDN icons and local images from `public/images/`.
-  - `ProjectsSection.jsx` — 5 projects in a 2-column grid. Images for Garment Worker, Smart Bakery, and Museek are served from `public/images/`.
+  - `ProjectsSection.jsx` — 9 projects (newest first) rendered in a Swiper coverflow carousel via `components/ui/card-carousel.jsx`. Each slide is a full project card (image + title + description with See more/less + a row of tech-stack icons + GitHub link). Tech icons are resolved via the `TECH_ICONS` map in `card-carousel.jsx` (devicon CDN + local `public/images/` + colored SimpleIcons; unknown labels fall back to a lettered chip). Newest 4: KakiLearn AI, Sleep Apnea Monitor, Smartwatch Speech Analytics, Grid. Local images live in `public/images/`.
+  - `CertificatesSection.jsx` — "Licenses & Certifications" — 6 credentials in an expand-on-hover / tap-to-expand accordion via `components/ui/expand-cards.jsx`. Each card shows the certificate image, org logo, title, issuer, and a "View credential" button (Microsoft's is disabled, labeled with its full Credential ID). Org logos use colored SimpleIcons (Google, NVIDIA, LangChain, Anthropic) plus local `harvard.svg`/`microsoft.svg`.
   - `AchievementsSection.jsx` — 5 achievements displayed using the Aceternity scroll-progress Timeline component.
   - `ContactSection.jsx` — "Let's Stay In Touch" (color `#0b7b9e`), description, chat input box with GitHub/LinkedIn/Gmail icons (brand-colored) and Send Message button.
   - `Footer.jsx` — "© 2026 Zin Hmue Paing. Designed and built by me." with social links.
 - `src/pages/` — 7 standalone full-page routes (Home, About, Skills, Projects, Achievements, Leadership, Contact). These are secondary; the main experience is the single-page scroll via sections.
+- `src/components/ui/card-carousel.jsx` — Swiper coverflow carousel of project cards (Vite-adapted from a Next.js pattern; uses `swiper` + `swiper/react`). Theme-aware glass container. Used by ProjectsSection.
+- `src/components/ui/expand-cards.jsx` — Expand-on-hover / tap-to-expand accordion of certificate cards (Vite-adapted). Horizontal accordion on desktop, vertical stacked accordion on mobile. Reuses `GlassButton` for credential links. Used by CertificatesSection.
 - `src/components/ui/timeline.jsx` — Aceternity Timeline component (Vite-adapted, no Next.js deps). Used by AchievementsSection.
 - `src/components/ui/animated-card.jsx` — Animated image carousel (adapted from AnimatedTestimonials). Uses lucide-react arrows. Used by AboutSection for leadership entries.
 - `src/components/ui/animated-text.jsx` — Letter-by-letter spring animation component. Supports `triggerOnScroll` prop for whileInView animation. Used for the name in HeroSection.
@@ -62,13 +65,20 @@ Hosted on **GitHub Pages** with custom domain **https://paing-portfolio.com/**.
 
 ### Section order on Home page
 
-RobotSection → HeroSection → AboutSection → SkillsSection → ProjectsSection → AchievementsSection → ContactSection
+RobotSection → HeroSection → AboutSection → SkillsSection → ProjectsSection → CertificatesSection → AchievementsSection → ContactSection
 
 ### Images
 
 Local images live in `public/images/` and are referenced in code as `` `${import.meta.env.BASE_URL}images/<filename>` `` to work correctly in both dev and production.
 
 Current files in `public/images/`:
+- `casualProfile.jpg` — casual profile photo (used in HeroSection)
+- `kakilearn.jpeg` — KakiLearn AI logo (used in ProjectsSection)
+- `kirby.png` — Sleep Apnea Monitor "Kirby" logo (used in ProjectsSection)
+- `smartwatch.png` — Smartwatch Speech Analytics image (used in ProjectsSection)
+- `grid.png` — Grid platform logo (used in ProjectsSection)
+- `google-ai-professional.png`, `nvidia-deep-learning.png`, `langchain-intro.png`, `cs50x.png`, `claude-101.png`, `microsoft-genai.png` — certificate images (used in CertificatesSection)
+- `google.svg`, `harvard.svg`, `microsoft.svg` — org logos for CertificatesSection (downloaded from Wikimedia; remaining org logos use SimpleIcons CDN)
 - `ENGenius.png` — ENGenius programme group photo (used in AboutSection leadership carousel)
 - `Vounteer.png` — HRHS mobile groceries volunteer photo (used in AboutSection)
 - `garmentWorker.png` — Garment Worker Productivity ML project diagram (used in ProjectsSection)

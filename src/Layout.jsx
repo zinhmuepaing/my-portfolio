@@ -6,6 +6,7 @@ import {
   User,
   Wrench,
   Briefcase,
+  BadgeCheck,
   Trophy,
   Mail,
 } from "lucide-react";
@@ -20,6 +21,7 @@ const navItems = [
   { name: "About", url: "about", icon: User },
   { name: "Skills", url: "skills", icon: Wrench },
   { name: "Projects", url: "projects", icon: Briefcase },
+  { name: "Certificates", url: "certificates", icon: BadgeCheck },
   { name: "Achievements", url: "achievements", icon: Trophy },
   { name: "Contact", url: "contact", icon: Mail },
 ];

@@ -5,7 +5,7 @@ const projects = [
   {
     title: "KakiLearn AI",
     description:
-      "Mobile-first web app that teaches seniors digital skills — banking, scam safety, and more — through interactive step-by-step simulators, voice-graded quizzes, and on-demand AI-generated multilingual courses.",
+      "Mobile-first web app that teaches seniors digital skills like banking and scam safety through interactive step-by-step simulators, voice-graded quizzes, and on-demand AI-generated multilingual courses.",
     tech: ["Next.js", "React", "TypeScript", "Claude Haiku 4.5", "Google Cloud TTS"],
     image: `${import.meta.env.BASE_URL}images/kakilearn.jpeg`,
     shortNote: "Note: All commits containing 'Paing' were authored by me.",
@@ -15,7 +15,7 @@ const projects = [
   {
     title: "Sleep Apnea Monitor",
     description:
-      "Full-stack health monitor: a wearable ESP32 streams live SpO2 and heart-rate to a Flask dashboard, with Kirby — a Claude-powered AI assistant offering wellness coaching and autonomous clinic booking via web and Telegram.",
+      "Full-stack health monitor: a wearable ESP32 streams live SpO2 and heart-rate to a Flask dashboard, with Kirby, a Claude-powered AI assistant offering wellness coaching and autonomous clinic booking via web and Telegram.",
     tech: ["Python", "Flask", "ESP32", "Claude", "Telegram", "Chart.js"],
     image: `${import.meta.env.BASE_URL}images/kirby.png`,
     github: "https://github.com/zinhmuepaing/sleep-apnea-monitor",
@@ -31,7 +31,7 @@ const projects = [
   {
     title: "Grid",
     description:
-      "Full-stack developer-collaboration platform with Tinder-style matchmaking for hackathons — pairing teammates by complementary skills and availability, with OAuth, real-time messaging, and automatic Discord workspace generation.",
+      "Full-stack developer-collaboration platform with Tinder-style matchmaking for hackathons, pairing teammates by complementary skills and availability, with OAuth, real-time messaging, and automatic Discord workspace generation.",
     tech: ["Python", "Flask", "SQLite", "OAuth", "Discord API"],
     image: `${import.meta.env.BASE_URL}images/grid.png`,
     github: "https://github.com/zinhmuepaing/grid-dev-collab-platform",

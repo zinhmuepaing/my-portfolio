@@ -4,7 +4,7 @@ import { Timeline } from "@/components/ui/timeline";
 const achievements = [
   {
     year: "2026",
-    title: "Finalist (Top 4) — Tech for Good Hackathon 2026",
+    title: "Finalist (Top 4), Tech for Good Hackathon 2026",
     description:
       "Selected among the Top 4 teams at the NTU College of Computing and Data Science Hackathon for Career Quest Map. Recognized for strong technical implementation, structured AI pipeline design, and practical impact for Singapore youth making early career decisions.",
     category: "Hackathon",
@@ -26,7 +26,7 @@ const achievements = [
     year: "2024/2025",
     title: "Director's List Award (Ranked #1, Common Engineering Programme)",
     description:
-      "Recognised on the Director's List for being the top academic achiever (#1 rank) among a cohort of over 400 students for AY2024/2025 in the Common Engineering Programme, the largest course at Temasek Polytechnic. This award marks a significant milestone following my transition from the Common Engineering Programme (CEP) into the Diploma in Computer Engineering, demonstrating both versatility and excellence in a highly competitive engineering environment.",
+      "Ranked #1 academic achiever among a cohort of 400+ students in the Common Engineering Programme (AY2024/2025), Temasek Polytechnic's largest course, before transitioning into the Diploma in Computer Engineering.",
     category: "Academic",
     categoryColor: "bg-blue-50 text-blue-700 border border-blue-100",
     image:
@@ -34,7 +34,7 @@ const achievements = [
   },
   {
     year: "2024/2025",
-    title: "Merit Award — RoboCoder Challenge",
+    title: "Merit Award, RoboCoder Challenge",
     description:
       "Awarded for excellence in C programming and robotics engineering in the RoboCoder Challenge. Demonstrated strong embedded programming skills, sensor integration, and systematic debugging under competition conditions.",
     category: "Technical",
@@ -44,7 +44,7 @@ const achievements = [
   },
   {
     year: "2024/2025",
-    title: "Merit Award — Electronic Design Competition",
+    title: "Merit Award, Electronic Design Competition",
     description:
       "Recognised for outstanding performance in electronic circuit design and troubleshooting. Demonstrated deep understanding of circuit analysis, component selection, and systematic problem-solving in electronic systems.",
     category: "Technical",

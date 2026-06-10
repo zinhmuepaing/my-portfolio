@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const achievements = [
     {
         title: "Finalist (Top 4) – Pathways in Python Tech for Good Hackathon 2026",
-        description: "Selected among the Top 4 teams at the NTU College of Computing and Data Science Hackathon for Career Quest Map — an AI-powered career pathway discovery game. Recognized for strong technical implementation, structured AI pipeline design, and practical impact for Singapore youth making early career decisions.",
+        description: "Selected among the Top 4 teams at the NTU College of Computing and Data Science Hackathon for Career Quest Map, an AI-powered career pathway discovery game. Recognized for strong technical implementation, structured AI pipeline design, and practical impact for Singapore youth making early career decisions.",
         icon: Trophy,
         color: "from-rose-500 to-pink-700",
         year: "2026",

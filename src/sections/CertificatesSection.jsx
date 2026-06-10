@@ -69,7 +69,7 @@ export default function CertificatesSection() {
             Licenses &amp; Certifications
           </h2>
           <p className="text-gray-500 dark:text-gray-400">
-            Industry credentials backing the skills — hover or tap a card to
+            Industry credentials backing the skills. Hover or tap a card to
             view details.
           </p>
         </motion.div>

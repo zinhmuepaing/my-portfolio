@@ -1,6 +1,12 @@
 // @ts-nocheck
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import {
+  ExternalLink,
+  Captions,
+  Mic,
+  AudioWaveform,
+  KeyRound,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { GlassButton } from "@/components/ui/liquid-glass";
@@ -23,8 +29,9 @@ const simpleicon = (slug, color) =>
 
 // Icon lookup keyed by the exact tech label used in ProjectsSection.
 // Reuses the devicon CDN + local images already used in SkillsSection;
-// colored SimpleIcons fill the gaps. Labels with no reliable logo are
-// omitted and fall back to a lettered chip in <TechIcon>.
+// colored SimpleIcons fill the gaps. Values are either an image URL (string)
+// or a Lucide icon component for concepts/libraries that have no clean square
+// brand logo. Labels with neither fall back to a lettered chip in <TechIcon>.
 export const TECH_ICONS = {
   Python: devicon("python/python-original"),
   "Next.js": simpleicon("nextdotjs", "64748B"),
@@ -54,22 +61,35 @@ export const TECH_ICONS = {
   "ASP.NET Blazor": devicon("blazor/blazor-original"),
   "Entity Framework": devicon("dotnetcore/dotnetcore-original"),
   "SQL Server": `${import.meta.env.BASE_URL}images/sqlLogo.png`,
+  EfficientNetV2L: devicon("keras/keras-original"),
+  // Concepts / libraries with no clean square brand logo — Lucide glyphs.
+  Whisper: Captions,
+  Parselmouth: Mic,
+  Librosa: AudioWaveform,
+  OAuth: KeyRound,
 };
 
 /** @type {React.FC<{ name: string }>} */
 export const TechIcon = ({ name }) => {
   const icon = TECH_ICONS[name];
+  const isImg = typeof icon === "string";
+  const Glyph = !isImg && icon ? icon : null;
   return (
     <div
       title={name}
       className="flex h-9 w-9 items-center justify-center rounded-lg border border-black/5 bg-white/80 shadow-sm dark:border-white/10 dark:bg-gray-800/70"
     >
-      {icon ? (
+      {isImg ? (
         <img
           src={icon}
           alt={name}
           className="h-5 w-5 object-contain"
           loading="lazy"
+        />
+      ) : Glyph ? (
+        <Glyph
+          className="h-5 w-5 text-slate-500 dark:text-slate-300"
+          strokeWidth={1.75}
         />
       ) : (
         <span className="text-[11px] font-bold text-gray-500 dark:text-gray-400">

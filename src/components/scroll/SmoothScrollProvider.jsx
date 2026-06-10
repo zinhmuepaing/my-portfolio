@@ -24,6 +24,8 @@ export function SmoothScrollProvider() {
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     let tick = null;
+    let onRefresh = null;
+    let onLoad = null;
 
     const start = () => {
       if (lenisInstance) return;
@@ -32,11 +34,29 @@ export function SmoothScrollProvider() {
       tick = (time) => lenisInstance && lenisInstance.raf(time * 1000);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
+
+      // Keep Lenis's cached scroll limit in lockstep with ScrollTrigger's pin
+      // spacers. The pinned showcases (Skills/Projects) inject tall spacers
+      // after Lenis first measured the page; without re-measuring, Lenis keeps
+      // a too-short limit and the scroll bottoms out before the final section
+      // and footer are reachable — most visibly on mobile, where late-loading
+      // images and the dynamic toolbar keep changing the page height.
+      onRefresh = () => lenisInstance && lenisInstance.resize();
+      ScrollTrigger.addEventListener("refresh", onRefresh);
+      // Refresh once Lenis is live, and again after late assets load.
+      ScrollTrigger.refresh();
+      onLoad = () => ScrollTrigger.refresh();
+      window.addEventListener("load", onLoad);
     };
 
     const stop = () => {
       if (!lenisInstance) return;
       if (tick) gsap.ticker.remove(tick);
+      if (onRefresh) ScrollTrigger.removeEventListener("refresh", onRefresh);
+      if (onLoad) window.removeEventListener("load", onLoad);
+      tick = null;
+      onRefresh = null;
+      onLoad = null;
       lenisInstance.destroy();
       lenisInstance = null;
     };

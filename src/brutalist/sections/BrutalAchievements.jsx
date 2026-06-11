@@ -32,6 +32,9 @@ export default function BrutalAchievements() {
           title={sectionMeta.achievements.title}
           desc={sectionMeta.achievements.desc}
           invert
+          // "Achievements" — fluid so the whole word (incl. the trailing "S")
+          // fits on one mobile line instead of wrapping.
+          titleClassName="text-[clamp(1.4rem,7vw,3.75rem)]"
         />
 
         <div className="relative mt-14 space-y-10 border-l-[4px] border-brutal-acid pl-6 sm:pl-10">

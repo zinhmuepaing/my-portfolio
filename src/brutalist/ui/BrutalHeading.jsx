@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
  *   invert?: boolean,
  *   align?: "left" | "center",
  *   className?: string,
+ *   titleClassName?: string,
  * }>}
  */
 export function BrutalHeading({
@@ -21,6 +22,7 @@ export function BrutalHeading({
   invert = false,
   align = "left",
   className,
+  titleClassName,
 }) {
   const ink = invert ? "text-brutal-cream" : "text-brutal-ink";
   const rule = invert ? "bg-brutal-cream" : "bg-brutal-ink";
@@ -49,10 +51,11 @@ export function BrutalHeading({
       )}
       <h2
         className={cn(
-          // Fluid size + break-words so long single titles (e.g. "Licenses &
-          // Certifications") never overflow and get clipped by the root's
-          // overflow-x-hidden on narrow mobile viewports.
-          "brutal-display mt-4 break-words text-[clamp(1.6rem,7vw,3.75rem)] font-extrabold uppercase",
+          "brutal-display mt-4 font-extrabold uppercase",
+          // Sections with long single-word titles pass a fluid size override so
+          // the word fits on one mobile line instead of being clipped by the
+          // root's overflow-x-hidden (see Certificates / Achievements).
+          titleClassName ?? "text-4xl sm:text-5xl md:text-6xl",
           ink
         )}
       >

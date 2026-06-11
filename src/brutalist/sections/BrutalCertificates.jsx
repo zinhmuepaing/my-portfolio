@@ -6,7 +6,7 @@ import { BrutalHeading } from "../ui/BrutalHeading";
 
 export default function BrutalCertificates() {
   return (
-    <section id="certificates" className="px-4 py-24 sm:px-6 lg:px-10">
+    <section id="certificates" className="px-6 py-24 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl">
         <BrutalHeading
           index={sectionMeta.certificates.index}
@@ -14,6 +14,9 @@ export default function BrutalCertificates() {
           desc={sectionMeta.certificates.desc}
           align="center"
           className="mx-auto"
+          // "Licenses & Certifications" — fluid so "CERTIFICATIONS" fits on one
+          // mobile line (wraps after the "&") instead of breaking mid-word.
+          titleClassName="text-[clamp(1.2rem,5.8vw,3.75rem)]"
         />
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

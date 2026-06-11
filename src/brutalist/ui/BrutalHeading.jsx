@@ -49,7 +49,10 @@ export function BrutalHeading({
       )}
       <h2
         className={cn(
-          "brutal-display mt-4 text-4xl font-extrabold uppercase sm:text-5xl md:text-6xl",
+          // Fluid size + break-words so long single titles (e.g. "Licenses &
+          // Certifications") never overflow and get clipped by the root's
+          // overflow-x-hidden on narrow mobile viewports.
+          "brutal-display mt-4 break-words text-[clamp(1.6rem,7vw,3.75rem)] font-extrabold uppercase",
           ink
         )}
       >

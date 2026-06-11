@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useTheme } from "next-themes";
 import {
@@ -32,6 +32,12 @@ const navItems = [
 
 export default function Layout() {
   const { mode } = useThemeMode();
+  // The toggle (which reads `mode` directly) flips and starts its BB8 slide
+  // immediately, but the heavy chrome swap below uses the *deferred* mode so
+  // React paints the toggle's first frames before committing the costly
+  // standard-page mount (Spline, particles, GSAP pins). Without this, that
+  // blocking commit drops frames mid-transition — the neo→light "glitch".
+  const deferredMode = useDeferredValue(mode);
   const { resolvedTheme } = useTheme();
   const [particleColor, setParticleColor] = useState("#000000");
 
@@ -44,7 +50,12 @@ export default function Layout() {
   return (
     <>
       <SmoothScrollProvider />
-      {mode === "brutalist" ? (
+      {/* Persistent across the experience-mode swap so the BB8 slide
+          transition actually plays (it lives above the chrome that remounts). */}
+      <div className="fixed right-4 top-4 z-[60] sm:right-6 sm:top-5">
+        <StarWarsToggle />
+      </div>
+      {deferredMode === "brutalist" ? (
         <BrutalistChrome>
           <Outlet />
         </BrutalistChrome>
@@ -60,9 +71,6 @@ export default function Layout() {
             refresh
           />
           <GlassFilter />
-          <div className="fixed top-4 right-4 z-50 md:top-6 md:right-6">
-            <StarWarsToggle />
-          </div>
           <NavBar items={navItems} />
           <main className="relative z-10">
             <Outlet />

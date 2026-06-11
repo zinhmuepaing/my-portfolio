@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { StarWarsToggle } from "@/components/ui/star-wars-toggle-switch";
 import { scrollToId } from "./scrollToId";
 import BrutalFooter from "./sections/BrutalFooter";
 
@@ -98,7 +97,6 @@ export function BrutalistChrome({ children }) {
         </div>
 
         <div className="flex items-center gap-3">
-          <StarWarsToggle />
           <button
             className="border-2 border-brutal-ink p-1 lg:hidden"
             onClick={() => setOpen((o) => !o)}
@@ -106,6 +104,10 @@ export function BrutalistChrome({ children }) {
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
+          {/* Reserves the corner the persistent StarWarsToggle (rendered in
+              Layout) floats over, so the toggle never overlaps the nav links
+              or the menu button. Matches the toggle's rendered width. */}
+          <div aria-hidden className="h-[51px] w-[96px] md:w-[107px]" />
         </div>
       </nav>
 

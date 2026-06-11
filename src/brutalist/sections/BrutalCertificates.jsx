@@ -23,7 +23,7 @@ export default function BrutalCertificates() {
           {certificates.map((cert) => (
             <article
               key={cert.title}
-              className="brutal-reveal flex flex-col border-[4px] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
+              className="brutal-reveal flex min-w-0 flex-col border-[4px] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
             >
               <div className="aspect-[4/3] overflow-hidden border-b-[4px] border-brutal-ink bg-white">
                 <img
@@ -48,7 +48,7 @@ export default function BrutalCertificates() {
 
                 <div className="mt-auto pt-5">
                   {cert.disabled ? (
-                    <span className="block break-words border-[3px] border-dashed border-brutal-ink/40 bg-brutal-cream px-3 py-2 text-[11px] font-semibold text-brutal-ink/60">
+                    <span className="block break-all border-[3px] border-dashed border-brutal-ink/40 bg-brutal-cream px-3 py-2 text-[11px] font-semibold text-brutal-ink/60">
                       {cert.buttonLabel}
                     </span>
                   ) : (

@@ -11,8 +11,7 @@ export const profile = {
   name: "Zin Hmue Paing",
   eyebrow: "Hi, my name is",
   role: "Computer Engineering Student | Aspiring Software & AI Engineer",
-  resumeUrl:
-    "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/692e491a01c140ee9df5e4d9/2e333f421_RESUME_Zin_Hmue_Paing.pdf",
+  resumeUrl: `${BASE}Zin_Hmue_Paing_Resume.pdf`,
   photo: `${BASE}images/casualProfile.jpg`,
   socials: {
     linkedin: "https://linkedin.com/in/zinhmuepaing",

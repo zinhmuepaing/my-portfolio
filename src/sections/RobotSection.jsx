@@ -40,7 +40,7 @@ export default function RobotSection() {
             </motion.div>
 
             {/* Right content — 3D Robot */}
-            <div className="flex-1 relative h-[450px] lg:h-[600px] w-full">
+            <div className="flex-1 relative h-[28.125rem] lg:h-[37.5rem] w-full">
               <SplineScene
                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                 className="w-full h-full"

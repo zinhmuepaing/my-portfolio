@@ -31,8 +31,8 @@ export const timeline = [
 
 export const leadershipCards = [
   {
-    name: "President, CENT",
-    organization: "Computer Engineering Network (CENT)",
+    name: "President and Mentor, CENT",
+    organization: "Computer Engineering NeTwork (CENT)",
     designation: "Apr 2025 – Present",
     quote:
       "Led the planning and execution of major student events, coordinating logistics and cross-committee communications to build a strong Computer Engineering community.",

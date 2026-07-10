@@ -26,7 +26,7 @@ export default function BrutalContact() {
   return (
     <section
       id="contact"
-      className="border-t-[4px] border-brutal-ink bg-brutal-orange px-4 py-24 text-brutal-ink sm:px-6 lg:px-10"
+      className="border-t-[0.25rem] border-brutal-ink bg-brutal-orange px-4 py-24 text-brutal-ink sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-3xl text-center">
         <BrutalHeading
@@ -42,7 +42,7 @@ export default function BrutalContact() {
 
         <form
           onSubmit={handleSubmit}
-          className="brutal-reveal mx-auto mt-10 max-w-2xl border-[4px] border-brutal-ink bg-brutal-cream p-2 shadow-brutal-lg"
+          className="brutal-reveal mx-auto mt-10 max-w-2xl border-[0.25rem] border-brutal-ink bg-brutal-cream p-2 shadow-brutal-lg"
         >
           <textarea
             value={message}
@@ -60,7 +60,7 @@ export default function BrutalContact() {
                 {...(href.startsWith("mailto:")
                   ? {}
                   : { target: "_blank", rel: "noopener noreferrer" })}
-                className="flex h-9 w-9 items-center justify-center border-[2px] border-transparent text-brutal-ink hover:border-brutal-ink hover:bg-brutal-acid"
+                className="flex h-9 w-9 items-center justify-center border-[0.125rem] border-transparent text-brutal-ink hover:border-brutal-ink hover:bg-brutal-acid"
               >
                 <Icon className="h-4 w-4" />
               </a>

@@ -68,6 +68,17 @@
   }
 }
 
+/* Fluid upscale for large monitors: the whole design is rem-based (Tailwind
+   spacing, max-widths, and type), so growing the root font size with the
+   viewport scales the entire composition proportionally instead of leaving a
+   narrow centered column. 16px up to the 1536px design width, then linear
+   with the viewport, capped at 24px so ultra-wides don't balloon. */
+@media (min-width: 1536px) {
+  html {
+    font-size: min(calc(100vw / 96), 24px);
+  }
+}
+
 /* Hide system scrollbars everywhere; Lenis (wheel/trackpad momentum) and
    native touch scrolling still work. */
 html,
@@ -139,7 +150,7 @@ html.lenis body {
   background-image:
     linear-gradient(to right, rgba(10, 10, 10, 0.07) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(10, 10, 10, 0.07) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-size: 2.75rem 2.75rem;
 }
 
 /* Crosshair cursor only on fine pointers (desktop) */
@@ -177,26 +188,26 @@ html.lenis body {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  border: 3px solid #0a0a0a;
+  border: 0.1875rem solid #0a0a0a;
   background: #0a0a0a;
   color: #fff;
   padding: 0.85rem 1.6rem;
-  box-shadow: 5px 5px 0 0 #0a0a0a;
+  box-shadow: 0.3125rem 0.3125rem 0 0 #0a0a0a;
   transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.15s ease,
     color 0.15s ease;
 }
 .brutal-btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 0 #0a0a0a;
+  box-shadow: 0.4375rem 0.4375rem 0 0 #0a0a0a;
 }
 .brutal-btn:active {
-  transform: translate(5px, 5px);
+  transform: translate(0.3125rem, 0.3125rem);
   box-shadow: 0 0 0 0 #0a0a0a;
 }
 
 /* Checkerboard divider strip */
 .brutal-checker {
-  height: 44px;
+  height: 2.75rem;
   width: 100%;
   background-image: conic-gradient(
     #0a0a0a 90deg,
@@ -204,9 +215,9 @@ html.lenis body {
     #0a0a0a 180deg 270deg,
     #f4f4f0 270deg
   );
-  background-size: 24px 24px;
-  border-top: 3px solid #0a0a0a;
-  border-bottom: 3px solid #0a0a0a;
+  background-size: 1.5rem 1.5rem;
+  border-top: 0.1875rem solid #0a0a0a;
+  border-bottom: 0.1875rem solid #0a0a0a;
 }
 
 /* Reveal primitive for GSAP (hidden until .is-in is added) */

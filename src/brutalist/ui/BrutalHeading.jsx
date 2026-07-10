@@ -46,7 +46,7 @@ export function BrutalHeading({
           <span className={cn("brutal-mono text-xs font-bold tracking-[0.3em]", muted)}>
             [ {index} ]
           </span>
-          <span className={cn("h-[3px] w-12 sm:w-20", rule)} />
+          <span className={cn("h-[0.1875rem] w-12 sm:w-20", rule)} />
         </div>
       )}
       <h2

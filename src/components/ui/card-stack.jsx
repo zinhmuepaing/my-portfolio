@@ -64,22 +64,31 @@ export function CardStack({
 
   const rootRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(cardWidth);
+  const [remScale, setRemScale] = useState(1);
 
-  // Measure available width so the fan scales down on tablet/mobile.
+  // Measure available width so the fan scales down on tablet/mobile, and the
+  // root font size so the px-based card dimensions follow the fluid rem
+  // upscale on large monitors (see index.css).
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
-    const update = () => setContainerWidth(el.clientWidth);
+    const update = () => {
+      setContainerWidth(el.clientWidth);
+      const rootFont = parseFloat(
+        getComputedStyle(document.documentElement).fontSize
+      );
+      setRemScale(rootFont > 0 ? rootFont / 16 : 1);
+    };
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  const isNarrow = containerWidth < 640;
+  const isNarrow = containerWidth < 640 * remScale;
   const effectiveCardWidth = Math.max(
     240,
-    Math.min(cardWidth, containerWidth - 24)
+    Math.min(cardWidth * remScale, containerWidth - 24)
   );
   const effectiveCardHeight = Math.round(
     cardHeight * (effectiveCardWidth / cardWidth)

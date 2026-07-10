@@ -24,7 +24,7 @@ export default function BrutalAchievements() {
   return (
     <section
       id="achievements"
-      className="border-y-[4px] border-brutal-ink bg-brutal-ink px-4 py-24 text-brutal-cream sm:px-6 lg:px-10"
+      className="border-y-[0.25rem] border-brutal-ink bg-brutal-ink px-4 py-24 text-brutal-cream sm:px-6 lg:px-10"
     >
       <div className="mx-auto max-w-5xl">
         <BrutalHeading
@@ -37,11 +37,11 @@ export default function BrutalAchievements() {
           titleClassName="text-[clamp(1.4rem,7vw,3.75rem)]"
         />
 
-        <div className="relative mt-14 space-y-10 border-l-[4px] border-brutal-acid pl-6 sm:pl-10">
+        <div className="relative mt-14 space-y-10 border-l-[0.25rem] border-brutal-acid pl-6 sm:pl-10">
           {achievements.map((a, i) => (
             <div key={i} className="brutal-reveal relative">
               {/* Node */}
-              <span className="absolute -left-[34px] top-1 flex h-6 w-6 items-center justify-center border-[3px] border-brutal-ink bg-brutal-acid brutal-mono text-[10px] font-bold text-brutal-ink sm:-left-[54px]">
+              <span className="absolute -left-[2.125rem] top-1 flex h-6 w-6 items-center justify-center border-[0.1875rem] border-brutal-ink bg-brutal-acid brutal-mono text-[10px] font-bold text-brutal-ink sm:-left-[3.375rem]">
                 {i + 1}
               </span>
 
@@ -49,8 +49,8 @@ export default function BrutalAchievements() {
                 {a.year}
               </p>
 
-              <div className="mt-3 overflow-hidden border-[4px] border-brutal-ink bg-brutal-cream text-brutal-ink shadow-brutal-lg sm:flex">
-                <div className="h-44 shrink-0 overflow-hidden border-b-[4px] border-brutal-ink sm:h-auto sm:w-56 sm:border-b-0 sm:border-r-[4px]">
+              <div className="mt-3 overflow-hidden border-[0.25rem] border-brutal-ink bg-brutal-cream text-brutal-ink shadow-brutal-lg sm:flex">
+                <div className="h-44 shrink-0 overflow-hidden border-b-[0.25rem] border-brutal-ink sm:h-auto sm:w-56 sm:border-b-0 sm:border-r-[0.25rem]">
                   <img
                     src={a.image}
                     alt={a.title}

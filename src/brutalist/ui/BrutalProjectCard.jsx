@@ -15,9 +15,9 @@ export function BrutalProjectCard({ project }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="flex h-full max-h-[calc(100vh-210px)] flex-col overflow-hidden border-[4px] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform duration-150 hover:-translate-x-1 hover:-translate-y-1">
+    <div className="flex h-full max-h-[calc(100vh-13.125rem)] flex-col overflow-hidden border-[0.25rem] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform duration-150 hover:-translate-x-1 hover:-translate-y-1">
       {/* Image */}
-      <div className="h-32 shrink-0 overflow-hidden border-b-[4px] border-brutal-ink bg-white">
+      <div className="h-32 shrink-0 overflow-hidden border-b-[0.25rem] border-brutal-ink bg-white">
         {project.image ? (
           <img
             src={project.image}
@@ -57,7 +57,7 @@ export function BrutalProjectCard({ project }) {
           )}
 
           {!expanded && project.shortNote && (
-            <p className="mt-2 border-l-[3px] border-brutal-orange bg-brutal-orange/15 px-2 py-1 text-xs font-bold text-brutal-ink">
+            <p className="mt-2 border-l-[0.1875rem] border-brutal-orange bg-brutal-orange/15 px-2 py-1 text-xs font-bold text-brutal-ink">
               {project.shortNote}
             </p>
           )}

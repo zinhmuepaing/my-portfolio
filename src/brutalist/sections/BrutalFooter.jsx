@@ -13,9 +13,9 @@ const socialLinks = [
 
 export default function BrutalFooter() {
   return (
-    <footer className="relative z-10 border-t-[4px] border-brutal-ink bg-brutal-ink text-brutal-cream">
+    <footer className="relative z-10 border-t-[0.25rem] border-brutal-ink bg-brutal-ink text-brutal-cream">
       {/* Marquee */}
-      <div className="overflow-hidden border-b-[3px] border-brutal-cream/20 bg-brutal-acid py-3">
+      <div className="overflow-hidden border-b-[0.1875rem] border-brutal-cream/20 bg-brutal-acid py-3">
         <div className="flex w-max animate-marquee whitespace-nowrap">
           <span className="brutal-display text-xl font-extrabold uppercase text-brutal-ink">
             {MARQUEE.repeat(4)}
@@ -39,7 +39,7 @@ export default function BrutalFooter() {
               {...(href.startsWith("mailto:")
                 ? {}
                 : { target: "_blank", rel: "noopener noreferrer" })}
-              className="flex h-9 w-9 items-center justify-center border-[2px] border-brutal-cream/40 text-brutal-cream hover:border-brutal-acid hover:bg-brutal-acid hover:text-brutal-ink"
+              className="flex h-9 w-9 items-center justify-center border-[0.125rem] border-brutal-cream/40 text-brutal-cream hover:border-brutal-acid hover:bg-brutal-acid hover:text-brutal-ink"
             >
               <Icon className="h-4 w-4" />
             </a>

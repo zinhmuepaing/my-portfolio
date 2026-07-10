@@ -4,6 +4,16 @@ import { ProjectCard } from "@/components/ui/project-card";
 
 export const projects = [
   {
+    title: "Lizzie",
+    description:
+      "Always-on AI overlay companion for Windows — summoned by a global hotkey to polish selected text in place, answer questions about whatever's on screen with annotated voice narration, or autonomously carry out PC tasks via Windows UI Automation. Runs entirely offline for speech; API keys are encrypted locally via Windows DPAPI with no backend server.",
+    tech: ["Electron", "Node.js", "Claude", "Whisper", "PowerShell", "Edge TTS"],
+    image: `${import.meta.env.BASE_URL}images/LandingPage.png`,
+    github: "https://github.com/zinhmuepaing/lizzie",
+    buttonLabel: "Visit Website",
+    buttonUrl: "https://lizzie-kappa.vercel.app/",
+  },
+  {
     title: "KakiLearn AI",
     description:
       "Mobile-first web app that teaches seniors digital skills like banking and scam safety through interactive step-by-step simulators, voice-graded quizzes, and on-demand AI-generated multilingual courses.",
@@ -18,7 +28,7 @@ export const projects = [
     description:
       "Full-stack health monitor: a wearable ESP32 streams live SpO2 and heart-rate to a Flask dashboard, with Kirby, a Claude-powered AI assistant offering wellness coaching and autonomous clinic booking via web and Telegram.",
     tech: ["Python", "Flask", "ESP32", "Claude", "Telegram", "Chart.js"],
-    image: `${import.meta.env.BASE_URL}images/kirby.png`,
+    image: `${import.meta.env.BASE_URL}images/Sleep Apnea Image.png`,
     github: "https://github.com/zinhmuepaing/sleep-apnea-monitor",
   },
   {
@@ -97,7 +107,7 @@ export default function ProjectsSection() {
         }
       >
         {projects.map((project) => (
-          <div key={project.title} className="flex w-[320px] shrink-0 sm:w-[340px]">
+          <div key={project.title} className="flex w-[20rem] shrink-0 sm:w-[21.25rem]">
             <ProjectCard project={project} />
           </div>
         ))}

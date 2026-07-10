@@ -76,7 +76,7 @@ export function BrutalistChrome({ children }) {
       <BrutalCursor />
 
       {/* NAV */}
-      <nav className="fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between border-b-[3px] border-brutal-ink bg-brutal-cream px-4 sm:px-6">
+      <nav className="fixed inset-x-0 top-0 z-50 flex h-20 items-center justify-between border-b-[0.1875rem] border-brutal-ink bg-brutal-cream px-4 sm:px-6">
         <button
           onClick={() => handleNav("hero")}
           className="brutal-display text-lg font-extrabold uppercase tracking-tight sm:text-xl"
@@ -113,7 +113,7 @@ export function BrutalistChrome({ children }) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="fixed inset-x-0 top-20 z-40 border-b-[3px] border-brutal-ink bg-brutal-cream lg:hidden">
+        <div className="fixed inset-x-0 top-20 z-40 border-b-[0.1875rem] border-brutal-ink bg-brutal-cream lg:hidden">
           <div className="flex flex-col">
             {NAV.map((item) => (
               <button

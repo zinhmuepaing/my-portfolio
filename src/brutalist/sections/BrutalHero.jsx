@@ -19,7 +19,7 @@ export default function BrutalHero() {
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
         {/* Text */}
         <div>
-          <span className="brutal-reveal brutal-mono inline-block border-[3px] border-brutal-ink bg-brutal-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brutal-cream shadow-brutal-sm">
+          <span className="brutal-reveal brutal-mono inline-block border-[0.1875rem] border-brutal-ink bg-brutal-blue px-3 py-1 text-xs font-bold uppercase tracking-widest text-brutal-cream shadow-brutal-sm">
             {profile.eyebrow}
           </span>
 
@@ -30,7 +30,7 @@ export default function BrutalHero() {
             {profile.name}
           </h1>
 
-          <p className="brutal-reveal mt-4 max-w-xl border-l-[5px] border-brutal-orange pl-4 text-lg font-medium text-brutal-ink sm:text-xl">
+          <p className="brutal-reveal mt-4 max-w-xl border-l-[0.3125rem] border-brutal-orange pl-4 text-lg font-medium text-brutal-ink sm:text-xl">
             {profile.role}
           </p>
 
@@ -64,7 +64,7 @@ export default function BrutalHero() {
                 {...(href.startsWith("mailto:")
                   ? {}
                   : { target: "_blank", rel: "noopener noreferrer" })}
-                className="flex h-11 w-11 items-center justify-center border-[3px] border-brutal-ink bg-brutal-cream shadow-brutal-sm transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-brutal-pink hover:text-brutal-cream"
+                className="flex h-11 w-11 items-center justify-center border-[0.1875rem] border-brutal-ink bg-brutal-cream shadow-brutal-sm transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-brutal-pink hover:text-brutal-cream"
               >
                 <Icon className="h-5 w-5" />
               </a>
@@ -77,13 +77,13 @@ export default function BrutalHero() {
           <div className="relative">
             <div
               aria-hidden
-              className="absolute inset-0 translate-x-4 translate-y-4 border-[4px] border-brutal-ink bg-brutal-blue"
+              className="absolute inset-0 translate-x-4 translate-y-4 border-[0.25rem] border-brutal-ink bg-brutal-blue"
             />
             <img
               src={profile.photo}
               alt={profile.name}
               data-parallax="24"
-              className="relative w-60 border-[4px] border-brutal-ink object-cover object-top sm:w-72 md:w-80"
+              className="relative w-60 border-[0.25rem] border-brutal-ink object-cover object-top sm:w-72 md:w-80"
             />
           </div>
         </div>

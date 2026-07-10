@@ -6,6 +6,7 @@ import {
   Mic,
   AudioWaveform,
   KeyRound,
+  Volume2,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -17,9 +18,12 @@ import { GlassButton } from "@/components/ui/liquid-glass";
  * @property {string} description
  * @property {string[]} tech
  * @property {string} [image]
+ * @property {"cover"|"contain"} [imageFit]
  * @property {string} [shortNote]
  * @property {string} [note]
  * @property {string} github
+ * @property {string} [buttonUrl]
+ * @property {string} [buttonLabel]
  */
 
 const devicon = (slug) =>
@@ -62,11 +66,16 @@ export const TECH_ICONS = {
   "Entity Framework": devicon("dotnetcore/dotnetcore-original"),
   "SQL Server": `${import.meta.env.BASE_URL}images/sqlLogo.png`,
   EfficientNetV2L: devicon("keras/keras-original"),
+  // Desktop / native tooling
+  Electron: devicon("electron/electron-original"),
+  "Node.js": devicon("nodejs/nodejs-original"),
+  PowerShell: devicon("powershell/powershell-original"),
   // Concepts / libraries with no clean square brand logo — Lucide glyphs.
   Whisper: Captions,
   Parselmouth: Mic,
   Librosa: AudioWaveform,
   OAuth: KeyRound,
+  "Edge TTS": Volume2,
 };
 
 /** @type {React.FC<{ name: string }>} */
@@ -112,7 +121,10 @@ export const ProjectCard = ({ project }) => {
           <img
             src={project.image}
             alt={project.title}
-            className="h-full w-full object-cover"
+            className={cn(
+              "h-full w-full",
+              project.imageFit === "contain" ? "object-contain" : "object-cover"
+            )}
             loading="lazy"
           />
         ) : (
@@ -163,12 +175,15 @@ export const ProjectCard = ({ project }) => {
           ))}
         </div>
 
-        {/* GitHub link */}
+        {/* Primary link — website if provided, otherwise GitHub */}
         <div className="mt-auto">
-          <GlassButton href={project.github} className="!px-6 !py-3">
+          <GlassButton
+            href={project.buttonUrl ?? project.github}
+            className="!px-6 !py-3"
+          >
             <span className="flex items-center gap-2 text-sm">
               <ExternalLink className="h-4 w-4" />
-              View on GitHub
+              {project.buttonLabel ?? "View on GitHub"}
             </span>
           </GlassButton>
         </div>

@@ -5,7 +5,7 @@ import { BrutalHeading } from "../ui/BrutalHeading";
 
 function SkillChip({ skill }) {
   return (
-    <span className="flex items-center gap-2 border-[3px] border-brutal-ink bg-brutal-cream px-3 py-1.5 text-sm font-semibold text-brutal-ink shadow-brutal-sm">
+    <span className="flex items-center gap-2 border-[0.1875rem] border-brutal-ink bg-brutal-cream px-3 py-1.5 text-sm font-semibold text-brutal-ink shadow-brutal-sm">
       {skill.icon ? (
         <img
           src={skill.icon}
@@ -25,7 +25,7 @@ function SkillChip({ skill }) {
 
 export default function BrutalSkills() {
   return (
-    <section id="skills" className="border-y-[4px] border-brutal-ink bg-brutal-blue px-4 py-24 sm:px-6 lg:px-10">
+    <section id="skills" className="border-y-[0.25rem] border-brutal-ink bg-brutal-blue px-4 py-24 sm:px-6 lg:px-10">
       <div className="mx-auto max-w-6xl">
         <BrutalHeading
           index={sectionMeta.skills.index}
@@ -38,7 +38,7 @@ export default function BrutalSkills() {
           {skillCategories.map((category, i) => (
             <div
               key={category.title}
-              className="brutal-reveal border-[4px] border-brutal-ink bg-brutal-cream p-6 shadow-brutal-lg"
+              className="brutal-reveal border-[0.25rem] border-brutal-ink bg-brutal-cream p-6 shadow-brutal-lg"
             >
               <div className="mb-4 flex items-baseline gap-3">
                 <span className="brutal-mono text-sm font-bold text-brutal-orange">

@@ -15,10 +15,12 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)'
             },
             boxShadow: {
-                brutal: '6px 6px 0 0 #0a0a0a',
-                'brutal-lg': '10px 10px 0 0 #0a0a0a',
-                'brutal-sm': '4px 4px 0 0 #0a0a0a',
-                'brutal-hover': '12px 12px 0 0 #0a0a0a'
+                // rem so the hard offset shadows scale with the fluid root
+                // font size on large monitors (see index.css).
+                brutal: '0.375rem 0.375rem 0 0 #0a0a0a',
+                'brutal-lg': '0.625rem 0.625rem 0 0 #0a0a0a',
+                'brutal-sm': '0.25rem 0.25rem 0 0 #0a0a0a',
+                'brutal-hover': '0.75rem 0.75rem 0 0 #0a0a0a'
             },
             colors: {
                 brutal: {

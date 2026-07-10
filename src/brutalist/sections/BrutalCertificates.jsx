@@ -23,9 +23,9 @@ export default function BrutalCertificates() {
           {certificates.map((cert) => (
             <article
               key={cert.title}
-              className="brutal-reveal flex min-w-0 flex-col border-[4px] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
+              className="brutal-reveal flex min-w-0 flex-col border-[0.25rem] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
             >
-              <div className="aspect-[4/3] overflow-hidden border-b-[4px] border-brutal-ink bg-white">
+              <div className="aspect-[4/3] overflow-hidden border-b-[0.25rem] border-brutal-ink bg-white">
                 <img
                   src={cert.image}
                   alt={cert.title}
@@ -35,7 +35,7 @@ export default function BrutalCertificates() {
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-center gap-2">
-                  <span className="flex h-8 w-8 items-center justify-center border-[2px] border-brutal-ink bg-white">
+                  <span className="flex h-8 w-8 items-center justify-center border-[0.125rem] border-brutal-ink bg-white">
                     <img src={cert.logo} alt={cert.issuer} className="h-5 w-5 object-contain" />
                   </span>
                   <span className="brutal-mono text-xs font-bold uppercase tracking-wider text-brutal-ink/70">
@@ -48,7 +48,7 @@ export default function BrutalCertificates() {
 
                 <div className="mt-auto pt-5">
                   {cert.disabled ? (
-                    <span className="block break-all border-[3px] border-dashed border-brutal-ink/40 bg-brutal-cream px-3 py-2 text-[11px] font-semibold text-brutal-ink/60">
+                    <span className="block break-all border-[0.1875rem] border-dashed border-brutal-ink/40 bg-brutal-cream px-3 py-2 text-[11px] font-semibold text-brutal-ink/60">
                       {cert.buttonLabel}
                     </span>
                   ) : (

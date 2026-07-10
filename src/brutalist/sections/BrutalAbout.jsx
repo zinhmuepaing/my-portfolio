@@ -30,7 +30,7 @@ export default function BrutalAbout() {
         <BrutalHeading index={sectionMeta.about.index} title={sectionMeta.about.title} />
 
         {/* Intro */}
-        <p className="brutal-reveal mt-8 max-w-3xl border-l-[5px] border-brutal-blue pl-5 text-lg leading-relaxed text-brutal-ink sm:text-xl">
+        <p className="brutal-reveal mt-8 max-w-3xl border-l-[0.3125rem] border-brutal-blue pl-5 text-lg leading-relaxed text-brutal-ink sm:text-xl">
           {aboutIntro.pre}
           <span className="bg-brutal-acid px-1 font-bold">{aboutIntro.emphasis}</span>
           {aboutIntro.post}
@@ -44,7 +44,7 @@ export default function BrutalAbout() {
           {timeline.map((item, i) => (
             <div
               key={i}
-              className="brutal-reveal border-[4px] border-brutal-ink bg-brutal-cream p-6 shadow-brutal"
+              className="brutal-reveal border-[0.25rem] border-brutal-ink bg-brutal-cream p-6 shadow-brutal"
             >
               <p className="brutal-mono text-xs font-bold uppercase tracking-widest text-brutal-orange">
                 {item.period}
@@ -80,9 +80,9 @@ export default function BrutalAbout() {
           {leadershipCards.map((card) => (
             <article
               key={card.name}
-              className="brutal-reveal group overflow-hidden border-[4px] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
+              className="brutal-reveal group overflow-hidden border-[0.25rem] border-brutal-ink bg-brutal-cream shadow-brutal transition-transform hover:-translate-x-1 hover:-translate-y-1"
             >
-              <div className="aspect-[16/10] overflow-hidden border-b-[4px] border-brutal-ink">
+              <div className="aspect-[16/10] overflow-hidden border-b-[0.25rem] border-brutal-ink">
                 <img
                   src={card.src}
                   alt={card.name}

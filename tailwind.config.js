@@ -5,32 +5,22 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                display: ['Syne', 'sans-serif'],
-                grotesk: ['"Space Grotesk"', 'sans-serif'],
-                'space-mono': ['"Space Mono"', 'monospace']
+                serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif'],
+                mono: ['ui-monospace', '"SF Mono"', 'Menlo', 'Consolas', 'monospace']
             },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)'
             },
-            boxShadow: {
-                // rem so the hard offset shadows scale with the fluid root
-                // font size on large monitors (see index.css).
-                brutal: '0.375rem 0.375rem 0 0 #0a0a0a',
-                'brutal-lg': '0.625rem 0.625rem 0 0 #0a0a0a',
-                'brutal-sm': '0.25rem 0.25rem 0 0 #0a0a0a',
-                'brutal-hover': '0.75rem 0.75rem 0 0 #0a0a0a'
-            },
             colors: {
-                brutal: {
-                    cream: '#f4f4f0',
-                    ink: '#0a0a0a',
-                    blue: '#2e31ff',
-                    pink: '#ff00ff',
-                    orange: '#ff6b00',
-                    acid: '#bfff00'
+                coral: {
+                    DEFAULT: '#EC4D25',
+                    hover: '#D1411E',
+                    soft: 'rgba(236, 77, 37, 0.10)'
                 },
+                ink: '#0B0B0C',
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {
@@ -84,51 +74,17 @@ module.exports = {
             },
             keyframes: {
                 'accordion-down': {
-                    from: {
-                        height: '0'
-                    },
-                    to: {
-                        height: 'var(--radix-accordion-content-height)'
-                    }
+                    from: { height: '0' },
+                    to: { height: 'var(--radix-accordion-content-height)' }
                 },
                 'accordion-up': {
-                    from: {
-                        height: 'var(--radix-accordion-content-height)'
-                    },
-                    to: {
-                        height: '0'
-                    }
-                },
-                spotlight: {
-                    '0%': {
-                        opacity: 0,
-                        transform: 'translate(-72%, -62%) scale(0.5)'
-                    },
-                    '100%': {
-                        opacity: 1,
-                        transform: 'translate(-50%, -40%) scale(1)'
-                    }
-                },
-                'scroll-left': {
-                    '0%': { transform: 'translateX(0)' },
-                    '100%': { transform: 'translateX(-50%)' }
-                },
-                'scroll-right': {
-                    '0%': { transform: 'translateX(-50%)' },
-                    '100%': { transform: 'translateX(0)' }
-                },
-                marquee: {
-                    '0%': { transform: 'translateX(0)' },
-                    '100%': { transform: 'translateX(-50%)' }
+                    from: { height: 'var(--radix-accordion-content-height)' },
+                    to: { height: '0' }
                 }
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
-                'accordion-up': 'accordion-up 0.2s ease-out',
-                spotlight: 'spotlight 2s ease .75s 1 forwards',
-                'scroll-left': 'scroll-left 40s linear infinite',
-                'scroll-right': 'scroll-right 40s linear infinite',
-                marquee: 'marquee 18s linear infinite'
+                'accordion-up': 'accordion-up 0.2s ease-out'
             }
         }
     },

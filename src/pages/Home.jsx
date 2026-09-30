@@ -1,30 +1,25 @@
-import { useThemeMode } from "@/context/ThemeModeProvider";
-import RobotSection from "../sections/RobotSection";
 import HeroSection from "../sections/HeroSection";
 import AboutSection from "../sections/AboutSection";
+import ExperienceSection from "../sections/ExperienceSection";
 import SkillsSection from "../sections/SkillsSection";
 import ProjectsSection from "../sections/ProjectsSection";
-import CertificatesSection from "../sections/CertificatesSection";
+import CCASection from "../sections/CCASection";
+import CertificationsSection from "../sections/CertificationsSection";
 import AchievementsSection from "../sections/AchievementsSection";
 import ContactSection from "../sections/ContactSection";
-import BrutalistHome from "../brutalist/BrutalistHome";
 
-function StandardHome() {
+export default function Home() {
   return (
     <>
-      <RobotSection />
       <HeroSection />
       <AboutSection />
+      <ExperienceSection />
       <SkillsSection />
       <ProjectsSection />
-      <CertificatesSection />
+      <CCASection />
+      <CertificationsSection />
       <AchievementsSection />
       <ContactSection />
     </>
   );
-}
-
-export default function Home() {
-  const { mode } = useThemeMode();
-  return mode === "brutalist" ? <BrutalistHome /> : <StandardHome />;
 }

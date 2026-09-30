@@ -1,101 +1,61 @@
 // @ts-nocheck
-import { useScroll, useTransform, motion } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
+import { ScrollAnimation } from "@/components/ui/scroll-animation";
+import { cn } from "@/lib/utils";
 
 /**
- * Detects the nearest vertically-scrolling ancestor before mounting the core,
- * so the progress line tracks correctly both in normal page flow (window
- * scroll) and inside an internally-scrolling horizontal-track panel.
- *
- * @type {React.FC<{ data: Array<{ title: string, content: React.ReactNode }> }>}
+ * Vertical rail with dated rows (modelled on supachod.com). Optional `title`
+ * adds the group header with the rail-cap dot.
+ * @type {import("react").FC<any>}
  */
-export const Timeline = ({ data }) => {
-  const outerRef = useRef(null);
-  // undefined = not measured yet; null = window scroll; element = panel scroll
-  const [scrollContainer, setScrollContainer] = useState(undefined);
-
-  useLayoutEffect(() => {
-    let node = outerRef.current?.parentElement;
-    while (node && node !== document.body) {
-      const { overflowY } = getComputedStyle(node);
-      if (overflowY === "auto" || overflowY === "scroll") break;
-      node = node.parentElement;
-    }
-    setScrollContainer(node && node !== document.body ? node : null);
-  }, []);
-
-  return (
-    <div ref={outerRef}>
-      {scrollContainer !== undefined && (
-        <TimelineCore data={data} scrollContainer={scrollContainer} />
-      )}
+export const Timeline = ({ title, children, className }) => (
+  <div className={cn("tl", className)}>
+    {title && (
+      <div className="tl-header">
+        <div className="tl-cap" />
+        <h3 className="tl-title">{title}</h3>
+      </div>
+    )}
+    <div className="tl-items">
+      <div className="tl-rail" aria-hidden="true">
+        <div className="tl-rail-line" />
+      </div>
+      {children}
     </div>
-  );
-};
+  </div>
+);
 
-const TimelineCore = ({ data, scrollContainer }) => {
-  const ref = useRef(null);
-  const containerRef = useRef(null);
-  const scrollContainerRef = useRef(scrollContainer);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    container: scrollContainer ? scrollContainerRef : undefined,
-    offset: ["start 10%", "end 50%"],
-  });
-
-  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-
-  return (
-    <div
-      className="w-full font-sans"
-      ref={containerRef}
-    >
-      <div ref={ref} className="relative max-w-4xl mx-auto pb-12">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start pt-10 md:pt-16 md:gap-10"
-          >
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white flex items-center justify-center shadow">
-                <div className="h-4 w-4 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 border border-blue-200 p-2" />
-              </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-neutral-400">
-                {item.title}
-              </h3>
-            </div>
-
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-400">
-                {item.title}
-              </h3>
-              {item.content}
-            </div>
-          </div>
+/**
+ * One dated row. `date` is one or two lines, e.g. ["Aug 2024", "- May 2028"];
+ * on mobile the lines collapse into one inline label above the card.
+ * @type {import("react").FC<any>}
+ */
+export const TimelineRow = ({ date = [], children, delay = 0 }) => (
+  <ScrollAnimation className="tl-row" delay={delay}>
+    <div className="tl-marker">
+      <div className="tl-date">
+        <span className="tl-date-inline">{date.join(" ")}</span>
+        {date.map((d) => (
+          <span key={d}>{d}</span>
         ))}
-        <div
-          style={{ height: height + "px" }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
-        >
-          <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
-            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
-          />
-        </div>
       </div>
     </div>
-  );
-};
+    <div className="min-w-0">{children}</div>
+  </ScrollAnimation>
+);
+
+/** Square logo tile. `pad` keeps wide logos inside the tile. */
+export const LogoTile = ({ src, alt = "", pad = false, className }) => (
+  <div className={cn("tl-logo", pad && "tl-logo-pad", className)}>
+    <img src={src} alt={alt} loading="lazy" />
+  </div>
+);
+
+/** Glass pill link with the external-arrow glyph. */
+export const PillLink = ({ href, icon, children }) => (
+  <a className="tl-link" href={href} target="_blank" rel="noopener noreferrer">
+    {icon}
+    <span>{children}</span>
+    <ArrowUpRight className="h-[13px] w-[13px] shrink-0" />
+  </a>
+);

@@ -1,104 +1,156 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
-import { GlassButton } from "@/components/ui/liquid-glass";
-import { AnimatedText } from "@/components/ui/animated-text";
-import { profile, heroBio } from "@/data/copy";
+import { useEffect, useRef } from "react";
+import { useReducedMotion } from "framer-motion";
+import { ArrowDown, FileText } from "lucide-react";
+import TextAnimation from "@/components/ui/scroll-text";
+import { GlassButton } from "@/components/ui/glass";
+import { GitHubIcon, GmailIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import { DragAvatar } from "@/components/physics/DragAvatar";
+import { profile } from "@/data/copy";
 
-export default function HeroSection() {
-  const scrollToProjects = () => {
-    const el = document.getElementById("projects");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
+// Blur-in only (no translate) so the name never shifts while it animates.
+const fade = {
+  hidden: { filter: "blur(8px)", opacity: 0 },
+  visible: { filter: "blur(0px)", opacity: 1, transition: { duration: 0.5 } },
+};
+
+const GLYPHS = "!<>-_\\/[]{}=+*^?#01";
+const rand = (n) => (Math.random() - 0.5) * 2 * n;
+
+/**
+ * The name plays its entrance animation, then loops: glitch into `alt`, hold,
+ * glitch back, hold. The entrance text keeps the layout (no reflow); a
+ * positioned overlay shows the scrambled text.
+ */
+function GlitchName({ text, alt }) {
+  const reduce = useReducedMotion();
+  const baseRef = useRef(null);
+  const overlayRef = useRef(null);
+
+  useEffect(() => {
+    if (reduce) return;
+    const base = baseRef.current;
+    const overlay = overlayRef.current;
+    let dead = false;
+    let raf = 0;
+    let timer = 0;
+
+    const wait = (ms) => new Promise((r) => (timer = setTimeout(r, ms)));
+    const show = (on) => {
+      base.style.opacity = on ? "0" : "1";
+      overlay.style.opacity = on ? "1" : "0";
+    };
+    const scramble = (to, ms) =>
+      new Promise((resolve) => {
+        const start = performance.now();
+        let lastPaint = 0;
+        const tick = (t) => {
+          if (dead) return resolve();
+          const p = Math.min((t - start) / ms, 1);
+          if (t - lastPaint > 40 || p === 1) {
+            lastPaint = t;
+            let out = "";
+            const glyph = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
+            for (let i = 0; i < Math.max(Number(overlay.dataset.len), to.length); i++) {
+              if (i < to.length) out += p >= (i + 1) / to.length ? to[i] : glyph();
+              else out += p >= 1 ? "" : glyph();
+            }
+            overlay.textContent = out;
+            const jitter = p < 1;
+            overlay.style.transform = jitter ? `translate(${rand(3)}px, ${rand(1.5)}px) skewX(${rand(6)}deg)` : "none";
+            overlay.style.textShadow = jitter ? "2px 0 rgba(0,229,255,.8), -2px 0 rgba(255,45,85,.8)" : "none";
+          }
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else {
+            overlay.dataset.len = String(to.length);
+            resolve();
+          }
+        };
+        raf = requestAnimationFrame(tick);
+      });
+
+    (async () => {
+      overlay.dataset.len = String(text.length);
+      await wait(3200); // let the entrance animation settle
+      while (!dead) {
+        overlay.textContent = text;
+        show(true);
+        await scramble(alt, 800);
+        await wait(2400);
+        await scramble(text, 800);
+        show(false);
+        await wait(4200);
+      }
+    })();
+
+    return () => {
+      dead = true;
+      cancelAnimationFrame(raf);
+      clearTimeout(timer);
+    };
+  }, [reduce, text, alt]);
 
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center px-4 sm:px-6 lg:px-8"
-    >
-      <div className="max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
+    <span className="relative block">
+      <span ref={baseRef} className="block">
+        <TextAnimation as="span" text={text} letterAnime variants={fade} delay={0.25} className="block text-coral" />
+      </span>
+      <span
+        ref={overlayRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 block whitespace-nowrap text-coral opacity-0"
+      />
+    </span>
+  );
+}
+
+const pills = [
+  { label: "Email", Icon: GmailIcon, href: profile.socials.email },
+  { label: "LinkedIn", Icon: LinkedInIcon, href: profile.socials.linkedin },
+  { label: "GitHub", Icon: GitHubIcon, href: profile.socials.github },
+];
+
+export default function HeroSection() {
+  const ref = useRef(null);
+
+  return (
+    <section ref={ref} id="hero" className="relative pb-2 pt-28 sm:pb-3 lg:pt-36 [overflow-x:clip]">
+      <div className="wrap">
+        <div className="flex items-end gap-5 sm:gap-8">
+          <DragAvatar boundsRef={ref} src={profile.avatar} alt={`${profile.name} avatar`} />
+          <h1 className="h-display w-fit min-w-0 pb-1 text-[clamp(1.75rem,8.5vw,4.5rem)]" aria-label={`Hi, I'm ${profile.name}`}>
+            <TextAnimation as="span" text="Hi, I'm" letterAnime variants={fade} className="block italic text-ink/55" />
+            <GlitchName text={profile.name} alt={profile.altName} />
+          </h1>
+        </div>
+
+        <p className="mt-6 w-fit font-serif text-xl italic text-muted-foreground sm:mt-7 sm:text-3xl">
+          {profile.role}
+        </p>
+
+        <p className="mt-4 max-w-xl text-base leading-relaxed">
+          {profile.bio.pre}
+          <strong className="font-semibold text-ink">{profile.bio.bold}</strong>
+          {profile.bio.post}
+        </p>
+
+        <div className="mt-7 flex flex-wrap gap-2.5">
+          {pills.map(({ label, Icon, href }) => (
+            <GlassButton key={label} href={href}>
+              <Icon className="h-3.5 w-3.5" />
+              {label}
+            </GlassButton>
+          ))}
+          <GlassButton href={profile.resumeUrl}>
+            <FileText className="h-3.5 w-3.5" />
+            Resume
+          </GlassButton>
+          <GlassButton
+            variant="primary"
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
           >
-            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 tracking-wide uppercase">
-              {profile.eyebrow}
-            </p>
-
-            <AnimatedText
-              text={profile.name}
-              as="h1"
-              textClassName="text-5xl md:text-7xl font-bold text-[#d84f2a]"
-              underlineClassName="hidden"
-              triggerOnScroll
-              className="items-start"
-            />
-
-            <p className="text-xl md:text-2xl text-gray-500 dark:text-gray-400 font-medium">
-              {profile.role}
-            </p>
-
-            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-xl">
-              {heroBio.pre}
-              <strong className="font-bold text-gray-900 dark:text-white">
-                {heroBio.bold}
-              </strong>
-              {heroBio.post}
-            </p>
-
-            <div className="flex flex-wrap gap-4 pt-4">
-              <GlassButton onClick={scrollToProjects}>
-                <span className="text-sm">View My Projects</span>
-              </GlassButton>
-              <GlassButton href={profile.resumeUrl}>
-                <span className="text-sm">View Resume</span>
-              </GlassButton>
-            </div>
-
-            <div className="flex gap-4 pt-4">
-              <a
-                href={profile.socials.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href={profile.socials.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-              <a
-                href={profile.socials.email}
-                className="p-3 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Profile Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="flex justify-center"
-          >
-            <div className="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden shadow-xl">
-              <img
-                src={profile.photo}
-                alt={profile.name}
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-          </motion.div>
+            View projects
+            <ArrowDown className="h-3.5 w-3.5" />
+          </GlassButton>
         </div>
       </div>
     </section>

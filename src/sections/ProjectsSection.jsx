@@ -14,11 +14,11 @@ export const projects = [
     context: "AI desktop automation agent",
     date: ["Jun 2026"],
     description:
-      "Always-on AI overlay companion for Windows — summoned by a global hotkey to polish selected text in place, answer questions about whatever's on screen with annotated voice narration, or autonomously carry out PC tasks via Windows UI Automation. Runs entirely offline for speech; API keys are encrypted locally via Windows DPAPI with no backend server.",
+      "Lizzie lives on your desktop and jumps in whenever you need her — hit a hotkey and she'll clean up text you've selected, answer questions about whatever's on your screen (and talk you through it), or just go do the task for you. All the speech stuff runs offline, and your API keys never leave your machine.",
     tech: ["Electron", "Node.js", "Claude", "Whisper", "PowerShell", "Edge TTS"],
     image: `${BASE}images/LandingPage.png`,
     github: "https://github.com/zinhmuepaing/lizzie",
-    buttonLabel: "Visit Website",
+    buttonLabel: "Get the app",
     buttonUrl: "https://lizzie-kappa.vercel.app/",
   },
   {
@@ -26,7 +26,7 @@ export const projects = [
     context: "Digital skills for seniors",
     date: ["Feb 2026"],
     description:
-      "Mobile-first web app that teaches seniors digital skills like banking and scam safety through interactive step-by-step simulators, voice-graded quizzes, and on-demand AI-generated multilingual courses.",
+      "KakiLearn walks seniors through everyday digital stuff — like online banking or spotting scams — with simple step-by-step simulators instead of scary real apps. It even grades you by voice and can whip up a mini course in your language on demand.",
     tech: ["Next.js", "React", "TypeScript", "Claude Haiku 4.5", "Google Cloud TTS"],
     image: `${BASE}images/kakilearn.jpeg`,
     contain: true,
@@ -39,7 +39,7 @@ export const projects = [
     context: "Wearable health monitor",
     date: [],
     description:
-      "Full-stack health monitor: a wearable ESP32 streams live SpO2 and heart-rate to a Flask dashboard, with Kirby, a Claude-powered AI assistant offering wellness coaching and autonomous clinic booking via web and Telegram.",
+      "A wearable that watches your oxygen levels and heart rate in real time and shows it on a dashboard — plus Kirby, an AI assistant that checks in on you and can even book you a clinic appointment through chat.",
     tech: ["Python", "Flask", "ESP32", "Claude", "Telegram", "Chart.js"],
     image: `${BASE}images/Sleep Apnea Image.png`,
     github: "https://github.com/zinhmuepaing/sleep-apnea-monitor",
@@ -49,7 +49,7 @@ export const projects = [
     context: "Speech analytics for ASD students",
     date: [],
     description:
-      "Speech-analytics pipeline analysing Cantonese/Chinese communication in students with ASD; processes smartwatch audio to flag keyword usage, pitch and volume anomalies, and generates longitudinal clinical PDF reports.",
+      "This pipeline listens to smartwatch audio from students with ASD and flags patterns in how they talk — pitch, volume, specific words — then turns it into a report, so therapists don't have to review hours of audio by hand.",
     tech: ["Python", "Whisper", "Parselmouth", "Librosa", "Pandas"],
     image: `${BASE}images/smartwatch.png`,
     github: "https://github.com/zinhmuepaing/smartwatch-speech-analysis",
@@ -59,7 +59,7 @@ export const projects = [
     context: "Developer collaboration platform",
     date: [],
     description:
-      "Full-stack developer-collaboration platform with Tinder-style matchmaking for hackathons, pairing teammates by complementary skills and availability, with OAuth, real-time messaging, and automatic Discord workspace generation.",
+      "Finding a hackathon team is annoying, so I built Grid to match people by skill and availability, swipe-style, then spin up a Discord workspace for the team instantly, messaging included.",
     tech: ["Python", "Flask", "SQLite", "OAuth", "Discord API"],
     image: `${BASE}images/grid.png`,
     contain: true,
@@ -70,7 +70,7 @@ export const projects = [
     context: "AI career exploration game",
     date: ["Jan 2026"],
     description:
-      "AI-guided career pathway discovery game built for the NTU CCDS Tech for Good Hackathon 2026. Reached Top 4 Finalist. Guides students through structured self-discovery using adaptive questionnaires and LLM-powered analysis.",
+      "A career exploration game for students who have no idea what they want to do — it asks you questions, adapts based on your answers, and uses AI to help you figure out paths that actually fit. Made the Top 4 at NTU's Tech for Good Hackathon.",
     tech: ["Python", "Pygame", "LangChain", "Azure OpenAI"],
     image:
       "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/692e491a01c140ee9df5e4d9/28dabd996_careerQuesMap.png",

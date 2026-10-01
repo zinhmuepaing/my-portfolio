@@ -271,7 +271,7 @@ export const achievements = [
     date: ["Sep 2026"],
     title: "3rd Place, NiCE Hack 2026",
     context: "NTU EEE · Hackathon",
-    logo: img("nicehack.jpg"),
+    logo: img("nicehack.gif"),
     description:
       "AES Side-Channel Analysis: recovered an unknown AES key from a live Arduino Uno via oscilloscope and EM-probe capture in 382 traces, and cut a wide-window attack from 5,000 traces to 250.",
   },

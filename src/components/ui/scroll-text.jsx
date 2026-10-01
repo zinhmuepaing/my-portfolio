@@ -90,17 +90,21 @@ export default function TextAnimation({
 
 /**
  * Paragraph whose words darken from muted to ink as it scrolls through the
- * viewport (scroll-linked). Pass an `accent` phrase (exact text) to tint it coral.
+ * viewport (scroll-linked). `accent` is a phrase, or a list of phrases (exact
+ * text), tinted coral at their first occurrence.
  */
-export function ScrollHighlightText({ text, className, accent = "" }) {
+export function ScrollHighlightText({ text, className, accent = [] }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.45"] });
   const words = text.split(" ");
-  // Tint the first occurrence of the `accent` phrase.
-  const at = accent ? text.indexOf(accent) : -1;
-  const from = at < 0 ? -1 : text.slice(0, at).split(" ").length - 1;
-  const to = at < 0 ? -1 : from + accent.split(" ").length;
+  const tinted = new Set();
+  for (const phrase of [].concat(accent)) {
+    const at = phrase ? text.indexOf(phrase) : -1;
+    if (at < 0) continue;
+    const from = text.slice(0, at).split(" ").length - 1;
+    for (let i = from; i < from + phrase.split(" ").length; i++) tinted.add(i);
+  }
 
   if (reduce) return <p className={className}>{text}</p>;
   return (
@@ -109,7 +113,7 @@ export function ScrollHighlightText({ text, className, accent = "" }) {
         const start = i / words.length;
         const end = start + 1 / words.length;
         return (
-          <Word key={i} progress={scrollYProgress} range={[start, end]} accent={i >= from && i < to}>
+          <Word key={i} progress={scrollYProgress} range={[start, end]} accent={tinted.has(i)}>
             {word}
           </Word>
         );

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -32,13 +32,20 @@ const Chip = ({ skill, color, className, chipRef }) => (
 /**
  * Tech-stack "toy box": chips fall into a pile and can be dragged and thrown;
  * they collide with each other and the walls (matter-js, lazy-loaded).
- * Reduced motion gets a plain grouped list instead.
+ * Clicking a legend entry keeps only that category (its chips fall again);
+ * clicking it again brings every chip back. Reduced motion gets a plain grouped
+ * list instead.
  */
 export function SkillsPlayground({ categories }) {
   const reduce = useReducedMotion();
   const boxRef = useRef(null);
   const chipRefs = useRef([]);
-  const flat = categories.flatMap((c) => c.skills.map((s) => ({ ...s, color: c.color })));
+  const [active, setActive] = useState(null); // selected category title, or null = all
+  const activeRef = useRef(null);
+  const applyRef = useRef(null);
+  const flat = categories.flatMap((c) =>
+    c.skills.map((s) => ({ ...s, color: c.color, cat: c.title }))
+  );
 
   useEffect(() => {
     const box = boxRef.current;
@@ -52,7 +59,7 @@ export function SkillsPlayground({ categories }) {
     let running = false;
     let last = 0;
     let acc = 0;
-    const entries = []; // { el, body, w, h }
+    const entries = []; // { el, body, w, h, cat, inWorld }
     let walls = [];
     let drag = null; // { constraint, entry }
 
@@ -86,7 +93,7 @@ export function SkillsPlayground({ categories }) {
         acc -= STEP;
       }
       paint();
-      if (drag || entries.some((e) => !e.body.isSleeping)) {
+      if (drag || entries.some((e) => e.inWorld && !e.body.isSleeping)) {
         raf = requestAnimationFrame(frame);
       } else {
         running = false;
@@ -146,6 +153,44 @@ export function SkillsPlayground({ categories }) {
       kick();
     };
 
+    // Show only `category` (null = all): hidden chips leave the world and fade
+    // out; shown chips are re-dropped from above and fall as usual.
+    const apply = (category) => {
+      if (!engine) return;
+      onUp();
+      const W = box.clientWidth;
+      let n = 0;
+      for (const e of entries) {
+        if (!category || e.cat === category) {
+          M.Body.setPosition(e.body, {
+            x: e.w / 2 + Math.random() * Math.max(W - e.w, 1),
+            y: -40 - n * 46,
+          });
+          M.Body.setVelocity(e.body, { x: 0, y: 0 });
+          M.Body.setAngle(e.body, (Math.random() - 0.5) * 0.6);
+          M.Body.setAngularVelocity(e.body, 0);
+          M.Sleeping.set(e.body, false);
+          if (!e.inWorld) {
+            M.Composite.add(engine.world, e.body);
+            e.inWorld = true;
+          }
+          e.el.style.opacity = "1";
+          e.el.style.pointerEvents = "";
+          n++;
+        } else {
+          if (e.inWorld) {
+            M.Composite.remove(engine.world, e.body);
+            e.inWorld = false;
+          }
+          e.el.style.opacity = "0";
+          e.el.style.pointerEvents = "none";
+        }
+      }
+      paint();
+      kick();
+    };
+    applyRef.current = apply;
+
     const start = async () => {
       started = true;
       const mod = await import("matter-js");
@@ -155,33 +200,22 @@ export function SkillsPlayground({ categories }) {
       if (disposed) return;
       engine = M.Engine.create({ gravity: { x: 0, y: 1 }, enableSleeping: true });
       buildWalls();
-      const W = box.clientWidth;
       chipRefs.current.forEach((el, i) => {
         if (!el) return;
         const w = el.offsetWidth;
         const h = el.offsetHeight;
-        const body = M.Bodies.rectangle(
-          w / 2 + Math.random() * Math.max(W - w, 1),
-          -40 - i * 46,
-          w,
-          h,
-          {
-            chamfer: { radius: h / 2 },
-            restitution: 0.35,
-            friction: 0.25,
-            frictionAir: 0.012,
-            angle: (Math.random() - 0.5) * 0.6,
-            sleepThreshold: 40,
-          }
-        );
+        const body = M.Bodies.rectangle(0, 0, w, h, {
+          chamfer: { radius: h / 2 },
+          restitution: 0.35,
+          friction: 0.25,
+          frictionAir: 0.012,
+          sleepThreshold: 40,
+        });
         // Heavier rotational inertia keeps the pills mostly upright and readable.
         M.Body.setInertia(body, body.inertia * 6);
-        entries.push({ el, body, w, h });
-        M.Composite.add(engine.world, body);
-        el.style.opacity = "1";
+        entries.push({ el, body, w, h, cat: flat[i].cat, inWorld: false });
       });
-      paint();
-      kick();
+      apply(activeRef.current);
     };
 
     const io = new IntersectionObserver(
@@ -196,7 +230,8 @@ export function SkillsPlayground({ categories }) {
       if (!engine) return;
       buildWalls();
       const W = box.clientWidth;
-      for (const { body, w } of entries) {
+      for (const { body, w, inWorld } of entries) {
+        if (!inWorld) continue;
         if (body.position.x > W - w / 2) M.Body.setPosition(body, { x: W - w / 2, y: body.position.y });
         M.Sleeping.set(body, false);
       }
@@ -219,8 +254,15 @@ export function SkillsPlayground({ categories }) {
       box.removeEventListener("pointerup", onUp);
       box.removeEventListener("pointercancel", onUp);
       if (engine) M.Engine.clear(engine);
+      applyRef.current = null;
     };
   }, [reduce]);
+
+  // Legend selection changed: re-drop the matching chips.
+  useEffect(() => {
+    activeRef.current = active;
+    applyRef.current?.(active);
+  }, [active]);
 
   if (reduce) {
     return (
@@ -253,20 +295,36 @@ export function SkillsPlayground({ categories }) {
             skill={s}
             color={s.color}
             chipRef={(el) => (chipRefs.current[i] = el)}
-            className="absolute left-0 top-0 cursor-grab touch-none opacity-0 [@media(pointer:coarse)]:touch-pan-y"
+            className="absolute left-0 top-0 cursor-grab touch-none opacity-0 transition-opacity duration-300 [@media(pointer:coarse)]:touch-pan-y"
           />
         ))}
         <span className="pointer-events-none absolute bottom-3 right-4 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/70">
           drag &amp; throw
         </span>
       </div>
-      <ul className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-muted-foreground">
-        {categories.map((c) => (
-          <li key={c.title} className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full" style={{ background: c.color }} />
-            {c.title}
-          </li>
-        ))}
+      <ul className="mt-5 flex flex-wrap gap-2" aria-label="Filter by category">
+        {categories.map((c) => {
+          const selected = active === c.title;
+          return (
+            <li key={c.title}>
+              <button
+                type="button"
+                aria-pressed={selected}
+                onClick={() => setActive(selected ? null : c.title)}
+                className={cn(
+                  "inline-flex h-8 items-center gap-2 rounded-full px-3 text-[13px] font-medium transition-all duration-200 hover:-translate-y-px",
+                  selected
+                    ? "bg-ink text-white shadow-[0_2px_5px_rgba(0,0,0,0.12)]"
+                    : "bg-white text-ink shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.2)]",
+                  active && !selected && "opacity-50"
+                )}
+              >
+                <span className="h-2 w-2 rounded-full" style={{ background: c.color }} />
+                {c.title}
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

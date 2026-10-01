@@ -123,14 +123,12 @@ export default function HeroSection() {
           </h1>
         </div>
 
-        <p className="mt-6 w-fit font-serif text-xl italic text-muted-foreground sm:mt-7 sm:text-3xl">
-          {profile.role}
-        </p>
-
-        <p className="mt-4 max-w-xl text-base leading-relaxed">
-          {profile.bio.pre}
-          <strong className="font-semibold text-ink">{profile.bio.bold}</strong>
-          {profile.bio.post}
+        <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 font-serif text-xl italic text-muted-foreground sm:mt-7 sm:text-3xl">
+          <span>{profile.role.pre}</span>
+          <span className="inline-flex items-center gap-1.5">
+            <img src={profile.roleIcon} alt="" className="h-[0.8em] w-[0.8em] shrink-0 not-italic" />
+            {profile.role.post}
+          </span>
         </p>
 
         <div className="mt-7 flex flex-wrap gap-2.5">

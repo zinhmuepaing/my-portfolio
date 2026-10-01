@@ -17,7 +17,8 @@ const MAX_SPEED = 26;
 export function DragAvatar({ boundsRef, src, alt }) {
   const slotRef = useRef(null);
   const avatarRef = useRef(null);
-  const [moved, setMoved] = useState(false);
+  const [moved, setMoved] = useState(false); // ever grabbed: hides the "drag me" hint
+  const [away, setAway] = useState(false); // currently out of its slot: shows the dashed ring
 
   useEffect(() => {
     const bounds = boundsRef.current;
@@ -142,10 +143,9 @@ export function DragAvatar({ boundsRef, src, alt }) {
       offset = { x: p.x - ball.position.x, y: p.y - ball.position.y };
       target = { x: ball.position.x, y: ball.position.y };
       dragging = true;
-      if (!hasMoved) {
-        hasMoved = true;
-        setMoved(true);
-      }
+      hasMoved = true;
+      setMoved(true);
+      setAway(true);
       el.style.cursor = "grabbing";
       kick();
     };
@@ -154,10 +154,31 @@ export function DragAvatar({ boundsRef, src, alt }) {
       const p = pointer(e);
       target = clampToScreen(p.x - offset.x, p.y - offset.y);
     };
+    // Dropped back on its own spot: settle it there, upright, as if never moved.
+    const snapHome = () => {
+      const c = slotCenter();
+      el.style.transition = "transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1)";
+      M.Body.setPosition(ball, c);
+      M.Body.setAngle(ball, 0);
+      M.Body.setVelocity(ball, { x: 0, y: 0 });
+      M.Body.setAngularVelocity(ball, 0);
+      M.Sleeping.set(ball, true);
+      place(c.x, c.y, 0);
+      hasMoved = false;
+      setAway(false);
+      setTimeout(() => {
+        el.style.transition = "";
+      }, 260);
+    };
     const onUp = () => {
       if (!dragging) return;
       dragging = false;
       el.style.cursor = "grab";
+      const c = slotCenter();
+      if (Math.hypot(ball.position.x - c.x, ball.position.y - c.y) < R() * 0.9) {
+        snapHome();
+        return;
+      }
       M.Sleeping.set(ball, false);
       kick();
     };
@@ -245,7 +266,7 @@ export function DragAvatar({ boundsRef, src, alt }) {
         ref={slotRef}
         className={cn(
           "relative shrink-0 rounded-full transition-colors duration-300",
-          moved ? "border-2 border-dashed border-black/20" : "border-2 border-transparent"
+          away ? "border-2 border-dashed border-black/20" : "border-2 border-transparent"
         )}
         style={{ width: SIZE, height: SIZE }}
       >

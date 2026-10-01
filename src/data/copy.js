@@ -11,12 +11,8 @@ const OPENAI_ICON = "https://cdn.jsdelivr.net/npm/simple-icons@11/icons/openai.s
 export const profile = {
   name: "Zin Hmue Paing",
   altName: "Pi",
-  role: "Computer Engineering Student · Microsoft Certified AI Engineer",
-  bio: {
-    pre: "I build AI systems and thoughtful software. Currently pursuing a Diploma in Computer Engineering at Temasek Polytechnic with a ",
-    bold: "4.0 CGPA",
-    post: ".",
-  },
+  role: { pre: "Computer Engineering Student ·", post: "Microsoft Certified AI Engineer" },
+  roleIcon: img("microsoft.svg"),
   email: "zinhmuep@gmail.com",
   resumeUrl: `${BASE}Zin_Hmue_Paing_Resume.pdf`,
   avatar: `${BASE}avatar.svg`,
@@ -38,10 +34,11 @@ export const navItems = [
   { name: "Contact", id: "contact" },
 ];
 
-// About paragraph (~40 words). Alternatives are listed in the chat history.
+// About paragraph: casual and conversational.
 export const aboutIntro =
-  "I'm a final-year Computer Engineering student at Temasek Polytechnic from Myanmar, building end-to-end AI systems from data to deployment. My work focuses on reliable engineering, evaluation-driven LLM pipelines, and tools that make everyday work simpler.";
-export const aboutAccent = "end-to-end AI systems";
+  "I'm a final-year Computer Engineering student at Temasek Polytechnic with a CGPA of 4.0/4.0, from Myanmar. I like to build AI systems and thoughtful software, taking an idea from raw data all the way to something people actually use. Getting the engineering right matters a lot to me, and I'm always up for a good challenge.";
+// Phrases to tint coral; each must appear verbatim in aboutIntro.
+export const aboutAccent = ["CGPA of 4.0/4.0", "AI systems and thoughtful software"];
 
 export const education = [
   {
@@ -50,11 +47,11 @@ export const education = [
     degree: "Diploma in Computer Engineering",
     date: ["Apr 2024", "- May 2027"],
     bullets: [
-      "CGPA 4.0 / 4.0, all distinctions",
+      "CGPA 4.0 / 4.0",
       "Ranked #1 among 400+ students in the Common Engineering Programme, AY2024/25",
       "3× Temasek Polytechnic Engineering Scholarship recipient",
-      "Director's List, AY2024/25 and AY2025/26 (Top 10%)",
-      "Coursework: Python, OOP / Java, Full-Stack Development, AI & Machine Learning",
+      "Director's List awarded every academic year to date (Top 10%)",
+      "Coursework: Python, Java, Full-Stack Development, AI & Machine Learning",
     ],
   },
   {
@@ -63,7 +60,7 @@ export const education = [
     degree: "Computer Engineering & Information Technology",
     date: ["2022", "- 2024"],
     bullets: [
-      "Built foundations in programming, electronics, and engineering principles before transitioning to Singapore.",
+      "Built foundations in programming, electronics, and engineering principles before moving to Singapore.",
     ],
   },
 ];

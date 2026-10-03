@@ -231,14 +231,14 @@ export const certifications = [
   {
     title: "Fundamentals of Deep Learning",
     issuer: "NVIDIA",
-    logo: simpleicon("nvidia", "76B900"),
+    logo: img("nvidia.svg"),
     desc: "Hands-on training and deployment of deep neural networks.",
     url: "https://www.coursera.org/account/accomplishments/verify/9R9ABROGQBHV",
   },
   {
     title: "Foundation: Introduction to LangChain (Python)",
     issuer: "LangChain",
-    logo: simpleicon("langchain", "1C3C3C"),
+    logo: img("langchain.svg"),
     desc: "Building LLM applications with prompts, chains, and retrieval.",
     url: "https://academy.langchain.com/certificates/fvjzlrtdd6",
   },
@@ -252,7 +252,7 @@ export const certifications = [
   {
     title: "Claude 101",
     issuer: "Anthropic",
-    logo: simpleicon("anthropic", "D97757"),
+    logo: img("anthropic.svg"),
     desc: "Foundations of working with Claude: prompting and everyday workflows.",
     url: "https://verify.skilljar.com/c/iim2g82pb8qt",
   },
@@ -283,6 +283,13 @@ export const achievements = [
     pad: true,
     description:
       "Top 4 of 40 teams for Career Quest Map, recognised for structured AI pipeline design and practical impact for Singapore youth.",
+  },
+  {
+    date: ["AY2025/26"],
+    title: "Director's List Award (Top 10%)",
+    context: "School of Engineering, Temasek Polytechnic · Academic",
+    logo: img("soe.jpg"),
+    description: "Honoured as one of the top achievers in AY2025/26 Computer Engineering cohort, reinforcing a track record of excellence and leadership potential."
   },
   {
     date: ["2024", "- Present"],

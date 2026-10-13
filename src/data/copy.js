@@ -51,6 +51,7 @@ export const education = [
       "Ranked #1 among 400+ students in the Common Engineering Programme, AY2024/25",
       "3× Temasek Polytechnic Engineering Scholarship recipient",
       "Director's List awarded every academic year to date (Top 10%)",
+      "TP LEAD EXCEL Programme (Top 1%)",
       "Coursework: Python, Java, Full-Stack Development, AI & Machine Learning",
     ],
   },
@@ -84,7 +85,7 @@ export const experience = [
     date: ["Apr 2026", "- May 2026"],
     logo: img("datality.jpg"),
     bullets: [
-      "Developed a job skills portal that loads a 272K-row SkillsFuture dataset into a client-side SQLite database (sql.js/WebAssembly), delivering sub-100 ms search across 50K+ skill-to-role mappings with no backend.",
+      "Developed a job skills portal that loads a 272K-row SkillsFuture dataset into a client-side SQLite database (sql.js/WebAssembly), delivering sub-100 ms search across 50K+ skill-to-role mappings.",
       "Designed a speech analytics pipeline that flagged ~3,950 vocal anomalies across 17 hours of audio from 5 ASD students, replacing manual therapist review with automated baseline detection.",
       "Cut audio processing time by 50% through parallel execution, and implemented longitudinal trend detection across 25 sessions that flagged which students were improving or declining.",
     ],
@@ -118,6 +119,7 @@ export const skillCategories = [
       { name: "TensorFlow", icon: devicon("tensorflow/tensorflow-original") },
       { name: "Scikit-learn", icon: devicon("scikitlearn/scikitlearn-original") },
       { name: "LangChain", icon: img("langchain.png") },
+      { name: "LangGraph", icon: simpleicon("langgraph", "1C3C3C") },
       { name: "Pandas", icon: devicon("pandas/pandas-original") },
       { name: "NumPy", icon: devicon("numpy/numpy-original") },
       { name: ".NET Blazor", icon: devicon("dotnetcore/dotnetcore-original") },
@@ -129,6 +131,8 @@ export const skillCategories = [
     color: "#12907E",
     skills: [
       { name: "RAG" },
+      { name: "Microsoft Azure", icon: devicon("azure/azure-original") },
+      { name: "AWS", icon: devicon("amazonwebservices/amazonwebservices-original-wordmark") },
       { name: "Azure OpenAI", icon: devicon("azure/azure-original") },
       { name: "Azure AI Search", icon: devicon("azure/azure-original") },
       { name: "Azure AI Foundry", icon: devicon("azure/azure-original") },

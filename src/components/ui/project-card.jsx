@@ -5,6 +5,7 @@ import { Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PillLink } from "@/components/ui/timeline";
 import { GitHubIcon } from "@/components/ui/brand-icons";
+import { SkeletonImg } from "@/components/ui/skeleton-img";
 
 /**
  * Project card in the reference's "application" style: image strip overlapped
@@ -18,14 +19,7 @@ export const ProjectCard = ({ project }) => {
     <article className="tl-card tl-app" aria-label={project.title}>
       {project.image && (
         <div className="tl-app-visual" aria-hidden="true">
-          <div className="tl-app-shot">
-            <img
-              src={project.image}
-              alt=""
-              loading="lazy"
-              className={cn(project.contain && "contain")}
-            />
-          </div>
+          <SkeletonImg className="tl-app-shot" src={project.image} alt="" imgClassName={cn(project.contain && "contain")} />
         </div>
       )}
 
@@ -51,13 +45,7 @@ export const ProjectCard = ({ project }) => {
           )}
         </div>
 
-        <div className="tl-tags !mt-0">
-          {project.tech.map((t) => (
-            <span key={t} className="tl-tag">
-              {t}
-            </span>
-          ))}
-        </div>
+        <p className="tl-tech">{project.tech.join(" · ")}</p>
 
         <div className="tl-links !mt-0">
           {project.buttonUrl && (

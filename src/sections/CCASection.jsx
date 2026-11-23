@@ -7,9 +7,8 @@ export default function CCASection() {
     <section id="cca" className="section">
       <div className="wrap">
         <SectionHeading
-          index="05"
+         
           title="CCA & Leadership"
-          subtitle="Clubs, programmes, and roles beyond the classroom."
         />
         <Timeline>
           {cca.map((c, i) => (

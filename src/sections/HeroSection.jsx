@@ -16,23 +16,34 @@ const fade = {
 const GLYPHS = "!<>-_\\/[]{}=+*^?#01";
 const rand = (n) => (Math.random() - 0.5) * 2 * n;
 
+// Split into user-visible characters. Burmese stacks vowel marks on a base
+// letter, so scrambling code points would show broken dotted circles.
+const segmenter = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
+const graphemes = (s) => (segmenter ? Array.from(segmenter.segment(s), (g) => g.segment) : Array.from(s));
+// Burmese glyphs stand taller than Latin ones; tag them so CSS can size them down.
+const setLang = (el, s) => (el.lang = /[က-႟]/.test(s) ? "my" : "en");
+
 /**
- * The name plays its entrance animation, then loops: glitch into `alt`, hold,
- * glitch back, hold. The entrance text keeps the layout (no reflow); a
- * positioned overlay shows the scrambled text.
+ * After the entrance animation the name glitches once through `alts`
+ * (e.g. "Pi", the Burmese name) and back, then replays on hover or tap.
+ * With reduced motion the same names swap with a soft crossfade instead
+ * (no scramble, shake or colour split).
+ * The entrance text keeps the layout; a positioned overlay shows the change.
  */
-function GlitchName({ text, alt }) {
+function GlitchName({ text, alts }) {
   const reduce = useReducedMotion();
   const baseRef = useRef(null);
   const overlayRef = useRef(null);
+  const playRef = useRef(() => {});
 
   useEffect(() => {
-    if (reduce) return;
     const base = baseRef.current;
     const overlay = overlayRef.current;
     let dead = false;
+    let running = false;
     let raf = 0;
     let timer = 0;
+    let len = graphemes(text).length;
 
     const wait = (ms) => new Promise((r) => (timer = setTimeout(r, ms)));
     const show = (on) => {
@@ -41,17 +52,21 @@ function GlitchName({ text, alt }) {
     };
     const scramble = (to, ms) =>
       new Promise((resolve) => {
+        const target = graphemes(to);
+        setLang(overlay, to);
         const start = performance.now();
         let lastPaint = 0;
-        const tick = (t) => {
+        const tick = () => {
           if (dead) return resolve();
+          // Same clock as `start`; rAF's own timestamp can run on a different base.
+          const t = performance.now();
           const p = Math.min((t - start) / ms, 1);
           if (t - lastPaint > 40 || p === 1) {
             lastPaint = t;
             let out = "";
             const glyph = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
-            for (let i = 0; i < Math.max(Number(overlay.dataset.len), to.length); i++) {
-              if (i < to.length) out += p >= (i + 1) / to.length ? to[i] : glyph();
+            for (let i = 0; i < Math.max(len, target.length); i++) {
+              if (i < target.length) out += p >= (i + 1) / target.length ? target[i] : glyph();
               else out += p >= 1 ? "" : glyph();
             }
             overlay.textContent = out;
@@ -61,43 +76,72 @@ function GlitchName({ text, alt }) {
           }
           if (p < 1) raf = requestAnimationFrame(tick);
           else {
-            overlay.dataset.len = String(to.length);
+            len = target.length;
             resolve();
           }
         };
         raf = requestAnimationFrame(tick);
       });
 
-    (async () => {
-      overlay.dataset.len = String(text.length);
-      await wait(3200); // let the entrance animation settle
-      while (!dead) {
-        overlay.textContent = text;
-        show(true);
-        await scramble(alt, 800);
-        await wait(2400);
-        await scramble(text, 800);
-        show(false);
-        await wait(4200);
+    const play = async () => {
+      if (running || dead) return;
+      running = true;
+      overlay.textContent = text;
+      show(true);
+      for (const alt of alts) {
+        await scramble(alt, 700);
+        await wait(1500);
       }
-    })();
+      await scramble(text, 700);
+      show(false);
+      running = false;
+    };
+
+    // Reduced motion: crossfade between the names, no movement.
+    const FADE = 220;
+    const playCalm = async () => {
+      if (running || dead) return;
+      running = true;
+      for (const [i, alt] of alts.entries()) {
+        if (i > 0) {
+          overlay.style.opacity = "0";
+          await wait(FADE);
+        }
+        overlay.textContent = alt;
+        setLang(overlay, alt);
+        show(true);
+        await wait(FADE + 1500);
+      }
+      show(false);
+      await wait(FADE);
+      running = false;
+    };
+
+    if (reduce) {
+      base.style.transition = overlay.style.transition = `opacity ${FADE}ms ease-out`;
+    }
+    playRef.current = reduce ? playCalm : play;
+
+    wait(reduce ? 1200 : 3000).then(() => playRef.current()); // once, after the entrance settles
 
     return () => {
       dead = true;
+      playRef.current = () => {};
       cancelAnimationFrame(raf);
       clearTimeout(timer);
+      base.style.transition = overlay.style.transition = "";
     };
-  }, [reduce, text, alt]);
+  }, [reduce, text, alts]);
 
   return (
-    <span className="relative block">
+    <span className="relative block w-fit" onMouseEnter={() => playRef.current()} onClick={() => playRef.current()}>
       <span ref={baseRef} className="block">
         <TextAnimation as="span" text={text} letterAnime variants={fade} delay={0.25} className="block text-coral" />
       </span>
       <span
         ref={overlayRef}
         aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 block whitespace-nowrap text-coral opacity-0"
+        className="glitch-overlay pointer-events-none absolute left-0 top-0 block whitespace-nowrap text-coral opacity-0"
       />
     </span>
   );
@@ -118,15 +162,15 @@ export default function HeroSection() {
         <div className="flex items-end gap-5 sm:gap-8">
           <DragAvatar boundsRef={ref} src={profile.avatar} alt={`${profile.name} avatar`} />
           <h1 className="h-display w-fit min-w-0 pb-1 text-[clamp(1.75rem,8.5vw,4.5rem)]" aria-label={`Hi, I'm ${profile.name}`}>
-            <TextAnimation as="span" text="Hi, I'm" letterAnime variants={fade} className="block italic text-ink/55" />
-            <GlitchName text={profile.name} alt={profile.altName} />
+            <TextAnimation as="span" text="Hi, I'm" letterAnime variants={fade} className="block text-ink/55" />
+            <GlitchName text={profile.name} alts={profile.altNames} />
           </h1>
         </div>
 
-        <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 font-serif text-xl italic text-muted-foreground sm:mt-7 sm:text-3xl">
+        <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-lg text-muted-foreground sm:mt-7 sm:text-2xl">
           <span>{profile.role.pre}</span>
           <span className="inline-flex items-center gap-1.5">
-            <img src={profile.roleIcon} alt="" className="h-[0.8em] w-[0.8em] shrink-0 not-italic" />
+            <img src={profile.roleIcon} alt="" width="20" height="20" className="h-[0.8em] w-[0.8em] shrink-0" />
             {profile.role.post}
           </span>
         </p>

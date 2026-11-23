@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { GlassCard, GlassButton } from "@/components/ui/glass";
 import { navItems, profile } from "@/data/copy";
@@ -12,6 +13,7 @@ const scrollToId = (id) => {
 export default function Navbar() {
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -51,10 +53,18 @@ export default function Navbar() {
               type="button"
               onClick={() => go(id)}
               className={cn(
-                "rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors",
-                active === id ? "bg-white/80 text-coral shadow-sm" : "text-[#2d2d2d] hover:text-ink"
+                "relative isolate rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors",
+                active === id ? "text-coral" : "text-[#2d2d2d] hover:text-ink"
               )}
             >
+              {active === id && (
+                // Slides between items as the active section changes.
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-0 -z-10 rounded-full bg-white/80 shadow-sm"
+                  transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 500, damping: 40 }}
+                />
+              )}
               {name}
             </button>
           ))}

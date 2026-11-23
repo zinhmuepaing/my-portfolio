@@ -6,7 +6,7 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="section">
       <div className="wrap">
-        <SectionHeading index="03" title="Technical Skills" subtitle="The stack behind the work. Pick things up and throw them around." />
+        <SectionHeading title="Technical Skills" subtitle="Everything I've used in projects. You can drag the chips around." />
         <SkillsPlayground categories={skillCategories} />
       </div>
     </section>

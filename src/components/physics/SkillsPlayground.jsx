@@ -36,11 +36,15 @@ const Chip = ({ skill, color, className, chipRef }) => (
  * clicking it again brings every chip back. Reduced motion gets a plain grouped
  * list instead.
  */
+// Widths of the grey pills shown while matter-js loads (roughly chip-sized).
+const SKELETON_PILLS = [92, 76, 118, 64, 104, 88, 132, 72, 96, 110, 68, 84, 124, 78, 100, 90];
+
 export function SkillsPlayground({ categories }) {
   const reduce = useReducedMotion();
   const boxRef = useRef(null);
   const chipRefs = useRef([]);
   const [active, setActive] = useState(null); // selected category title, or null = all
+  const [ready, setReady] = useState(false); // physics loaded; until then show skeleton pills
   const activeRef = useRef(null);
   const applyRef = useRef(null);
   const flat = categories.flatMap((c) =>
@@ -216,6 +220,7 @@ export function SkillsPlayground({ categories }) {
         entries.push({ el, body, w, h, cat: flat[i].cat, inWorld: false });
       });
       apply(activeRef.current);
+      setReady(true);
     };
 
     const io = new IntersectionObserver(
@@ -287,8 +292,16 @@ export function SkillsPlayground({ categories }) {
         ref={boxRef}
         role="group"
         aria-label="Technical skills. Drag the chips to play with them."
+        aria-busy={!ready}
         className="glass relative h-[600px] overflow-hidden rounded-[28px] sm:h-[440px]"
       >
+        {!ready && (
+          <div aria-hidden="true" className="absolute inset-0 flex flex-wrap content-end gap-2 p-5">
+            {SKELETON_PILLS.map((w, i) => (
+              <span key={i} className="skel-loading h-9 rounded-full" style={{ width: w }} />
+            ))}
+          </div>
+        )}
         {flat.map((s, i) => (
           <Chip
             key={s.name}
@@ -298,9 +311,6 @@ export function SkillsPlayground({ categories }) {
             className="absolute left-0 top-0 cursor-grab touch-none opacity-0 transition-opacity duration-300 [@media(pointer:coarse)]:touch-pan-y"
           />
         ))}
-        <span className="pointer-events-none absolute bottom-3 right-4 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/70">
-          drag &amp; throw
-        </span>
       </div>
       <ul className="mt-5 flex flex-wrap gap-2" aria-label="Filter by category">
         {categories.map((c) => {

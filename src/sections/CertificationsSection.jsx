@@ -10,9 +10,8 @@ export default function CertificationsSection() {
     <section id="certifications" className="section">
       <div className="wrap">
         <SectionHeading
-          index="06"
+         
           title="Certifications"
-          subtitle="Industry credentials backing the skills."
         />
         <div className="grid gap-4 sm:grid-cols-2">
           {certifications.map((c, i) => (
@@ -23,7 +22,7 @@ export default function CertificationsSection() {
                     <img src={c.logo} alt={`${c.issuer} logo`} className="h-6 w-auto max-w-[112px] object-contain" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                    <p className="text-[13px] text-muted-foreground">
                       {c.issuer}
                     </p>
                     <h3 className="mt-1 font-serif text-xl leading-snug text-ink sm:text-2xl">{c.title}</h3>

@@ -2,7 +2,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
- * Reveal-on-scroll wrapper: fades, lifts and un-blurs children once.
+ * Reveal-on-scroll wrapper: fades and lifts children once. No blur filter,
+ * since blurring large shadowed cards is expensive to paint.
  * @type {import("react").FC<any>}
  */
 export const ScrollAnimation = ({
@@ -22,10 +23,10 @@ export const ScrollAnimation = ({
   return (
     <Comp
       className={className}
-      initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={viewport}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.3, delay, ease: [0.22, 1, 0.36, 1] }}
       {...props}
     >
       {children}

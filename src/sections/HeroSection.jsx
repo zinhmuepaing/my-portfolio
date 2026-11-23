@@ -24,8 +24,9 @@ const graphemes = (s) => (segmenter ? Array.from(segmenter.segment(s), (g) => g.
 const setLang = (el, s) => (el.lang = /[က-႟]/.test(s) ? "my" : "en");
 
 /**
- * After the entrance animation the name glitches once through `alts`
- * (e.g. "Pi", the Burmese name) and back, then replays on hover or tap.
+ * After the entrance animation the name glitches through `alts`
+ * (e.g. "Pi", the Burmese name) and back, rests, and repeats forever.
+ * Hover or tap starts a cycle right away.
  * With reduced motion the same names swap with a soft crossfade instead
  * (no scramble, shake or colour split).
  * The entrance text keeps the layout; a positioned overlay shows the change.
@@ -122,7 +123,16 @@ function GlitchName({ text, alts }) {
     }
     playRef.current = reduce ? playCalm : play;
 
-    wait(reduce ? 1200 : 3000).then(() => playRef.current()); // once, after the entrance settles
+    // Loop forever: rest on the real name, then cycle through the alternates.
+    // A hover that already started a cycle just makes this turn a no-op.
+    const REST = 4000;
+    (async () => {
+      await wait(reduce ? 1200 : 3000); // let the entrance animation settle
+      while (!dead) {
+        await playRef.current();
+        if (!dead) await wait(REST);
+      }
+    })();
 
     return () => {
       dead = true;

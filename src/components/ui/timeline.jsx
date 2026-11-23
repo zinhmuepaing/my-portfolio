@@ -6,11 +6,22 @@ import { ScrollAnimation } from "@/components/ui/scroll-animation";
 import { useImageLoaded } from "@/components/ui/skeleton-img";
 import { cn } from "@/lib/utils";
 
-/** Coral line that fills the rail as the reader scrolls through the rows. */
-const RailFill = ({ target }) => {
-  const { scrollYProgress } = useScroll({ target, offset: ["start 75%", "end 60%"] });
+// Coral line that fills the rail as the reader scrolls. Its tip stays pinned
+// at 60% of the screen height, so it moves exactly with the page.
+// Where the browser supports scroll-driven CSS animations, CSS drives it
+// (`.tl-rail-fill-css` in index.css) on the compositor, in sync with scrolling.
+// Elsewhere framer-motion drives it from JS, which can trail by a frame.
+const CSS_SCROLL_TIMELINE =
+  typeof CSS !== "undefined" && typeof CSS.supports === "function" && CSS.supports("animation-timeline: view()");
+
+const RailFillJs = ({ target }) => {
+  // Same start and end line (60%) keeps the tip at a fixed spot on screen.
+  const { scrollYProgress } = useScroll({ target, offset: ["start 60%", "end 60%"] });
   return <motion.div className="tl-rail-fill" style={{ scaleY: scrollYProgress }} />;
 };
+
+const RailFill = ({ target }) =>
+  CSS_SCROLL_TIMELINE ? <div className="tl-rail-fill tl-rail-fill-css" /> : <RailFillJs target={target} />;
 
 /**
  * Vertical rail with dated rows (modelled on supachod.com). Optional `title`

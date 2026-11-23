@@ -525,6 +525,27 @@
     transform-origin: top;
     will-change: transform;
   }
+  /* Scroll-driven version (runs on the compositor, so it never lags the page).
+     The rail is inset 8px top and bottom, so the range starts when the rail's
+     top reaches 60% of the screen and ends when its bottom does: the scroll
+     distance equals the rail height, which keeps the tip pinned at 60%. */
+  .tl-items {
+    view-timeline: --tl-items block;
+  }
+  .tl-rail-fill-css {
+    transform: scaleY(0);
+    animation: tl-rail-fill linear both;
+    animation-timeline: --tl-items;
+    animation-range: cover calc(40vh + 8px) cover calc(100% - 60vh - 8px);
+  }
+  @keyframes tl-rail-fill {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
 
   /* Wordmark logos */
   .tl-logo-wide,

@@ -14,11 +14,11 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ExperienceSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <CCASection />
-      <CertificationsSection />
       <AchievementsSection />
+      <ProjectsSection />
+      <CertificationsSection />
+      <SkillsSection />
+      <CCASection />
       <ContactSection />
     </>
   );

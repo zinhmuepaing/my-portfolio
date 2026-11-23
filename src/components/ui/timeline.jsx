@@ -1,29 +1,43 @@
 // @ts-nocheck
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { ScrollAnimation } from "@/components/ui/scroll-animation";
+import { useImageLoaded } from "@/components/ui/skeleton-img";
 import { cn } from "@/lib/utils";
+
+/** Coral line that fills the rail as the reader scrolls through the rows. */
+const RailFill = ({ target }) => {
+  const { scrollYProgress } = useScroll({ target, offset: ["start 75%", "end 60%"] });
+  return <motion.div className="tl-rail-fill" style={{ scaleY: scrollYProgress }} />;
+};
 
 /**
  * Vertical rail with dated rows (modelled on supachod.com). Optional `title`
  * adds the group header with the rail-cap dot.
  * @type {import("react").FC<any>}
  */
-export const Timeline = ({ title, children, className }) => (
-  <div className={cn("tl", className)}>
-    {title && (
-      <div className="tl-header">
-        <div className="tl-cap" />
-        <h3 className="tl-title">{title}</h3>
+export const Timeline = ({ title, children, className }) => {
+  const itemsRef = useRef(null);
+  const reduce = useReducedMotion();
+  return (
+    <div className={cn("tl", className)}>
+      {title && (
+        <div className="tl-header">
+          <div className="tl-cap" />
+          <h3 className="tl-title">{title}</h3>
+        </div>
+      )}
+      <div className="tl-items" ref={itemsRef}>
+        <div className="tl-rail" aria-hidden="true">
+          <div className="tl-rail-line" />
+          {!reduce && <RailFill target={itemsRef} />}
+        </div>
+        {children}
       </div>
-    )}
-    <div className="tl-items">
-      <div className="tl-rail" aria-hidden="true">
-        <div className="tl-rail-line" />
-      </div>
-      {children}
     </div>
-  </div>
-);
+  );
+};
 
 /**
  * One dated row. `date` is one or two lines, e.g. ["Aug 2024", "- May 2028"];
@@ -44,12 +58,21 @@ export const TimelineRow = ({ date = [], children, delay = 0 }) => (
   </ScrollAnimation>
 );
 
-/** Square logo tile. `pad` keeps wide logos inside the tile. */
-export const LogoTile = ({ src, alt = "", pad = false, className }) => (
-  <div className={cn("tl-logo", pad && "tl-logo-pad", className)}>
-    <img src={src} alt={alt} loading="lazy" />
-  </div>
-);
+/**
+ * Logo tile with a shimmer until the image loads. `pad` keeps wide logos
+ * inside the tile; `variant` "wide" fits wordmarks, "dark" puts them on ink.
+ */
+export const LogoTile = ({ src, alt = "", pad = false, variant, className }) => {
+  const { loaded, imgProps } = useImageLoaded();
+  return (
+    <div
+      className={cn("tl-logo", pad && "tl-logo-pad", variant === "wide" && "tl-logo-wide", variant === "dark" && "tl-logo-dark", !loaded && "skel-loading", className)}
+      aria-busy={!loaded}
+    >
+      <img src={src} alt={alt} loading="lazy" decoding="async" {...imgProps} className={cn("skel-img", loaded && "is-loaded")} />
+    </div>
+  );
+};
 
 /** Glass pill link with the external-arrow glyph. */
 export const PillLink = ({ href, icon, children }) => (

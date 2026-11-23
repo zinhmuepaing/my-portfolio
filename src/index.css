@@ -45,6 +45,16 @@
       scroll-behavior: auto;
     }
   }
+
+  /* Photo viewer morph (View Transitions API) */
+  ::view-transition-group(award-photo) {
+    animation-duration: 280ms;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 200ms;
+  }
 }
 
 @layer components {
@@ -95,9 +105,6 @@
     @apply btn glass text-ink;
   }
 
-  .eyebrow {
-    @apply font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-coral;
-  }
   .h-display {
     @apply font-serif font-normal leading-[1.02] tracking-tight text-ink;
   }
@@ -493,6 +500,199 @@
     font-size: 14px;
     line-height: 1.5;
     color: var(--ink-2);
+  }
+
+  /* Hero name glitch: Burmese runs taller, so shrink it to sit in the same line box */
+  .glitch-overlay:lang(my) {
+    font-size: 0.72em;
+    line-height: 1.45;
+  }
+
+  /* Plain tech line under a project (replaces the old tag pills) */
+  .tl-tech {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-3);
+  }
+
+  /* Coral fill that follows the reader down the rail */
+  .tl-rail-fill {
+    position: absolute;
+    inset: 0;
+    width: 1px;
+    background: rgb(236 77 37 / 0.55);
+    transform-origin: top;
+    will-change: transform;
+  }
+
+  /* Wordmark logos */
+  .tl-logo-wide,
+  .tl-logo-dark {
+    width: 96px;
+  }
+  .tl-logo-dark {
+    background: #0b0b12;
+  }
+  .tl-logo-wide img,
+  .tl-logo-dark img {
+    object-fit: contain;
+    padding: 6px 8px;
+  }
+
+  /* Award with photos: built on the project card (.tl-app) */
+  .tl-award .tl-app-visual {
+    pointer-events: auto;
+  }
+  .tl-award-photos {
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--shot-h);
+    display: grid;
+    gap: 4px;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 8px 20px;
+  }
+  .tl-award-photos.is-pair {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tl-award-photos.is-trio {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .tl-award-photo {
+    position: relative;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: #f5f5f5;
+  }
+  .tl-award-photo:focus-visible {
+    outline: 2px solid #ec4d25;
+    outline-offset: -2px;
+  }
+  .tl-award-shot,
+  .tl-award-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .tl-award-shot img {
+    object-fit: cover;
+    transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+  }
+  .tl-award-photo:hover img {
+    transform: scale(1.02);
+  }
+  .tl-award-text::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed rgb(0 0 0 / 0.28);
+    border-radius: var(--card-inner-radius);
+    pointer-events: none;
+  }
+  .tl-award-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  /* Logo sits on the seam between photo and card, like a sticker */
+  .tl-award-logo {
+    margin-top: -38px;
+    box-shadow: 0 0 0 3px #fff, 0 4px 12px rgb(0 0 0 / 0.12);
+  }
+
+  /* Photo viewer (native dialog) */
+  .photo-viewer {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible;
+    max-width: none;
+    max-height: none;
+  }
+  .photo-viewer::backdrop {
+    background: rgb(10 10 12 / 0.72);
+  }
+  .photo-viewer img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(92vw, 1000px);
+    max-height: 86dvh;
+    border-radius: 14px;
+  }
+  .photo-viewer-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink-1, #0b0b0c);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  }
+  .photo-viewer-close::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
+
+  /* Bigger tap areas than the visible pill (44px minimum) */
+  .tl-link,
+  .btn-primary,
+  .btn-ink,
+  .btn-glass {
+    position: relative;
+  }
+  .tl-link::after {
+    content: "";
+    position: absolute;
+    inset: -7px -2px;
+  }
+  .btn-primary::after,
+  .btn-ink::after,
+  .btn-glass::after {
+    content: "";
+    position: absolute;
+    inset: -5px -2px;
+  }
+
+  /* Skeleton: shimmer until the image loads, then a short fade-in */
+  .skel {
+    display: block;
+  }
+  .skel-loading {
+    background: linear-gradient(100deg, #f1f1f1 30%, #e6e6e6 50%, #f1f1f1 70%) 0 0 / 300% 100%;
+    animation: skel-shimmer 1.3s ease-in-out infinite;
+  }
+  .skel-img {
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+  .skel-img.is-loaded {
+    opacity: 1;
+  }
+  @keyframes skel-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: 0 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skel-loading {
+      animation: none;
+    }
+    .skel-img {
+      transition: none;
+    }
   }
 
   @media (max-width: 720px) {

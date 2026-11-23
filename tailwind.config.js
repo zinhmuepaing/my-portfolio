@@ -5,7 +5,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                serif: ['Newsreader', '"Noto Serif Myanmar"', 'Georgia', 'serif'],
                 sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif'],
                 mono: ['ui-monospace', '"SF Mono"', 'Menlo', 'Consolas', 'monospace']
             },

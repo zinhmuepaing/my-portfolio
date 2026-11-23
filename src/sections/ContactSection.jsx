@@ -69,7 +69,7 @@ export default function ContactSection() {
   return (
     <section id="contact" className="section">
       <div className="wrap max-w-3xl">
-        <SectionHeading index="08" title="Let's Stay In Touch" subtitle={contact.blurb} align="center" />
+        <SectionHeading title="Let's stay in touch" subtitle={contact.blurb} align="center" />
 
         <ScrollAnimation>
           <form onSubmit={submit}>

@@ -6,7 +6,7 @@ export default function ExperienceSection() {
   return (
     <section id="experience" className="section">
       <div className="wrap">
-        <SectionHeading index="02" title="Experience" subtitle="Where I have shipped real work." />
+        <SectionHeading title="Experience" />
         <Timeline>
           {experience.map((x, i) => (
             <TimelineRow key={x.company} date={x.date} delay={i * 0.06}>

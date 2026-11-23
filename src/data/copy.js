@@ -10,7 +10,7 @@ const OPENAI_ICON = "https://cdn.jsdelivr.net/npm/simple-icons@11/icons/openai.s
 
 export const profile = {
   name: "Zin Hmue Paing",
-  altName: "Pi",
+  altNames: ["Pi", "ဇင်မှူးပိုင်"], // hero glitch: nickname, then the name in Burmese
   role: { pre: "Computer Engineering Student ·", post: "Microsoft Certified AI Engineer" },
   roleIcon: img("microsoft.svg"),
   email: "zinhmuep@gmail.com",
@@ -26,19 +26,20 @@ export const profile = {
 export const navItems = [
   { name: "About", id: "about" },
   { name: "Experience", id: "experience" },
-  { name: "Skills", id: "skills" },
-  { name: "Projects", id: "projects" },
-  { name: "CCA", id: "cca" },
-  { name: "Certs", id: "certifications" },
   { name: "Awards", id: "achievements" },
+  { name: "Projects", id: "projects" },
+  { name: "Certs", id: "certifications" },
+  { name: "Skills", id: "skills" },
+  { name: "CCA", id: "cca" },
   { name: "Contact", id: "contact" },
 ];
 
-// About paragraph: casual and conversational.
-export const aboutIntro =
-  "I'm a final-year Computer Engineering student at Temasek Polytechnic with a CGPA of 4.0/4.0, from Myanmar. I like to build AI systems and thoughtful software, taking an idea from raw data all the way to something people actually use. Getting the engineering right matters a lot to me, and I'm always up for a good challenge.";
-// Phrases to tint coral; each must appear verbatim in aboutIntro.
-export const aboutAccent = ["CGPA of 4.0/4.0", "AI systems and thoughtful software"];
+// About, in Paing's own voice. One string per paragraph.
+export const aboutIntro = [
+  "I'm Paing, a final-year Computer Engineering student at Temasek Polytechnic. I grew up in Myanmar and studied at Yangon Technological University for a year before moving to Singapore in 2024.",
+  "Most of what I build ends up being AI stuff. This year I interned at Coca-Cola, working on production AI systems, retrieval, evaluation, and agentic workflows that staff use daily. Before that, I worked on speech analysis for autistic students at Datality Lab. Outside class I was President of CENT, and I tutor juniors in engineering maths at TP.",
+  "I believe you can achieve anything with enough time and effort, as long as you're obsessed enough.",
+];
 
 export const education = [
   {
@@ -52,14 +53,14 @@ export const education = [
       "3× Temasek Polytechnic Engineering Scholarship recipient",
       "Director's List awarded every academic year to date (Top 10%)",
       "TP LEAD EXCEL Programme (Top 1%)",
-      "Coursework: Python, Java, Full-Stack Development, AI & Machine Learning",
+      "Coursework: Python, Java, Full-Stack Development, IoT, AIML",
     ],
   },
   {
     school: "Yangon Technological University",
     logo: img("ytu.svg"),
     degree: "Computer Engineering & Information Technology",
-    date: ["2022", "- 2024"],
+    date: ["Nov 2022", "- Nov 2023"],
     bullets: [
       "Built foundations in programming, electronics, and engineering principles before moving to Singapore.",
     ],
@@ -101,8 +102,6 @@ export const skillCategories = [
       { name: "Python", icon: devicon("python/python-original") },
       { name: "Java", icon: devicon("java/java-original") },
       { name: "SQL", icon: devicon("azuresqldatabase/azuresqldatabase-original") },
-      { name: "JavaScript", icon: devicon("javascript/javascript-original") },
-      { name: "TypeScript", icon: devicon("typescript/typescript-original") },
       { name: "HTML", icon: devicon("html5/html5-original") },
       { name: "CSS", icon: devicon("css3/css3-original") },
     ],
@@ -269,15 +268,60 @@ export const certifications = [
   },
 ];
 
-// One card per achievement, newest first. `pad` keeps logos inside the tile.
-export const achievements = [
+// Achievements in two groups, newest first. `initial` cards show before
+// "Show all". `pad` keeps logos inside the tile. `photos` switches the card to
+// the photo layout (1-3 photos; `fit: "contain"` shows the whole image);
+// `logoStyle` is "wide" for wordmark logos, "dark" for wordmarks on ink.
+const hackathons = [
+  {
+    date: ["Nov 2026"],
+    title: "Champion, AI-GNITION 2026",
+    context: "SIM, Singapore · AI Hackathon · 200+ participants",
+    logo: img("awards/ai-gnition-logo.webp"),
+    logoStyle: "dark",
+    photos: [
+      { src: img("awards/ai-gnition.webp"), alt: "Paing and his team holding the AI-GNITION champion cheque, medals and trophy", w: 960, h: 720 },
+      { src: img("awards/gym-dolphin.webp"), alt: "Ryan, the pixel-art AI customer service agent from Gym Dolphin", w: 960, h: 524, pos: "75% center" },
+    ],
+    description:
+      "I led a team of 4 and built Ryan, an AI voice agent that phones gym members who are drifting away and finds out why. He talks to them in real time and offers solutions that fit, like freezing their membership, a personal training session, or a cheaper off-peak plan. Ryan also hands the call to human staff whenever a member asks to talk to one. Problem statement by Eslitec.",
+    links: [
+      { label: "Watch the demo", href: "https://youtu.be/JYU1Y21LyjM", kind: "video" },
+      { label: "GitHub", href: "https://github.com/zinhmuepaing/gym-dolphin", kind: "github" },
+    ],
+  },
   {
     date: ["Sep 2026"],
     title: "3rd Place, NiCE Hack 2026",
-    context: "NTU EEE · Hackathon",
-    logo: img("nicehack.gif"),
+    context: "NTU EEE · Hardware cybersecurity hackathon",
+    logo: img("awards/nicehack-logo.webp"),
+    photos: [
+      { src: img("awards/nicehack.webp"), alt: "Paing and his teammate holding the NiCE Hack third place cheque", w: 960, h: 1280, pos: "center 50%" },
+    ],
     description:
-      "AES Side-Channel Analysis: recovered an unknown AES key from a live Arduino Uno via oscilloscope and EM-probe capture in 382 traces, and cut a wide-window attack from 5,000 traces to 250.",
+      "We entered with no cybersecurity background. We recovered an unknown AES key from a live Arduino Uno using oscilloscope and EM-probe captures in 382 traces, and cut a wide-window attack from 5,000 traces down to 250.",
+  },
+  {
+    date: ["Jun 2026", "- Jul 2026"],
+    title: "Award for Technical Excellence & Innovation",
+    context: "Advantech AIoT Regional Hackathon 2026 · Singapore Polytechnic",
+    logo: img("awards/advantech-logo.webp"),
+    logoStyle: "wide",
+    photos: [
+      { src: img("awards/advantech-cert.webp"), alt: "Hack the Future certificate of achievement from Advantech and Singapore Polytechnic", w: 960, h: 686, pos: "center 30%" },
+    ],
+    description:
+      "Given for technical excellence, creativity and problem-solving at the Advantech AIoT Regional Hackathon, run by Advantech and Singapore Polytechnic from June to July 2026.",
+  },
+  {
+    date: ["2026"],
+    title: "Top 15 Finalist, Engineering Innovation Challenge 2026",
+    context: "Engineering Innovation Challenge · Competition",
+    photos: [
+      { src: img("awards/eic.webp"), alt: "A row of colour-coded smart recycling bins in a school atrium", w: 538, h: 337 },
+    ],
+    description:
+      "Made the top 15 with a smart recycling bin system for Temasek Polytechnic. Students scan what they recycle and earn points they can turn into rewards.",
   },
   {
     date: ["Jan 2026"],
@@ -285,15 +329,24 @@ export const achievements = [
     context: "NTU College of Computing and Data Science · Hackathon",
     logo: img("ntu.jpg"),
     pad: true,
+    photos: [
+      { src: img("awards/tech-for-good.webp"), alt: "Paing's team at their Group 5 table during the Tech for Good Hackathon", w: 960, h: 960, pos: "center 40%" },
+    ],
     description:
-      "Top 4 of 40 teams for Career Quest Map, recognised for structured AI pipeline design and practical impact for Singapore youth.",
+      "Top 4 of 40 teams with Career Quest Map, recognised for its structured AI pipeline and how practical it is for Singapore youth.",
   },
+];
+
+const academics = [
   {
     date: ["AY2025/26"],
     title: "Director's List Award (Top 10%)",
     context: "School of Engineering, Temasek Polytechnic · Academic",
     logo: img("soe.jpg"),
-    description: "Honoured as one of the top achievers in AY2025/26 Computer Engineering cohort, reinforcing a track record of excellence and leadership potential."
+    photos: [
+      { src: img("awards/directors-list-2026.webp"), alt: "Director's List Award certificate, Awards for Excellence 2026, Diploma in Computer Engineering", w: 589, h: 675, pos: "center 45%" },
+    ],
+    description: "Top 10% of the Computer Engineering cohort for AY2025/26.",
   },
   {
     date: ["2024", "- Present"],
@@ -301,33 +354,45 @@ export const achievements = [
     context: "Temasek Polytechnic · Academic",
     logo: img("tp-crest.png"),
     pad: true,
+    photos: [
+      { src: img("awards/scholarship-2024.webp"), alt: "Temasek Polytechnic Scholarship (Engineering) certificate for AY2024/2025", w: 733, h: 727, pos: "center 60%" },
+      { src: img("awards/scholarship-2025.webp"), alt: "Temasek Polytechnic Scholarship (Engineering) certificate for AY2025/2026", w: 543, h: 555, pos: "center 60%" },
+      { src: img("awards/scholarship-2026.webp"), alt: "Letter renewing the Temasek Polytechnic Scholarship (Engineering) for AY2026/2027", w: 762, h: 757, pos: "center 45%" },
+    ],
     description:
-      "Awarded for academic excellence, leadership potential, and contribution to the school community. Received three years running (AY2024/25 to AY2026/27).",
+      "Given for academic results, leadership and contribution to the school. I've received it three years in a row, from AY2024/25 to AY2026/27.",
   },
   {
     date: ["AY2024/25"],
     title: "Director's List Award, Ranked #1 in Common Engineering Programme",
     context: "School of Engineering, Temasek Polytechnic · Academic",
     logo: img("soe.jpg"),
+    photos: [
+      { src: img("awards/cep-directors-list.webp"), alt: "Common Engineering Programme Director's List, with Zin Hmue Paing listed first", w: 380, h: 180, fit: "contain" },
+      { src: img("awards/directors-list-2025.webp"), alt: "Director's List Award certificate, Awards for Excellence 2025, for AY2024/2025", w: 511, h: 724, pos: "center 50%" },
+    ],
     description:
-      "Top academic achiever among 400+ students in Temasek Polytechnic's largest course, before transitioning into the Diploma in Computer Engineering.",
+      "Top student out of 400+ in the Common Engineering Programme, TP's largest course, before I moved into Computer Engineering.",
   },
   {
     date: ["AY2024/25"],
     title: "Merit Award, RoboCoder Challenge",
     context: "School of Engineering, Temasek Polytechnic · Technical",
     logo: img("soe.jpg"),
-    description:
-      "Excellence in C programming and robotics engineering, with strong embedded programming, sensor integration, and debugging under competition conditions.",
+    description: "For C programming and robotics: embedded code, sensor integration and debugging during the competition.",
   },
   {
     date: ["AY2024/25"],
     title: "Merit Award, Electronic Design Competition",
     context: "School of Engineering, Temasek Polytechnic · Technical",
     logo: img("soe.jpg"),
-    description:
-      "Outstanding performance in electronic circuit design and troubleshooting, with systematic problem-solving across circuit analysis and component selection.",
+    description: "For electronic circuit design and troubleshooting, from circuit analysis to picking components.",
   },
+];
+
+export const achievementGroups = [
+  { title: "Hackathons", initial: 2, items: hackathons },
+  { title: "Academics", initial: 3, items: academics },
 ];
 
 export const contact = {
